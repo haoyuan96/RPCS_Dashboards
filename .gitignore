@@ -18,4 +18,4 @@ db.sqlite3
 images/*
 
 # exclude node modules
-Templates/node_modules
+CareGiverTemplates/node_modules
