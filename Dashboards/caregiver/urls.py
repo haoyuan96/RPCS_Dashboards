@@ -2,7 +2,8 @@ from django.urls import path
 
 from . import views
 
-app_name = 'unoGame'
+app_name = 'caregiver'
+
 urlpatterns = [
     path('', views.home, name='home'),
 ]
