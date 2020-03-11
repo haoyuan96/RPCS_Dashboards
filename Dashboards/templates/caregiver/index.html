@@ -31,9 +31,9 @@
 
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
+      {% url 'caregiver:home'  %}
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'caregiver:home' %}">
         <div class="sidebar-brand-icon">
           <i class="fas fa-user-check"></i>
         </div>
@@ -45,7 +45,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{% url 'caregiver:home' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -55,35 +55,35 @@
 
       <!-- Nav Item - To-Dos -->
       <li class="nav-item">
-        <a class="nav-link" href="todo.html">
+        <a class="nav-link" href="{% url 'caregiver:todo' %}">
           <i class="fas fa-fw fa-list"></i>
           <span>To-Dos</span></a>
       </li>
 
       <!-- Nav Item - Calendar -->
       <li class="nav-item">
-        <a class="nav-link" href="calendar.html">
+        <a class="nav-link" href="{% url 'caregiver:calendar' %}">
           <i class="fas fa-fw fa-calendar-alt"></i>
           <span>Calendar</span></a>
       </li>
 
       <!-- Nav Item - Metrics -->
       <li class="nav-item">
-        <a class="nav-link" href="metrics.html">
+        <a class="nav-link" href="{% url 'caregiver:metrics' %}">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Metrics</span></a>
       </li>
 
       <!-- Nav Item - Exercise -->
       <li class="nav-item">
-        <a class="nav-link" href="exercises.html">
+        <a class="nav-link" href="{% url 'caregiver:exercises' %}">
           <i class="fas fa-fw fa-table"></i>
           <span>Exercise</span></a>
       </li>
 
       <!-- Nav Item - Survey -->
       <li class="nav-item">
-        <a class="nav-link" href="survey.html">
+        <a class="nav-link" href="{% url 'caregiver:survey' %}">
           <i class="fas fa-fw fa-poll"></i>
           <span>Survey</span></a>
       </li>
@@ -311,7 +311,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="{% url 'caregiver:login' %}">Logout</a>
         </div>
       </div>
     </div>

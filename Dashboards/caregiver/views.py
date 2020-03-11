@@ -10,3 +10,27 @@ from django.urls import reverse
 
 def home(request):
     return render(request, 'caregiver/index.html')
+
+
+def todo(request):
+    return render(request, 'caregiver/todo.html')
+
+
+def calendar(request):
+    return render(request, 'caregiver/calendar.html')
+
+
+def metrics(request):
+    return render(request, 'caregiver/metrics.html')
+
+
+def exercises(request):
+    return render(request, 'caregiver/exercises.html')
+
+
+def survey(request):
+    return render(request, 'caregiver/survey.html')
+
+
+def login(request):
+    return render(request, 'caregiver/login.html')
