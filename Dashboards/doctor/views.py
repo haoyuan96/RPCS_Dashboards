@@ -33,4 +33,4 @@ def survey(request):
 
 
 def login(request):
-    return render(request, 'caregiver/login.html')
+    return render(request, 'caregiver/../login.html')
