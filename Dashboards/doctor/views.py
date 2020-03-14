@@ -9,28 +9,28 @@ from django.urls import reverse
 # Create your views here.
 
 def home(request):
-    return render(request, 'caregiver/index.html')
+    return render(request, 'doctor/index.html')
 
 
 def todo(request):
-    return render(request, 'caregiver/todo.html')
+    return render(request, 'doctor/todo.html')
 
 
 def calendar(request):
-    return render(request, 'caregiver/calendar.html')
+    return render(request, 'doctor/calendar.html')
 
 
 def metrics(request):
-    return render(request, 'caregiver/metrics.html')
+    return render(request, 'doctor/metrics.html')
 
 
 def exercises(request):
-    return render(request, 'caregiver/exercises.html')
+    return render(request, 'doctor/exercises.html')
 
 
 def survey(request):
-    return render(request, 'caregiver/survey.html')
+    return render(request, 'doctor/survey.html')
 
 
 def login(request):
-    return render(request, 'caregiver/../login.html')
+    return render(request, 'doctor/../login.html')

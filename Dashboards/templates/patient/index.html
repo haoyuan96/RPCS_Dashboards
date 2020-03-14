@@ -4,6 +4,7 @@ Patient Dashboard
 {% endblock title %}
 
 {% block content %}
+{% load static %}
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -47,7 +48,7 @@ Patient Dashboard
 
       <!-- Nav Item - Exercise -->
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'patient:exercise' %}">
+        <a class="nav-link" href="{% url 'patient:exercises' %}">
           <i class="fas fa-fw fa-table"></i>
           <span style="text-align:center;font-size:44px">Exercise</span></a>
       </li>
@@ -146,7 +147,7 @@ Patient Dashboard
 			<div align="center">
 				<div style="width:450px;height:450px;background-color:#66ff66;border-radius:50%;">
 					<h1 style="text-align:center;font-size:100px"> Today: </h1>
-					<img src="./img/emoji_smile.png" alt="smilling face" style="width:250px;height:250px;">
+					<img src="{% static 'img/emoji_smile.png' %}" style="width:250px;height:250px;">
 				</div>
 			
 				<h2 style="text-align:center;font-size:80px"> You are doing well today! Keep up! </h2>

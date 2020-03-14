@@ -43,7 +43,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{% url 'patient:home' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span style="text-align:center;font-size:50px">Home</span></a>
       </li>
@@ -52,28 +52,28 @@
 
       <!-- Nav Item - To-Dos -->
       <li class="nav-item">
-        <a class="nav-link" href="todo.html">
+        <a class="nav-link" href="{% url 'patient:todo' %}">
           <i class="fas fa-fw fa-list"></i>
           <span style="text-align:center;font-size:50px">To-Dos</span></a>
       </li>
 
       <!-- Nav Item - Metrics -->
       <li class="nav-item">
-        <a class="nav-link" href="metrics.html">
+        <a class="nav-link" href="{% url 'patient:metrics' %}">
           <i class="fas fa-fw fa-chart-area"></i>
           <span style="text-align:center;font-size:50px">Metrics</span></a>
       </li>
 
       <!-- Nav Item - Exercise -->
       <li class="nav-item">
-        <a class="nav-link" href="exercises.html">
+        <a class="nav-link" href="{% url 'patient:exercises' %}">
           <i class="fas fa-fw fa-table"></i>
           <span style="text-align:center;font-size:44px">Exercise</span></a>
       </li>
 
       <!-- Nav Item - Survey -->
       <li class="nav-item">
-        <a class="nav-link" href="survey.html">
+        <a class="nav-link" href="{% url 'patient:survey' %}">
           <i class="fas fa-fw fa-poll"></i>
           <span style="text-align:center;font-size:50px">Survey</span></a>
       </li>

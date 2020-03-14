@@ -33,4 +33,23 @@ def survey(request):
 
 
 def login(request):
-    return render(request, 'patient/login.html')
+	context = {}
+
+	# Display the login page if request is "GET"
+	if request.method == 'GET':
+		return render(request, 'patient/login.html', context)
+
+	# Post request
+	if 'email' in request.POST and request.POST['email'] and 'password' in request.POST and request.POST['password']:
+		user = authenticate(username=request.POST['username'], password=request.POST['password'])
+		if user is not None :
+			login(request, user)
+			return redirect(reverse('home'))
+		# Error case: username doesn't match with password
+		else:
+			context['error_msg'] = "The email or password is incorrect."
+
+	# Error case:
+	else:
+		context['error_msg'] = "Please input username and password for login."
+	return render(request, 'patient/login.html', context)
