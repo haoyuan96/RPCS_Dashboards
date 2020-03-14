@@ -34,3 +34,13 @@ def survey(request):
 
 def login(request):
     return render(request, 'doctor/../login.html')
+
+def view_details(request):
+    return render(request, 'doctor/view_details.html')
+
+def patient_info(request):
+    return render(request, 'doctor/patient_info.html')
+
+def questionnaire(request):
+	return render(request, 'doctor/questionnaire.html')
+

@@ -29,7 +29,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'doctor:home' %}">
         <div class="sidebar-brand-icon">
           <i class="fas fa-user-check"></i>
         </div>
@@ -41,7 +41,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{% url 'doctor:home' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -249,8 +249,8 @@
                   <h6 class="m-0 font-weight-bold text-primary">More Options</h6>
                 </div>
                 <div class="card-body">
-                  <div><a href="frank_smith_details.html"> View Details </a></div>
-                  <div><a href="frank_smith_questionnaire.html"> View Questionnaire </a></div>
+                  <div><a href="{% url 'doctor:view_details' %}"> View Details </a></div>
+                  <div><a href="{% url 'doctor:questionnaire' %}"> View Questionnaire </a></div>
                 </div>
               </div>
             </div>
@@ -296,7 +296,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="{% url 'homepage' %}">Logout</a>
         </div>
       </div>
     </div>
