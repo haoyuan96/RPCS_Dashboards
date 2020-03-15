@@ -14,5 +14,5 @@ class DoctorProfile(models.Model):
     # working_time_from = models.TimeField(_(u"Conversation Time"), auto_now_add=True, blank=True)
     # working_time_to = models.TimeField(_(u"Conversation Time"), auto_now_add=True, blank=True)
 
-    def __str__(self):
-        return 'id=' + str(self.id) + ',patients="' + self.patients.all() + '"'
+    # def __str__(self):
+    # return 'id=' + str(self.id) + ',patients="' + self.patients.all() + '"'

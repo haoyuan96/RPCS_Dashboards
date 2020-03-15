@@ -6,7 +6,10 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from patient.forms import RegistrationForm, DivErrorList
+from patient.forms import RegistrationForm
+from patient.models import PatientProfile
+from caregiver.models import CaregiverProfile
+from doctor.models import DoctorProfile
 
 # Create your views here.
 
@@ -24,7 +27,6 @@ def register(request):
 
     # Creates a bound form from the request POST parameters and makes the
     # form available in the request context dictionary.
-    print(request.POST)
     form = RegistrationForm(request.POST)
     context['form'] = form
 
@@ -39,10 +41,22 @@ def register(request):
                                         email=form.cleaned_data['email'],
                                         first_name=form.cleaned_data['first_name'],
                                         last_name=form.cleaned_data['last_name'])
+
+    if 'user_type' not in request.POST:
+        return render(request, 'register.html', context)
+
     new_user.save()
 
-    # new_profile = Profile(bio='Enter your bio here.', user=new_user)
-    # new_profile.save()
+    if request.POST['user_type'] == 'patient':
+        new_profile = PatientProfile(user=new_user)
+    elif request.POST['user_type'] == 'caregiver':
+        new_profile = CaregiverProfile(user=new_user)
+    elif request.POST['user_type'] == 'doctor':
+        new_profile = DoctorProfile(user=new_user)
+    else:
+        return render(request, 'register.html', context)
+
+    new_profile.save()
 
     new_user = authenticate(username=form.cleaned_data['username'],
                             password=form.cleaned_data['password1'])
