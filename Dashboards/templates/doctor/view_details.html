@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +54,7 @@
           <!-- Card Header - Dropdown -->
           <div class="card-header py-3 d-flex flex-column align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Frank Smith</a></h6>
-          <img src="./img/frank_smith.png" height="150" width="150">
+          <img src="{% static 'img/frank_smith.png' %}" height="150" width="150">
           <div> Age: 70 </div>
           <div> Stage: Level 1 </div>
           <div> Next Visit: Feb 1st </div>
@@ -204,7 +205,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Sleep Score</h6>
                 </div>
                 <div class="card-body">
-                  <img src="./img/sleep_score.png">
+                  <img src="{% static 'img/sleep_score.png' %}">
                 </div>
               </div>
             </div>
@@ -215,7 +216,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Movement</h6>
                 </div>
                 <div class="card-body">
-                  <img src="./img/movement.png">
+                  <img src="{% static 'img/movement.png' %}">
                 </div>
               </div>
             </div>
@@ -231,7 +232,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Refreshment</h6>
                 </div>
                 <div class="card-body">
-                  <img src="./img/refreshment.png">
+                  <img src="{% static 'img/refreshment.png' %}">
                 </div>
               </div>
             </div>
@@ -242,7 +243,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Dreams</h6>
                 </div>
                 <div class="card-body">
-                  <img src="./img/dreams.png">
+                  <img src="{% static 'img/dreams.png' %}">
                 </div>
               </div>
             </div>

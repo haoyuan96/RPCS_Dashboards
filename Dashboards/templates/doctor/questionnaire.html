@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +54,7 @@
           <!-- Card Header - Dropdown -->
           <div class="card-header py-3 d-flex flex-column align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Frank Smith</a></h6>
-          <img src="./img/frank_smith.png" height="150" width="150">
+          <img src="{% static 'img/frank_smith.png' %}" height="150" width="150">
           <div> Age: 70 </div>
           <div> Stage: Level 1 </div>
           <div> Next Visit: Feb 1st </div>
