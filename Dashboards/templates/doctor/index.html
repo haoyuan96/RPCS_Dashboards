@@ -1,9 +1,10 @@
-{% extends "doctor/base.html"}
+{% extends "doctor/base.html" %}
 {% block title %}
 Doctor Dashboard
 {% endblock title %}
 
 {% block content %}
+{% load static %}
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -136,9 +137,9 @@ Doctor Dashboard
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary"><a href="{% url 'doctor:patient_info' %}">Frank Smith</a></h6>
-                  <img src="./img/red_bell.png" height="20" width="20">
+                  <img src="{% static 'img/red_bell.png' %}" height="20" width="20">
                 </div>
-                <img src="./img/frank_smith.png" height="150" width="150">
+                <img src="{% static 'img/frank_smith.png' %}" height="150" width="150">
               </div>
             </div>
 
@@ -147,9 +148,9 @@ Doctor Dashboard
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Amy Green</h6>
-                  <img src="./img/yellow_bell.png" height="20" width="20">
+                  <img src="{% static 'img/yellow_bell.png' %}" height="20" width="20">
                 </div>
-                <img src="./img/amy_green.png" height="150" width="150">
+                <img src="{% static 'img/amy_green.png' %}" height="150" width="150">
               </div>
             </div>
 
@@ -159,7 +160,7 @@ Doctor Dashboard
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Alice Smith</h6>
                 </div>
-                <img src="./img/alice_smith.png" height="150" width="150">
+                <img src="{% static 'img/alice_smith.png' %}" height="150" width="150">
               </div>
             </div>
 
@@ -169,7 +170,7 @@ Doctor Dashboard
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Dan Schmidt</h6>
                 </div>
-                <img src="./img/dan_schmidt.png" height="150" width="150">
+                <img src="{% static 'img/dan_schmidt.png' %}" height="150" width="150">
               </div>
             </div>
 
@@ -179,7 +180,7 @@ Doctor Dashboard
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Marko Tandefelt</h6>
                 </div>
-                <img src="./img/marko_tandefelt.png" height="150" width="150">
+                <img src="{% static 'img/marko_tandefelt.png' %}" height="150" width="150">
               </div>
             </div>
 
@@ -189,7 +190,7 @@ Doctor Dashboard
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Marcos Lopez</h6>
                 </div>
-                <img src="./img/marcos_lopez.png" height="150" width="150">
+                <img src="{% static 'img/marcos_lopez.png' %}" height="150" width="150">
               </div>
             </div>
 
