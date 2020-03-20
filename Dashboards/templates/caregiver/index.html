@@ -179,6 +179,7 @@ Caregiver Dashboard
               <div class="card-body">
                 <div class="chart-area">
                   <!-- Add Chart Here! -->
+                  <div id="barChart" style="width: 100%; height: 100%"></div>
                 </div>
               </div>
             </div>
@@ -209,6 +210,7 @@ Caregiver Dashboard
               <div class="card-body">
                 <div class="chart-area">
                   <!-- Add Chart Here! -->
+                  <div id="radarChart" style="width: 100%; height: 100%"></div>
                 </div>
               </div>
             </div>
@@ -253,5 +255,8 @@ Caregiver Dashboard
   <!-- End of Content Wrapper -->
 
 </div>
+<!-- Page level custom scripts -->
+<script src="{% static 'js/demo/chart-bar-fake.js' %}"></script>
+<script src="{% static 'js/demo/chart-radar-fake.js' %}"></script>
 <!-- End of Page Wrapper -->
 {% endblock content %}
