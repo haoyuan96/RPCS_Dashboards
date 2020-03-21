@@ -4,6 +4,8 @@ Metrics
 {% endblock title %}
 
 {% block content %}
+{% load static %}
+
 <!-- Page Wrapper -->
 <div id="wrapper">
 
@@ -299,7 +301,7 @@ Metrics
 <!-- End of Page Wrapper -->
 
 <!-- Page level plugins -->
-<script src="vendor/chart.js/echarts-en.min.js"></script>
+<script src="{% static 'vendor/chart.js/echarts-en.min.js' %}"></script>
 
 <!-- Page level custom scripts -->
 <script src="{% static 'js/demo/chart-pie-fake.js' %}"></script>

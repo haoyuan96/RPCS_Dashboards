@@ -4,6 +4,8 @@ Caregiver Dashboard
 {% endblock title %}
 
 {% block content %}
+{% load static %}
+
 <!-- Page Wrapper -->
 <div id="wrapper">
 
@@ -256,7 +258,9 @@ Caregiver Dashboard
 
 </div>
 <!-- Page level custom scripts -->
+<script src="{% static 'vendor/chart.js/echarts-en.min.js' %}"></script>
+
+<!-- End of Page Wrapper -->
 <script src="{% static 'js/demo/chart-bar-fake.js' %}"></script>
 <script src="{% static 'js/demo/chart-radar-fake.js' %}"></script>
-<!-- End of Page Wrapper -->
 {% endblock content %}
