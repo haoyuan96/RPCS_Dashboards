@@ -4,7 +4,7 @@ Profile
 {% endblock title %}
 
 {% block content %}
-
+{% load static %}
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -97,8 +97,8 @@ Profile
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Erica Medica</span>
+                <img class="img-profile rounded-circle" src="{% static 'img/doctor_profile_pic.jpeg' %}">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -154,7 +154,7 @@ Profile
                           <div class="row">
                               <div class="col-md-4">
                                   <div class="profile-img">
-                                      <img src="https://www.paladinahealth.com/sites/default/files/direct_primary_care_doctor_smiling.jpeg" alt="" width=200 height=130/>
+                                      <img src="{% static 'img/doctor_profile_pic.jpeg' %}" alt="" width=200 height=130/>
                                       <div class="file btn btn-lg btn-primary">
                                           Change Photo
                                           <input type="file" name="file"/>
