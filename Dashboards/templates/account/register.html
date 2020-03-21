@@ -81,11 +81,19 @@
                     </div>
                   </div>
                   {% endfor %}
-
-                  <div id="patient_username" style="display:none">
-                    <td><strong> Patient Username </strong></td>
-                    <td><input type="text" class="form-control" placeholder="patient username" name="patient_username"></td>
+                </div>
+                <div class="form-group row">
+                  <div class="form-group" style="display:none" id = "patient_username">
+                    {{form.patient_username}}
+                    {{form.patient_username.errors}}
                   </div>
+                  {% comment %} <div class="col-sm-6" id="id_patient_username" style="display:none">
+                    <div class="form-group">Patient Username:</div>
+                    <div> 
+                     
+                     <input type="text" placeholder="patient username" name="patient_username"> 
+                    </div>
+                  </div> {% endcomment %}
 
                   {% comment %} <div class="col-sm-4">
                     <div class="custom-control custom-checkbox small">
@@ -145,30 +153,6 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-
-  <script language="javascript">
-
-    var user_type_0 = document.getElementById("id_user_type_0");
-    user_type_0.setAttribute("οnchange", "displayHiddenBlock(this.id)");
-    var user_type_1 = document.getElementById("id_user_type_1");
-    user_type_1.setAttribute("οnchange", "displayHiddenBlock(this.id)");
-    var user_type_2 = document.getElementById("id_user_type_2");
-    user_type_2.setAttribute("οnchange", "displayHiddenBlock(this.id)");  
-  </script>
-  
-  <script language="javascript">
-  function displayHiddenBlock(id) {
-      alert("change")
-      var patient_username = document.getElementById("patient_username")
-      if (id === "id_user_type_2") {
-          patient_username.style.display = "";
-          alert("display")
-      } else {
-          patient_username.style.display = "none";
-          alert("not display")
-      }
-    }
-  </script>
   
 </body>
 
