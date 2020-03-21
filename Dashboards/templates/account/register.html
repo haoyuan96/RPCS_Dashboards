@@ -34,6 +34,7 @@
           <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
           <div class="col-lg-7">
             <div class="p-5">
+              
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
               </div>
@@ -80,6 +81,12 @@
                     </div>
                   </div>
                   {% endfor %}
+
+                  <div id="patient_username" style="display:none">
+                    <td><strong> Patient Username </strong></td>
+                    <td><input type="text" class="form-control" placeholder="patient username" name="patient_username"></td>
+                  </div>
+
                   {% comment %} <div class="col-sm-4">
                     <div class="custom-control custom-checkbox small">
                       <input type="radio" class="custom-control-input" id="type_patient" name="user_type"
@@ -129,6 +136,7 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
+  <script src="{% static 'js/register.js' %}"></script>
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
@@ -138,6 +146,30 @@
   <!-- Custom scripts for all pages-->
   <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
+  <script language="javascript">
+
+    var user_type_0 = document.getElementById("id_user_type_0");
+    user_type_0.setAttribute("οnchange", "displayHiddenBlock(this.id)");
+    var user_type_1 = document.getElementById("id_user_type_1");
+    user_type_1.setAttribute("οnchange", "displayHiddenBlock(this.id)");
+    var user_type_2 = document.getElementById("id_user_type_2");
+    user_type_2.setAttribute("οnchange", "displayHiddenBlock(this.id)");  
+  </script>
+  
+  <script language="javascript">
+  function displayHiddenBlock(id) {
+      alert("change")
+      var patient_username = document.getElementById("patient_username")
+      if (id === "id_user_type_2") {
+          patient_username.style.display = "";
+          alert("display")
+      } else {
+          patient_username.style.display = "none";
+          alert("not display")
+      }
+    }
+  </script>
+  
 </body>
 
 </html>
