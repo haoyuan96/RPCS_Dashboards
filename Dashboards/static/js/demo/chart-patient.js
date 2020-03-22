@@ -12,16 +12,14 @@ option1 = {
             saveAsImage: {}
         }
     },
-    series: [
-        {
-            name: 'matric A',
-            type: 'gauge',
-            detail: {formatter: '{value}%'},
-            data: [{value: 86, name: 'score'}]
-        }
-    ]
+    series: [{
+        name: 'matric A',
+        type: 'gauge',
+        detail: { formatter: '{value}%' },
+        data: [{ value: 86, name: 'score' }]
+    }]
 };
-myChart1.setOption(option, true);
+myChart1.setOption(option1, true);
 
 var dom2 = document.getElementById("patientChart2");
 var myChart2 = echarts.init(dom2);
@@ -37,16 +35,14 @@ option2 = {
             saveAsImage: {}
         }
     },
-    series: [
-        {
-            name: 'matric A',
-            type: 'gauge',
-            detail: {formatter: '{value}%'},
-            data: [{value: 20, name: 'score'}]
-        }
-    ]
+    series: [{
+        name: 'matric A',
+        type: 'gauge',
+        detail: { formatter: '{value}%' },
+        data: [{ value: 20, name: 'score' }]
+    }]
 };
-myChart2.setOption(option, true);
+myChart2.setOption(option2, true);
 
 var dom3 = document.getElementById("patientChart3");
 var myChart3 = echarts.init(dom3);
@@ -62,16 +58,14 @@ option3 = {
             saveAsImage: {}
         }
     },
-    series: [
-        {
-            name: 'matric A',
-            type: 'gauge',
-            detail: {formatter: '{value}%'},
-            data: [{value: 50, name: 'score'}]
-        }
-    ]
+    series: [{
+        name: 'matric A',
+        type: 'gauge',
+        detail: { formatter: '{value}%' },
+        data: [{ value: 50, name: 'score' }]
+    }]
 };
-myChart3.setOption(option, true);
+myChart3.setOption(option3, true);
 
 var dom4 = document.getElementById("patientChart4");
 var myChart4 = echarts.init(dom4);
@@ -87,13 +81,11 @@ option4 = {
             saveAsImage: {}
         }
     },
-    series: [
-        {
-            name: 'matric A',
-            type: 'gauge',
-            detail: {formatter: '{value}%'},
-            data: [{value: 69, name: 'score'}]
-        }
-    ]
+    series: [{
+        name: 'matric A',
+        type: 'gauge',
+        detail: { formatter: '{value}%' },
+        data: [{ value: 69, name: 'score' }]
+    }]
 };
-myChart4.setOption(option, true);
+myChart4.setOption(option4, true);
