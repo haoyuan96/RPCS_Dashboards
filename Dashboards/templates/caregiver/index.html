@@ -229,9 +229,7 @@ Caregiver Dashboard
                 <h6 class="m-0 font-weight-bold text-primary">Today's To-Dos</h6>
               </div>
               <div class="card-body">
-                <div class="chart-area">
-                  <!-- Add To-Dos Here! -->
-                </div>
+                <div id="calendar"></div>
               </div>
             </div>
           </div>
@@ -257,6 +255,31 @@ Caregiver Dashboard
   <!-- End of Content Wrapper -->
 
 </div>
+<script>
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: [ 'list' ],
+        timeZone: 'UTC',
+        defaultView: 'listDay',
+
+        // customize the button names,
+        // otherwise they'd all just say "list"
+        views: {
+            listDay: { buttonText: 'list day' },
+        },
+
+        header: {
+            left: 'title',
+            center: '',
+            right: 'listDay'
+        },
+        events: 'https://fullcalendar.io/demo-events.json'
+    });
+
+    calendar.render();
+    calendar.setOption('height', 300);
+</script>
 <!-- Page level custom scripts -->
 <script src="{% static 'vendor/chart.js/echarts-en.min.js' %}"></script>
 
