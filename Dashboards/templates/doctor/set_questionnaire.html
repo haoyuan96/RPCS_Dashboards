@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Patient Summary</title>
+  <title>Patient Questionnaire</title>
 
   <!-- Custom fonts for this template-->
   <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -42,9 +42,8 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'doctor:home' %}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Back to Patients</span></a>
+        <a class="nav-link" href="{% url 'doctor:patient_info' %}">
+          <span>Back</span></a>
       </li>
 
       <!-- Divider -->
@@ -87,22 +86,8 @@
             <i class="fa fa-bars"></i>
           </button>
 
-          <!-- Topbar Search -->
-          <!--
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-          -->
-
           <!-- Topbar Heading -->
-          <h1 class="h3 ml-2 mt-2 text-gray-800">Frank Smith's Summary</h1>
+          <h1 class="h3 ml-2 mt-2 text-gray-800">Frank Smith's Questionnaire Responses</h1>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -162,22 +147,9 @@
           <div class="row">
             <div class="col">
               <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Alert: His anxiety reaches SEVERE LEVEL</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="row">
-
-            <!-- Area Chart -->
-            <div class="col-xl-7 col-lg-7">
-              <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Important Metrics</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Questionnaire Panel</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -195,66 +167,31 @@
                 <div class="card-body">
                   <div class="chart-area">
                     <!-- Add Chart Here! -->
-                    <div id="barChart" style="width: 100%; height: 100%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pie Chart -->
-            <div class="col-xl-5 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Basic Health Stats</h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </div>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-                    <!-- Add Chart Here! -->
-                    <div id="radarChart" style="width: 100%; height: 100%"></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Content Row -->
           <div class="row">
-            <!-- Content Column -->
             <div class="col">
-              <!-- Card Example -->
               <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">History</h6>
-                </div>
-                <div class="card-body">
-                  <!-- Add History Here! -->
+                <div class="card-header py-3 d-flex flex-column align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Past Week</h6>
                 </div>
               </div>
             </div>
-
-            <div class="col-xl-5 col-lg-5">
+            <div class="col">
               <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">More Options</h6>
+                <div class="card-header py-3 d-flex flex-column align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Past Month</h6>
                 </div>
-                <div class="card-body">
-                  <div><a href="{% url 'doctor:view_details' %}"> View Details </a></div>
-                  <div><a href="{% url 'doctor:questionnaire' %}"> View Questionnaire </a></div>
-                  <div><a href="{% url 'doctor:set_questionnaire' %}"> Set Questionnaire </a></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-column align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Select Dates</h6>
                 </div>
               </div>
             </div>
@@ -307,6 +244,7 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
+    <!-- Bootstrap core JavaScript-->
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
@@ -317,12 +255,14 @@
   <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
   <!-- Page level plugins -->
-  <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
   <script src="{% static 'vendor/chart.js/echarts-en.min.js' %}"></script>
 
   <!-- Page level custom scripts -->
-  <script src="{% static 'js/demo/chart-radar-fake.js' %}"></script>
-  <script src="{% static 'js/demo/chart-bar-fake.js' %}"></script>
+  <script src="{% static 'js/demo/chart-pie-fake.js' %}"></script>
+  <script src="{% static 'js/demo/chart-line-fake.js' %}"></script>
+  <script src="{% static 'js/demo/chart-calendar-fake.js' %}"></script>
+  <script src="{% static 'js/demo/chart-line-fake2.js' %}"></script>
+  
 
 </body>
 
