@@ -163,7 +163,7 @@ Survey
               </div>
               <!-- Card Body -->
               <div class="card-body">
-                <div class="chart-area">
+                <div class="container-fluid">
                   <form action="{% url 'patient:survey' %}" method="POST">
                     {% csrf_token %}
                     {% comment %} <div></div> {% endcomment %}
