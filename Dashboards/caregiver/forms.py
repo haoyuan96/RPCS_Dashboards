@@ -33,7 +33,7 @@ class SurveyForm(forms.Form):
         attrs={'id': 'id_user_type', 'class': 'custom-control-input'}))
 
     movement = forms.CharField(label="Fine motor movement, like folding clothes or opening mail", max_length=10, widget=forms.RadioSelect(
-            choices=(
+        choices=(
                 ('0', '0'),
                 ('1', '1'),
                 ('2', '2'),
@@ -91,8 +91,6 @@ class SurveyForm(forms.Form):
                 ('5', '5')),
         attrs={'id': 'tremor', 'class': 'custom-control-input'}))
 
-
-
     pain = forms.CharField(label="Pain", max_length=10, widget=forms.RadioSelect(
         choices=(
             ('0', '0'),
@@ -112,7 +110,7 @@ class SurveyForm(forms.Form):
             ('4', '4'),
             ('5', '5')),
         attrs={'id': 'tremor', 'class': 'custom-control-input'}))
-    
+
     seizures = forms.CharField(label="Seizures", max_length=10, widget=forms.RadioSelect(
         choices=(
             ('0', '0'),
@@ -122,7 +120,7 @@ class SurveyForm(forms.Form):
             ('4', '4'),
             ('5', '5')),
         attrs={'id': 'tremor', 'class': 'custom-control-input'}))
-    
+
     rigidity = forms.CharField(label="Rigidity", max_length=10, widget=forms.RadioSelect(
         choices=(
             ('0', '0'),
@@ -132,7 +130,7 @@ class SurveyForm(forms.Form):
             ('4', '4'),
             ('5', '5')),
         attrs={'id': 'tremor', 'class': 'custom-control-input'}))
-    
+
     motivation = forms.CharField(label="Motivation", max_length=10, widget=forms.RadioSelect(
         choices=(
             ('0', '0'),
@@ -144,50 +142,50 @@ class SurveyForm(forms.Form):
         attrs={'id': 'tremor', 'class': 'custom-control-input'}))
 
     sleep = forms.CharField(label="Sleep", max_length=10, widget=forms.RadioSelect(
-    choices=(
+        choices=(
             ('0', '0'),
             ('1', '1'),
             ('2', '2'),
             ('3', '3'),
             ('4', '4'),
             ('5', '5')),
-    attrs={'id': 'tremor', 'class': 'custom-control-input'}))
-    
+        attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+
     muscle_spasm = forms.CharField(label="Muscle Spasm", max_length=10, widget=forms.RadioSelect(
-    choices=(
-        ('0', '0'),
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5')),
-    attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        choices=(
+            ('0', '0'),
+            ('1', '1'),
+            ('2', '2'),
+            ('3', '3'),
+            ('4', '4'),
+            ('5', '5')),
+        attrs={'id': 'tremor', 'class': 'custom-control-input'}))
 
     fatigue = forms.CharField(label="Fatigue", max_length=10, widget=forms.RadioSelect(
-    choices=(
-        ('0', '0'),
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5')),
-    attrs={'id': 'tremor', 'class': 'custom-control-input'}))
-    
+        choices=(
+            ('0', '0'),
+            ('1', '1'),
+            ('2', '2'),
+            ('3', '3'),
+            ('4', '4'),
+            ('5', '5')),
+        attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+
     hallucinations = forms.CharField(label="Hallucinations", max_length=10, widget=forms.RadioSelect(
-    choices=(
-        ('0', '0'),
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5')),
-    attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        choices=(
+            ('0', '0'),
+            ('1', '1'),
+            ('2', '2'),
+            ('3', '3'),
+            ('4', '4'),
+            ('5', '5')),
+        attrs={'id': 'tremor', 'class': 'custom-control-input'}))
     constipation = forms.CharField(label="Constipation", max_length=10, widget=forms.RadioSelect(
-    choices=(
-        ('0', '0'),
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5')),
-    attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        choices=(
+            ('0', '0'),
+            ('1', '1'),
+            ('2', '2'),
+            ('3', '3'),
+            ('4', '4'),
+            ('5', '5')),
+        attrs={'id': 'tremor', 'class': 'custom-control-input'}))

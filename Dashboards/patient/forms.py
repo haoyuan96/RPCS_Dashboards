@@ -91,8 +91,6 @@ class SurveyForm(forms.Form):
                 ('5', '5')),
         attrs={'id': 'tremor', 'class': 'custom-control-input'}))
 
-
-
     pain = forms.CharField(label="Pain", max_length=10, widget=forms.RadioSelect(
         choices=(
             ('0', '0'),
@@ -101,7 +99,7 @@ class SurveyForm(forms.Form):
             ('3', '3'),
             ('4', '4'),
             ('5', '5')),
-        attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        attrs={'id': 'pain', 'class': 'custom-control-input'}))
 
     anxiety = forms.CharField(label="Anxiety", max_length=10, widget=forms.RadioSelect(
         choices=(
@@ -111,7 +109,7 @@ class SurveyForm(forms.Form):
             ('3', '3'),
             ('4', '4'),
             ('5', '5')),
-        attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        attrs={'id': 'anxiety', 'class': 'custom-control-input'}))
     
     seizures = forms.CharField(label="Seizures", max_length=10, widget=forms.RadioSelect(
         choices=(
@@ -121,7 +119,7 @@ class SurveyForm(forms.Form):
             ('3', '3'),
             ('4', '4'),
             ('5', '5')),
-        attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        attrs={'id': 'seizures', 'class': 'custom-control-input'}))
     
     rigidity = forms.CharField(label="Rigidity", max_length=10, widget=forms.RadioSelect(
         choices=(
@@ -131,7 +129,7 @@ class SurveyForm(forms.Form):
             ('3', '3'),
             ('4', '4'),
             ('5', '5')),
-        attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        attrs={'id': 'rigidity', 'class': 'custom-control-input'}))
     
     motivation = forms.CharField(label="Motivation", max_length=10, widget=forms.RadioSelect(
         choices=(
@@ -141,53 +139,54 @@ class SurveyForm(forms.Form):
             ('3', '3'),
             ('4', '4'),
             ('5', '5')),
-        attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        attrs={'id': 'motivation', 'class': 'custom-control-input'}))
 
     sleep = forms.CharField(label="Sleep", max_length=10, widget=forms.RadioSelect(
-    choices=(
+        choices=(
             ('0', '0'),
             ('1', '1'),
             ('2', '2'),
             ('3', '3'),
             ('4', '4'),
             ('5', '5')),
-    attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        attrs={'id': 'sleep', 'class': 'custom-control-input'}))
     
     muscle_spasm = forms.CharField(label="Muscle Spasm", max_length=10, widget=forms.RadioSelect(
-    choices=(
-        ('0', '0'),
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5')),
-    attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        choices=(
+            ('0', '0'),
+            ('1', '1'),
+            ('2', '2'),
+            ('3', '3'),
+            ('4', '4'),
+            ('5', '5')),
+        attrs={'id': 'muscle_spasm', 'class': 'custom-control-input'}))
 
     fatigue = forms.CharField(label="Fatigue", max_length=10, widget=forms.RadioSelect(
-    choices=(
-        ('0', '0'),
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5')),
-    attrs={'id': 'tremor', 'class': 'custom-control-input'}))
-    
+        choices=(
+            ('0', '0'),
+            ('1', '1'),
+            ('2', '2'),
+            ('3', '3'),
+            ('4', '4'),
+            ('5', '5')),
+        attrs={'id': 'fatigue', 'class': 'custom-control-input'}))
+        
     hallucinations = forms.CharField(label="Hallucinations", max_length=10, widget=forms.RadioSelect(
-    choices=(
-        ('0', '0'),
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5')),
-    attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        choices=(
+            ('0', '0'),
+            ('1', '1'),
+            ('2', '2'),
+            ('3', '3'),
+            ('4', '4'),
+            ('5', '5')),
+        attrs={'id': 'hallucinations', 'class': 'custom-control-input'}))
+
     constipation = forms.CharField(label="Constipation", max_length=10, widget=forms.RadioSelect(
-    choices=(
-        ('0', '0'),
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5')),
-    attrs={'id': 'tremor', 'class': 'custom-control-input'}))
+        choices=(
+            ('0', '0'),
+            ('1', '1'),
+            ('2', '2'),
+            ('3', '3'),
+            ('4', '4'),
+            ('5', '5')),
+        attrs={'id': 'constipation', 'class': 'custom-control-input'}))

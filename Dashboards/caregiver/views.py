@@ -34,7 +34,7 @@ def survey(request):
     # Just display the registration form if this is a GET request.
     if request.method == 'GET':
         context['form'] = SurveyForm()
-        return render(request, 'patient/survey.html', context)
+        return render(request, 'caregiver/survey.html', context)
 
     # Creates a bound form from the request POST parameters and makes the
     # form available in the request context dictionary.
