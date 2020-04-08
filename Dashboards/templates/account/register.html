@@ -34,6 +34,7 @@
           <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
           <div class="col-lg-7">
             <div class="p-5">
+              
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
               </div>
@@ -80,6 +81,20 @@
                     </div>
                   </div>
                   {% endfor %}
+                </div>
+                <div class="form-group row">
+                  <div class="form-group" style="display:none" id = "patient_username">
+                    {{form.patient_username}}
+                    {{form.patient_username.errors}}
+                  </div>
+                  {% comment %} <div class="col-sm-6" id="id_patient_username" style="display:none">
+                    <div class="form-group">Patient Username:</div>
+                    <div> 
+                     
+                     <input type="text" placeholder="patient username" name="patient_username"> 
+                    </div>
+                  </div> {% endcomment %}
+
                   {% comment %} <div class="col-sm-4">
                     <div class="custom-control custom-checkbox small">
                       <input type="radio" class="custom-control-input" id="type_patient" name="user_type"
@@ -129,6 +144,7 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
+  <script src="{% static 'js/register.js' %}"></script>
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
@@ -137,7 +153,7 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-
+  
 </body>
 
 </html>

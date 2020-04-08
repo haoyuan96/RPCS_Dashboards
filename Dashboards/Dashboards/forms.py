@@ -25,6 +25,9 @@ class RegistrationForm(UserCreationForm):
             ('caregiver', 'Caregiver')),
         attrs={'id': 'id_user_type', 'class': 'custom-control-input'}))
 
+    patient_username = forms.CharField(label="", max_length=20, widget=forms.TextInput(
+        attrs={'placeholder': 'Patient Username', 'class': 'form-control form-control-user', 'id': 'id_patient_username'}))
+
     class Meta(UserCreationForm.Meta):
         model = User
 
