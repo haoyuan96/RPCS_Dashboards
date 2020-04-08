@@ -11,10 +11,20 @@ from patient.models import PatientProfile
 from caregiver.models import CaregiverProfile
 from doctor.models import DoctorProfile
 
+from patient.views import home as patient_home
+from caregiver.views import home as caregiver_home
+from doctor.views import home as doctor_home
+
+home_views = {
+    "patient": patient_home,
+    "caregiver": caregiver_home,
+    "doctor": doctor_home,
+}
 # Create your views here.
 
 
 def homepage(request):
+    # TODO: do we need a homepage? Or just show the login/register page?
     return render(request, 'homepage.html')
 
 
@@ -58,11 +68,11 @@ def register(request):
         new_profile = DoctorProfile(user=new_user)
     else:
         return render(request, 'account/register.html', context)
-    # TODO: caregiver/doctor to connect with patient via username
     new_profile.save()
+    # TODO: caregiver to connect with patient via username
 
-    # TODO: redirect to home for different user
-    return redirect(reverse(request.POST['user_type'] + 'home'))
+    # redirect to home for different user
+    return redirect(reverse(request.POST['user_type'] + ':home'))
 
 
 def login_view(request):
