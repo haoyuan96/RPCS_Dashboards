@@ -46,6 +46,9 @@ def register(request):
         return render(request, 'account/register.html', context)
 
     new_user.save()
+    new_user = authenticate(username=form.cleaned_data['username'],
+                            password=form.cleaned_data['password1'])
+    login(request, new_user)
 
     if request.POST['user_type'] == 'patient':
         new_profile = PatientProfile(user=new_user)
@@ -58,12 +61,8 @@ def register(request):
     # TODO: caregiver/doctor to connect with patient via username
     new_profile.save()
 
-    new_user = authenticate(username=form.cleaned_data['username'],
-                            password=form.cleaned_data['password1'])
-
-    login(request, new_user)
     # TODO: redirect to home for different user
-    return redirect(reverse('homepage'))
+    return redirect(reverse(request.POST['user_type'] + 'home'))
 
 
 def login_view(request):
