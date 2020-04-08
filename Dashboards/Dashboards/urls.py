@@ -19,8 +19,11 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('caregiver/', include('caregiver.urls')),
     path('', views.homepage, name='homepage'),
+    path('register/', views.register, name='register'),
+    path('login/', views.login_view, name='login'),
+
+    path('caregiver/', include('caregiver.urls')),
     path('doctor/', include('doctor.urls')),
     path('patient/', include('patient.urls')),
 ]
