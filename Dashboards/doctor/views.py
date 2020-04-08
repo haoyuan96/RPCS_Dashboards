@@ -56,3 +56,5 @@ def profile(request):
     return render(request, 'doctor/profile.html')
     
 
+def set_questionnaire(request):
+	return render(request, 'doctor/set_questionnaire.html')

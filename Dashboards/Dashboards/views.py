@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.forms import model_to_dict
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from django.urls import reverse
 from django.contrib.auth.models import User
 

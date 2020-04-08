@@ -24,8 +24,8 @@ Patient Dashboard
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'patient:home' %}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+        <a class = "nav-link" href="{% url 'patient:home' %}">
+          <i style="font-size:2.5em;" class="fas fa-3x fa-tachometer-alt"></i>
           <span style="text-align:center;font-size:50px">Home</span></a>
       </li>
 
@@ -35,30 +35,30 @@ Patient Dashboard
       <!-- Nav Item - To-Dos -->
       <li class="nav-item">
         <a class="nav-link" href="{% url 'patient:todo' %}">
-          <i class="fas fa-fw fa-list"></i>
-          <span style="text-align:center;font-size:50px">To-Dos</span></a>
+          <i style="font-size:2em;"class="fas fa-fw fa-list"></i>
+          <span style="text-align:center;font-size:36px;padding-right:0.5em">To-Dos</span></a>
       </li>
 
       <!-- Nav Item - Metrics -->
       <li class="nav-item">
         <a class="nav-link" href="{% url 'patient:metrics' %}">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span style="text-align:center;font-size:50px">Metrics</span></a>
+          <i style="font-size:2.5em;" class="fas fa-fw fa-chart-area"></i>
+          <span style="text-align:center;font-size:36px">Metrics</span></a>
       </li>
 
       <!-- Nav Item - Exercise -->
       <li class="nav-item">
         <a class="nav-link" href="{% url 'patient:exercises' %}">
-          <i class="fas fa-fw fa-table"></i>
-          <span style="text-align:center;font-size:44px">Exercise</span></a>
+          <i style="font-size:2.5em;" class="fas fa-fw fa-table"></i>
+          <span style="text-align:center;font-size:36px">Exercise</span></a>
       </li>
 	  
 
       <!-- Nav Item - Survey -->
       <li class="nav-item">
         <a class="nav-link" href="{% url 'patient:survey' %}">
-          <i class="fas fa-fw fa-poll"></i>
-          <span style="text-align:center;font-size:50px">Survey</span></a>
+          <i style="font-size:2.5em;"class="fas fa-fw fa-poll"></i>
+          <span style="text-align:center;font-size:38px">Survey</span></a>
       </li>
 
       <!-- Divider -->
@@ -87,7 +87,7 @@ Patient Dashboard
           </button>
 
           <!-- Topbar Heading -->
-          <h1 class="h3 ml-2 mt-2 text-gray-800">Frank Smith's Home</h1>
+          <h1 class="h3 ml-2 mt-2 text-gray-800" style="font-size:300%;">Frank Smith's Home</h1>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -115,8 +115,8 @@ Patient Dashboard
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Frank Smith</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-size:200%;">Frank Smith</span>
+                <img class="img-profile rounded-circle" src="{% static 'img/frank_smith.png' %}" style="width:75px;height:75px;">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

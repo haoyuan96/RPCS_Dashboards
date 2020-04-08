@@ -26,11 +26,8 @@ Doctor Dashboard
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'doctor:home' %}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+          <span>Patients</span></a>
       </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
 
       <!-- Nav Item - Profile -->
       <li class="nav-item">
@@ -101,8 +98,8 @@ Doctor Dashboard
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Erica Medica</span>
+                <img class="img-profile rounded-circle" src="{% static 'img/doctor_profile_pic.jpeg' %}">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -129,6 +126,18 @@ Doctor Dashboard
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+
+          <div class="row">
+            <div class="col">
+              <div class="card shadow mb-4">
+                <div class="card-body">
+                  <input type="text" placeholder="Search for a patient">
+                  <button type="submit"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
           <div class="row">
 
