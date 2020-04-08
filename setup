@@ -1,0 +1,53 @@
+First please ensure that you are using Python3.
+**********************************************
+1. Dependencies you need to install.
+pip3 install colored_traceback
+pip3 install ipdb 
+pip3 install sqlalchemy
+(sudo apt-get install libpq-dev)
+pip3 install psycopg2
+
+[NOTE] If you cannot install psycopg2 directly, 
+use this command:sudo apt-get install libpq-dev
+before use pip3 to install psycopg2.
+
+***********************************************
+2. Then open the Dahboards folder, you will see some new files.
+The "database" folder contains one file we need to read-----database.py
+It contains all the functions we can use if we want to opearate on the data.
+
+Genually, the code we need to write for fetching data from database:
+db = getdb()
+retrieved_accel = find_by_accel_id(db, accel_id)
+
+[NOTE] Regarding to the ids(sensor id, patient id), this layer of connection will be hardcoded, we
+have to talk with Infraustructure team to get consistency. At least it should be in a pattern of uuid.
+
+***********************************************
+3. Run the project.
+After you finish you coding on the function call, then run normally on the Django project,
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py runserver
+
+*************************************************
+4. Test on the code
+(1) ssh to the AWS on our instance.
+ssh -y ubuntu@ec2-3-20-245-112.us-east-2.compute.amazonaws.com
+password:samsuks
+
+(2) log on our database.
+sudo -u postgres -p HhmL0SWLuxPirhQO9dXD psql -h rpcs.cvsc3wzxbc5v.us-west-2.rds.amazonaws.com -p 5432 -d engine_db
+password:HhmL0SWLuxPirhQO9dXD
+[NOTE] our database name is:engine_db
+
+(3) Common command we need to use:
+SELECT * FROM <metric you want see, (specific metric can see from database.py)>
+SELECT * FROM <metric you want see> WHERE <key = 'value'>
+
+Example:
+SELECT * FROM accels;
+SELECT * FROM accels WHERE accel_id = '2e0d214c-7146-4e44-8e60-383adbd8941d';
+[NOTE] Follow rules of SQL, anything you want to play with, please Google~
+
+
