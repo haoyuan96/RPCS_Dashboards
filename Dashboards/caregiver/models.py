@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class CaregiverProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.PROTECT)
     picture = models.FileField(blank=True)
     content_type = models.CharField(max_length=50, blank=True)
 
