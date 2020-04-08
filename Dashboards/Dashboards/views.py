@@ -11,15 +11,6 @@ from patient.models import PatientProfile
 from caregiver.models import CaregiverProfile
 from doctor.models import DoctorProfile
 
-from patient.views import home as patient_home
-from caregiver.views import home as caregiver_home
-from doctor.views import home as doctor_home
-
-home_views = {
-    "patient": patient_home,
-    "caregiver": caregiver_home,
-    "doctor": doctor_home,
-}
 # Create your views here.
 
 
@@ -62,16 +53,20 @@ def register(request):
 
     if request.POST['user_type'] == 'patient':
         new_profile = PatientProfile(user=new_user)
+        new_profile.save()
     elif request.POST['user_type'] == 'caregiver':
         new_profile = CaregiverProfile(user=new_user)
+        new_profile.save()
     elif request.POST['user_type'] == 'doctor':
         new_profile = DoctorProfile(user=new_user)
+        new_profile.save()
     else:
         return render(request, 'account/register.html', context)
-    new_profile.save()
     # TODO: caregiver to connect with patient via username
+    # TODO: patient and doctor cannot register???
 
     # redirect to home for different user
+    print(hasattr(request.user, 'caregiverprofile'))
     return redirect(reverse(request.POST['user_type'] + ':home'))
 
 
@@ -99,7 +94,14 @@ def login_view(request):
 
     login(request, new_user)
     # TODO: redirect to home for different user
-    return redirect(reverse('homepage'))
+    if hasattr(request.user, 'caregiverprofile'):
+        return redirect(reverse('caregiver:home'))
+    elif hasattr(request.user, 'doctorprofile'):
+        return redirect(reverse('doctor:home'))
+    elif hasattr(request.user, 'patientprofile'):
+        return redirect(reverse('patient:home'))
+
+    return redirect(reverse('login'))
 
 
 def logout_action(request):

@@ -7,7 +7,7 @@ from doctor.models import DoctorProfile
 
 
 class PatientProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.PROTECT)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.FileField(blank=True)
     content_type = models.CharField(max_length=50, blank=True)
 
