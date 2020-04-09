@@ -128,19 +128,36 @@ Doctor Dashboard
         <div class="container-fluid">
 
           <div class="row">
-            <div class="col">
-              <div class="card shadow mb-4">
+            <div class="col-md">
+              <div class="mb-4">
+                
                 <div class="card-body">
-                  <input type="text" placeholder="Search for a patient">
-                  <button type="submit"><i class="fa fa-search"></i></button>
+                  <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                      <input type="text" class="form-control bg-light border-100 small" placeholder="Search for a patient">
+                      <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
+
+            <div class="col-">
+                <div class="card-body">
+                  <button class="btn btn-primary" type="button" href="#" data-toggle="modal" data-target="#AddPatientModal">
+                      Add a patient
+                  </button>  
+                </div> 
+            </div>
           </div>
 
+          
 
           <div class="row">
-
             <div class="col">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
