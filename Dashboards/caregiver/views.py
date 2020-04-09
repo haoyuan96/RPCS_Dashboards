@@ -55,4 +55,5 @@ def addevent(request):
             print(form.cleaned_data['end_time'])
             patient = request.user.patient
             #event = CalendarEvent(patient=patient, phone_number=number, date_subscribed=datetime.now(), messages_received=0)
-    return render(request, 'caregiver/todo.html')
+            return render(request, 'caregiver/todo.html')
+    return render(request, 'caregiver/survey.html')
