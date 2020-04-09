@@ -93,7 +93,8 @@ Caregiver Dashboard
         </button>
 
         <!-- Topbar Heading -->
-        <h1 class="h3 ml-2 mt-2 text-gray-800">Frank Smith's Summary</h1>
+        <h1 class="h3 ml-2 mt-2 text-gray-800">{{patient.first_name}}
+          {{patient.last_name}}'s Summary</h1>
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
@@ -256,29 +257,31 @@ Caregiver Dashboard
 
 </div>
 <script>
-    var calendarEl = document.getElementById('calendar');
+  var calendarEl = document.getElementById('calendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: [ 'list' ],
-        timeZone: 'UTC',
-        defaultView: 'listDay',
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    plugins: ['list'],
+    timeZone: 'UTC',
+    defaultView: 'listDay',
 
-        // customize the button names,
-        // otherwise they'd all just say "list"
-        views: {
-            listDay: { buttonText: 'list day' },
-        },
+    // customize the button names,
+    // otherwise they'd all just say "list"
+    views: {
+      listDay: {
+        buttonText: 'list day'
+      },
+    },
 
-        header: {
-            left: 'title',
-            center: '',
-            right: 'listDay'
-        },
-        events: 'https://fullcalendar.io/demo-events.json'
-    });
+    header: {
+      left: 'title',
+      center: '',
+      right: 'listDay'
+    },
+    events: 'https://fullcalendar.io/demo-events.json'
+  });
 
-    calendar.render();
-    calendar.setOption('height', 300);
+  calendar.render();
+  calendar.setOption('height', 300);
 </script>
 <!-- Page level custom scripts -->
 <script src="{% static 'vendor/chart.js/echarts-en.min.js' %}"></script>

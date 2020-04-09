@@ -12,6 +12,6 @@ class PatientProfile(models.Model):
     content_type = models.CharField(max_length=50, blank=True)
 
     caregiver = models.OneToOneField(
-        CaregiverProfile, on_delete=models.PROTECT, null=True)
+        CaregiverProfile, on_delete=models.PROTECT, related_name='patient', null=True)
     doctor = models.ForeignKey(
         DoctorProfile, on_delete=models.PROTECT, related_name='patients', null=True)

@@ -5,11 +5,18 @@ from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.urls import reverse
 
+from .models import CaregiverProfile
+
 
 # Create your views here.
 
 def home(request):
-    return render(request, 'caregiver/index.html')
+    profile = request.user.caregiverprofile
+    patient = profile.patient.user
+    context = {
+        'patient': patient
+    }
+    return render(request, 'caregiver/index.html', context)
 
 
 def todo(request):
@@ -34,6 +41,7 @@ def survey(request):
 
 def login(request):
     return render(request, 'caregiver/login.html')
+
 
 def register(request):
     return render(request, 'caregiver/register.html')

@@ -70,7 +70,6 @@ def register(request):
         new_profile.save()
     else:
         return render(request, 'account/register.html', context)
-    # TODO: caregiver to connect with patient via username
 
     # redirect to home for different user
     return redirect(reverse(request.POST['user_type'] + ':home'))
