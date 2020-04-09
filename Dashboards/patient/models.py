@@ -7,7 +7,7 @@ from doctor.models import DoctorProfile
 
 
 class PatientProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.PROTECT)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.FileField(blank=True)
     content_type = models.CharField(max_length=50, blank=True)
 
@@ -15,6 +15,3 @@ class PatientProfile(models.Model):
         CaregiverProfile, on_delete=models.PROTECT, null=True)
     doctor = models.ForeignKey(
         DoctorProfile, on_delete=models.PROTECT, related_name='patients', null=True)
-
-    def __str__(self):
-        return 'id=' + str(self.id) + ',caregiver="' + self.caregiver.user.username + '"'

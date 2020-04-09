@@ -57,16 +57,22 @@ def register(request):
     elif request.POST['user_type'] == 'caregiver':
         new_profile = CaregiverProfile(user=new_user)
         new_profile.save()
+        if 'patient_username' in request.POST:
+            patient_username = request.POST['patient_username']
+            patient_user = User.objects.filter(username=patient_username)
+            if len(patient_user) > 0:
+                patient = patient_user[0].patientprofile
+                print(patient)
+                patient.caregiver = new_profile
+                patient.save()
     elif request.POST['user_type'] == 'doctor':
         new_profile = DoctorProfile(user=new_user)
         new_profile.save()
     else:
         return render(request, 'account/register.html', context)
     # TODO: caregiver to connect with patient via username
-    # TODO: patient and doctor cannot register???
 
     # redirect to home for different user
-    print(hasattr(request.user, 'caregiverprofile'))
     return redirect(reverse(request.POST['user_type'] + ':home'))
 
 
