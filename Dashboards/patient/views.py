@@ -97,3 +97,4 @@ def login(request):
 	else:
 		context['error_msg'] = "Please input username and password for login."
 	return render(request, 'patient/login.html', context)
+
