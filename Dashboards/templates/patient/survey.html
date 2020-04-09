@@ -166,8 +166,9 @@ Survey
               <!-- Card Body -->
               <div class="card-body">
                 <div class="container-fluid">
-                  {% csrf_token %}
+                  
                   <form action="{% url 'patient:survey' %}" method="POST">
+                  {% csrf_token %}
                     {% for field in form %}
                       <div class="form-group row">
                         <div class="col-sm-5">
@@ -184,14 +185,14 @@ Survey
                         {% endfor %}
                       </div>
                     {% endfor %}
-                    
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                        Submit Survey
+                    </button>
                   </form>
                   
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-user btn-block">
-                      Submit Survey
-                  </button>
+                
               </div>
             </div>
           </div>

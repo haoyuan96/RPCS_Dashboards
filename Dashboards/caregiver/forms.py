@@ -30,7 +30,7 @@ class SurveyForm(forms.Form):
                 ('3', '3'),
                 ('4', '4'),
                 ('5', '5')),
-        attrs={'id': 'id_user_type', 'class': 'custom-control-input'}))
+        attrs={'id': 'id_dyskinesia', 'class': 'custom-control-input'}))
 
     movement = forms.CharField(label="Fine motor movement, like folding clothes or opening mail", max_length=10, widget=forms.RadioSelect(
         choices=(

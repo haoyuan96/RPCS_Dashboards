@@ -5,6 +5,7 @@ from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.urls import reverse
 from patient.forms import *
+from .models import Survey, PatientProfile
 
 # Create your views here.
 
@@ -30,44 +31,85 @@ def exercises(request):
 
 def survey(request):
     context = {}
+    
     # Just display the registration form if this is a GET request.
     if request.method == 'GET':
         context['form'] = SurveyForm()
         return render(request, 'patient/survey.html', context)
 
-    # Creates a bound form from the request POST parameters and makes the
-    # form available in the request context dictionary.
-    form = SurveyForm(request.POST)
-    context['form'] = form
 
+    form = SurveyForm(request.POST)
+    context['form'] = form  
+    
+    if not request.user.is_authenticated:
+        print("user is not authenticated")
+        return render(request, 'patient/survey.html', context)
+    
+    patient = PatientProfile.objects.get(user=request.user)
+    
+    if patient.survey is None:
+        patient.survey = Survey()
+        patient.survey.save()
+        # patient.save()
+        print("save new survey")
+
+    print(patient.survey)
+    for key in request.POST:
+        if key == "csrfmiddlewaretoken":
+            continue
+        value = request.POST[key]
+        
+        if key == 'falls':
+            patient.survey.falls = value
+        if key == 'depression':
+            patient.survey.depression = value
+        if key == 'dyskinesia':
+            patient.survey.dyskinesia = value
+        if key == 'movement':
+            patient.survey.movement = value
+        if key == 'thinking':
+            patient.survey.thinking = value
+        if key == 'walking':
+            patient.survey.walking = value
+        if key == 'chest_pain':
+            patient.survey.chest_pain = value
+        if key == 'tremor':
+            patient.survey.tremor = value
+        if key == 'swallowing':
+            patient.survey.swallowing = value
+        if key == 'pain':
+            patient.survey.pain = value
+        if key == 'anxiety':
+            patient.survey.anxiety = value
+        if key == 'seizures':
+            patient.survey.seizures = value
+        if key == 'rigidity':
+            patient.survey.rigidity = value
+        if key == 'motivation':
+            patient.survey.motivation = value
+        if key == 'sleep':
+            patient.survey.sleep = value
+        if key == 'muscle_spasm':
+            patient.survey.muscle_spasm = value
+        if key == 'fatigue':
+            patient.survey.fatigue = value
+        if key == 'hallucinations':
+            patient.survey.hallucinations = value
+        if key == 'constipation':
+            patient.survey.constipation = value
+       
+        patient.survey.save()
+    patient.survey.save()
+    print(patient.survey)
+    
+    context['newuser'] = patient
     # Validates the form.
     if not form.is_valid():
-        print(form)
+        print("form is not valid")
         return render(request, 'patient/survey.html', context)
-
-    # # At this point, the form data is valid.  Register and login the user.
-    # new_user = User.objects.create_user(username=form.cleaned_data['username'],
-    #                                     password=form.cleaned_data['password1'],
-    #                                     email=form.cleaned_data['email'],
-    #                                     first_name=form.cleaned_data['first_name'],
-    #                                     last_name=form.cleaned_data['last_name'])
-
-    if 'falls' not in request.POST:
-        return render(request, 'patient/survey.html', context)
-
-    # new_user.save()
-
-    # if request.POST['user_type'] == 'patient':
-    #     new_profile = PatientProfile(user=new_user)
-    # elif request.POST['user_type'] == 'caregiver':
-    #     new_profile = CaregiverProfile(user=new_user)
-    # elif request.POST['user_type'] == 'doctor':
-    #     new_profile = DoctorProfile(user=new_user)
-    # else:
-    #     return render(request, 'account/register.html', context)
-    # # TODO: caregiver/doctor to connect with patient via username
-    # new_profile.save()
-    return render(request, 'patient/survey.html')
+   
+    print(patient.survey)
+    return render(request, 'patient/survey.html', context)
 
 
 def login(request):
