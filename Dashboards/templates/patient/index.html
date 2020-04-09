@@ -45,15 +45,7 @@ Patient Dashboard
           <i style="font-size:2.5em;" class="fas fa-fw fa-chart-area"></i>
           <span style="text-align:center;font-size:36px">Metrics</span></a>
       </li>
-
-      <!-- Nav Item - Exercise -->
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'patient:exercises' %}">
-          <i style="font-size:2.5em;" class="fas fa-fw fa-table"></i>
-          <span style="text-align:center;font-size:36px">Exercise</span></a>
-      </li>
 	  
-
       <!-- Nav Item - Survey -->
       <li class="nav-item">
         <a class="nav-link" href="{% url 'patient:survey' %}">
@@ -87,7 +79,7 @@ Patient Dashboard
           </button>
 
           <!-- Topbar Heading -->
-          <h1 class="h3 ml-2 mt-2 text-gray-800" style="font-size:300%;">Frank Smith's Home</h1>
+          <h1 class="h3 ml-2 mt-2 text-gray-800" style="font-size:300%;"> {{ request.user.username }}'s Home </h1>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -115,7 +107,7 @@ Patient Dashboard
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-size:200%;">Frank Smith</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-size:200%;">{{ request.user.username }}</span>
                 <img class="img-profile rounded-circle" src="{% static 'img/frank_smith.png' %}" style="width:75px;height:75px;">
               </a>
               <!-- Dropdown - User Information -->
