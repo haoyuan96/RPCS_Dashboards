@@ -97,7 +97,7 @@ Profile
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Erica Medica</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ request.user.username }}</span>
                 <img class="img-profile rounded-circle" src="{% static 'img/doctor_profile_pic.jpeg' %}">
               </a>
               <!-- Dropdown - User Information -->
@@ -164,7 +164,7 @@ Profile
                               <div class="col-md-6">
                                   <div class="profile-head">
                                               <h5>
-                                                  Dr. Erica Medica
+                                                  Dr. {{ request.user.username }}
                                               </h5>
                                               <h6>
                                                   Squirrel Hill Hospital
@@ -249,7 +249,7 @@ Profile
                                           <div class="row">
                                               <div class="col-md-12">
                                                   <label>Bio</label><br/>
-                                                  <p>Dr. Erica Medica got her MD from Water Melon University School of Medicine in 1994. She has 16 years of experience in treating patients with Parkinson's Disease.</p>
+                                                  <p>Dr. {{ request.user.username }} got her MD from Water Melon University School of Medicine in 1994. She has 16 years of experience in treating patients with Parkinson's Disease.</p>
                                               </div>
                                           </div>
                                       </div>
