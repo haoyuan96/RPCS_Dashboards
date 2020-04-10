@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from doctor.models import DoctorProfile
-# from patient.models import PatientProfile
-from django.core.validators import MaxValueValidator, MinValueValidator
+
 # Create your models here.
 
 
