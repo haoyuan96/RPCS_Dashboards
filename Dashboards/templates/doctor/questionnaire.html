@@ -165,18 +165,20 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
-                    <!-- Add Chart Here! -->
-                    
-                      {% for field in form %}
-                        <div class="form-group row">
-                          <div class="col-sm-5">
-                          {{ field.label }}: 
+                  
+                  {% comment %} <div class="chart-area"> {% endcomment %}
+                    <div class="container-fluid">
+                      <!-- Add Chart Here! -->
+                        {% for field in form %}
+                          <div class="form-group row">
+                            <div class="col-sm-5">
+                            {{ field.label }}: 
+                            </div>
+                            {{ field.value }}
                           </div>
-                          {{ field.value }}
-                        </div>
-                      {% endfor %}
-                  </div>
+                        {% endfor %}
+                    </div>
+                  {% comment %} </div> {% endcomment %}
                 </div>
               </div>
             </div>

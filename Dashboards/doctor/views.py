@@ -6,9 +6,9 @@ from django.http import HttpResponse, Http404
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core import serializers
-
-
-from patient.models import PatientProfile
+from django.shortcuts import render_to_response
+from patient.forms import SurveyForm
+from patient.models import PatientProfile, Survey
 from doctor.models import DoctorProfile
 
 def home(request):
@@ -136,7 +136,15 @@ def questionnaire(request, username):
     patient_user = User.objects.filter(username=username)
     context['patient'] = patient_user[0].patientprofile
     context['form'] = patient_user[0].patientprofile.survey
-    return render(request, 'doctor/questionnaire.html', context)
+    # print(patient_user[0])
+    # print(patient_user[0].patientprofile)
+    # print(patient_user[0].patientprofile.survey)
+    print(patient_user[0].patientprofile.survey.constipation)
+    object = SurveyForm(data=model_to_dict(
+        Survey.objects.get(pk=patient_user[0].patientprofile.survey.id)))
+    return render_to_response('doctor/questionnaire.html', {'form': object, 'patient': patient_user[0].patientprofile})
+
+    # return render(request, 'doctor/questionnaire.html', context)
 
 
 def profile(request):

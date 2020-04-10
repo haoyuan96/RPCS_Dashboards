@@ -133,7 +133,7 @@ class PatientProfile(models.Model):
     doctor = models.ForeignKey(
         DoctorProfile, on_delete=models.PROTECT, related_name='patients', null=True)
     
-    survey = models.ForeignKey(Survey, default=None, on_delete=models.PROTECT, null=True)
+    survey = models.ForeignKey(Survey, on_delete=models.PROTECT, null=True)
 
 
 
