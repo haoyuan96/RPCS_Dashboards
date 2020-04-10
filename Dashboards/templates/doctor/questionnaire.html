@@ -42,7 +42,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'doctor:patient_info' %}">
+        <a class="nav-link" href="{% url 'doctor:patient_info' patient.user.username %}">
           <span>Back</span></a>
       </li>
 
@@ -167,6 +167,7 @@
                 <div class="card-body">
                   <div class="chart-area">
                     <!-- Add Chart Here! -->
+                    
                   </div>
                 </div>
               </div>

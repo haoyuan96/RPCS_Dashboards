@@ -4,10 +4,12 @@ from django.shortcuts import render, redirect
 from django.forms import model_to_dict
 from django.http import HttpResponse, Http404
 from django.urls import reverse
+from django.contrib.auth.models import User
+from django.core import serializers
+
 
 from patient.models import PatientProfile
-# Create your views here.
-
+from doctor.models import DoctorProfile
 
 def home(request):
     context = {}
@@ -45,32 +47,26 @@ def search(request):
 
 
 def add_patient(request):
-     if request.method != 'POST':
+    context = {}
+    if request.method != 'POST':
+        print ("404")
         raise Http404
-
     if not 'search_username' in request.POST or not request.POST['search_username']:
         message = 'You must enter the username of a patient.'
         json_error = '{ "error": "'+message+'" }'
         return HttpResponse(json_error, content_type='application/json')
-
-    patient_user = User.object.filter(
-        username=request.POST['search_username'])
-    if len(patient_user) != 1:
-        message = 'Could not find patient with username \'' + \
-            request.POST['search_username'] + '\''
-        json_error = '{ "error": "'+message+'" }'
-        return HttpResponse(json_error, content_type='application/json')
-
-    # modify the seleted patient
+    
+    input_username = request.POST['search_username']
+    print(input_username)
+    patient_user = User.objects.filter(username=input_username)
     patient = patient_user[0].patientprofile
     doctor = request.user.doctorprofile
     patient.doctor = doctor
     patient.save()
-    # return all patients of the current doctor
-    patients = PatientProfile.objects.filter(doctor=doctor)
-    response_text = serializers.serialize('json', patients)
-    return HttpResponse(response_text, content_type='application/json')
 
+    context['patients'] = doctor.patients.all()
+    print(doctor.patients.all())
+    return render(request, 'doctor/index.html', context)
 
 def todo(request):
     return render(request, 'doctor/todo.html')
@@ -100,21 +96,33 @@ def login(request):
     return render(request, 'doctor/login.html')
 
 
-def view_details(request):
-    return render(request, 'doctor/view_details.html')
+def view_details(request, username):
+    context = {}
+    patient_user = User.objects.filter(username=username)
+    context['patient'] = patient_user[0].patientprofile
+    return render(request, 'doctor/view_details.html', context)
 
 
-def patient_info(request):
-    return render(request, 'doctor/patient_info.html')
+def patient_info(request, username):
+    context = {}
+    patient_user = User.objects.filter(username=username)
+    context['patient']= patient_user[0].patientprofile
+    return render(request, 'doctor/patient_info.html', context)
 
 
-def questionnaire(request):
-    return render(request, 'doctor/questionnaire.html')
+def questionnaire(request, username):
+    context = {}
+    patient_user = User.objects.filter(username=username)
+    context['patient'] = patient_user[0].patientprofile
+    return render(request, 'doctor/questionnaire.html', context)
 
 
 def profile(request):
     return render(request, 'doctor/profile.html')
 
 
-def set_questionnaire(request):
-    return render(request, 'doctor/set_questionnaire.html')
+def set_questionnaire(request, username):
+    context = {}
+    patient_user = User.objects.filter(username=username)
+    context['patient'] = patient_user[0].patientprofile
+    return render(request, 'doctor/set_questionnaire.html', context)
