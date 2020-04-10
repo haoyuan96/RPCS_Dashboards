@@ -29,12 +29,36 @@ def home(request):
 
 def todo(request):
     print(request.user)
+    if request.method == 'POST':
+        form = TodoEventForm(request.POST)
+        if form.is_valid():
+            description = form.cleaned_data['description']
+            date = form.cleaned_data['date']
+            start = form.cleaned_data['start_time']
+            end = form.cleaned_data['end_time']
+            patient = request.user.caregiverprofile.patient
+            print("patient name is: " + patient.user.username)
+            newevent = CalendarEvent(patient=patient, description=description, date=date, start=start, end=end)
+            newevent.save()
+            return redirect("/caregiver/todo")
     form = TodoEventForm()
     context = {'form': form}
     return render(request, 'caregiver/todo.html', context)
 
 
 def calendar(request):
+    if request.method == 'POST':
+        form = CalendarEventForm(request.POST)
+        if form.is_valid():
+            description = form.cleaned_data['description']
+            date = form.cleaned_data['date']
+            start = form.cleaned_data['start_time']
+            end = form.cleaned_data['end_time']
+            patient = request.user.caregiverprofile.patient
+            print("patient name is: " + patient.user.username)
+            newevent = CalendarEvent(patient=patient, description=description, date=date, start=start, end=end)
+            newevent.save()
+            return redirect("/caregiver/calendar")
     form = CalendarEventForm()
     context = {'form': form}
     return render(request, 'caregiver/calendar.html', context)
@@ -59,21 +83,6 @@ def login(request):
 def register(request):
     return render(request, 'caregiver/register.html')
     
-def addevent(request):
-    if request.method == 'POST':
-        form = CalendarEventForm(request.POST)
-        if form.is_valid():
-            description = form.cleaned_data['description']
-            date = form.cleaned_data['date']
-            start = form.cleaned_data['start_time']
-            end = form.cleaned_data['end_time']
-            patient = request.user.caregiverprofile.patient
-            print("patient name is: " + patient.user.username)
-            newevent = CalendarEvent(patient=patient, description=description, date=date, start=start, end=end)
-            newevent.save()
-            return redirect("/caregiver/calendar")
-    return render(request, 'caregiver/survey.html')
-
 def getevents(request):
     patient = request.user.caregiverprofile.patient
     all_events = CalendarEvent.objects.filter(patient=patient)
