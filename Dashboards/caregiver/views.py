@@ -90,7 +90,7 @@ def survey(request):
         return render(request, 'caregiver/survey.html', context)
 
     caregiver = CaregiverProfile.objects.get(user=request.user)
-
+    patient = caregiver.patient
     print(caregiver.patient)
     if caregiver.patient.survey is None:
         survey = Survey()
