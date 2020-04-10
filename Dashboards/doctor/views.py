@@ -24,30 +24,49 @@ def home(request):
 
 
 def search(request):
+    context = {}
+    print('search now')
     if request.method != 'POST':
+        print('Http404')
         raise Http404
-
     if not 'search_username' in request.POST or not request.POST['search_username']:
         message = 'You must enter the username of a patient.'
         json_error = '{ "error": "'+message+'" }'
         return HttpResponse(json_error, content_type='application/json')
-
-    patient_user = User.object.filter(
-        username=request.POST['search_username'])
-    if len(patient_user) != 1:
-        message = 'Could not find patient with username \'' + \
-            request.POST['search_username'] + '\''
-        json_error = '{ "error": "'+message+'" }'
-        return HttpResponse(json_error, content_type='application/json')
-
-    patient = patient_user[0].patientprofile
-
-    response_text = serializers.serialize('json', patient)
-    return HttpResponse(response_text, content_type='application/json')
-
+    
+    doctor = request.user.doctorprofile
+    
+    if 'search_username' in request.POST and request.POST['search_username'] != '':
+        try:
+            user = User.objects.get(username=request.POST['search_username'])
+            print('print out!!!!!', user)
+            search_patient = PatientProfile.objects.filter(user=user)
+            print('print out!!!!!', search_patient)
+            if len(search_patient) != 1:
+                context['patients'] = doctor.patients.all()
+                return render(request, 'doctor/index.html', context)
+            else:
+                print('search_patient found')
+                if search_patient[0].doctor != doctor:
+                    print('not correct doctor')
+                    print(search_patient[0].doctor)
+                    context['patients'] = doctor.patients.all()
+                    return render(request, 'doctor/index.html', context)
+                print('correct doctor')
+                context['patients'] = search_patient
+                print('return only one patient')
+                return render(request, 'doctor/index.html', context)
+        except:
+            print('try fail')
+            context['patients'] = doctor.patients.all()
+    else:
+        print('no request post')
+        context['patients'] = doctor.patients.all()
+    return render(request, 'doctor/index.html', context)
 
 def add_patient(request):
     context = {}
+    print("100")
     if request.method != 'POST':
         print ("404")
         raise Http404
@@ -61,8 +80,10 @@ def add_patient(request):
     patient_user = User.objects.filter(username=input_username)
     patient = patient_user[0].patientprofile
     doctor = request.user.doctorprofile
-    patient.doctor = doctor
-    patient.save()
+    # ignore already added ones
+    if not patient.doctor is doctor :
+        patient.doctor = doctor
+        patient.save()
 
     context['patients'] = doctor.patients.all()
     print(doctor.patients.all())
@@ -114,6 +135,7 @@ def questionnaire(request, username):
     context = {}
     patient_user = User.objects.filter(username=username)
     context['patient'] = patient_user[0].patientprofile
+    context['form'] = patient_user[0].patientprofile.survey
     return render(request, 'doctor/questionnaire.html', context)
 
 

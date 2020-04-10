@@ -15,3 +15,4 @@ class PatientProfile(models.Model):
         CaregiverProfile, on_delete=models.PROTECT, related_name='patient', null=True)
     doctor = models.ForeignKey(
         DoctorProfile, on_delete=models.PROTECT, related_name='patients', null=True)
+        

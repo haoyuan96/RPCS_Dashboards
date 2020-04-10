@@ -19,5 +19,6 @@ urlpatterns = [
     path('patient_info/<username>', views.patient_info, name='patient_info'),
     path('register', views.register, name='register'),
     path('profile', views.profile, name='profile'),
-    path('add_patient', views.add_patient, name='add_patient')
+    path('add_patient', views.add_patient, name='add_patient'),
+    path('search', views.search, name='search')
 ]
