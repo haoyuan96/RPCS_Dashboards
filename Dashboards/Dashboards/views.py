@@ -14,9 +14,9 @@ from doctor.models import DoctorProfile
 # Create your views here.
 
 
-def homepage(request):
-    # TODO: do we need a homepage? Or just show the login/register page?
-    return render(request, 'homepage.html')
+# def homepage(request):
+#     # TODO: do we need a homepage? Or just show the login/register page?
+#     return render(request, 'account/login.html')
 
 
 def register(request):

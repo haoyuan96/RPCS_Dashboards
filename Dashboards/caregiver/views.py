@@ -23,13 +23,13 @@ from .forms import *
 
 def home(request):
     profile = request.user.caregiverprofile
-    patient = profile.patient.user
+    patient = profile.patient
+    print(profile.user.username)
     context = {
         'patient': patient
     }
     return render(request, 'caregiver/index.html', context)
-
-
+    
 def todo(request):
     print(request.user)
     if request.method == 'POST':
@@ -47,7 +47,6 @@ def todo(request):
     form = TodoEventForm()
     context = {'form': form}
     return render(request, 'caregiver/todo.html', context)
-
 
 def calendar(request):
     if request.method == 'POST':
