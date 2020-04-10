@@ -171,9 +171,32 @@ Survey
               </div>
               <!-- Card Body -->
               <div class="card-body">
-                <div class="chart-area">
-                  <!-- Add Chart Here! -->
+                <div class="container-fluid">
+                  <form action="{% url 'caregiver:survey' %}" method="POST">
+                  {% csrf_token %}
+                    {% for field in form %}
+                      <div class="form-group row">
+                        <div class="col-sm-5">
+                        {{ field.label }}: 
+                        </div>
+                        {% for radio in field %}
+                        <div class="col-sm-1">
+                          <div class="custom-control custom-radio">
+                            {{ radio.tag }}
+                            <label class="custom-control-label"
+                              for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                          </div>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                        Submit Survey
+                    </button>
+                  </form>
+                  
                 </div>
+
               </div>
             </div>
           </div>
