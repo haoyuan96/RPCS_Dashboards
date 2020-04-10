@@ -19,6 +19,7 @@ class PatientProfile(models.Model):
 
 
 
+
 class CalendarEvent(models.Model):
     patient = models.ForeignKey(PatientProfile, on_delete=models.CASCADE, related_name='calendar_events')
     start = models.TimeField(auto_now_add=False, null=False)
@@ -28,3 +29,4 @@ class CalendarEvent(models.Model):
 
     def __str__(self):
         return 'patient=' + self.patient.user.username + ', start=' + self.start.ToSting() + ', end=' + self.end.ToSting() + ', description=' + self.descriprion
+

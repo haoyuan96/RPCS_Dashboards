@@ -42,7 +42,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'doctor:patient_info' %}">
+        <a class="nav-link" href="{% url 'doctor:patient_info' patient.user.username %}">
           <span>Back</span></a>
       </li>
 
@@ -167,6 +167,15 @@
                 <div class="card-body">
                   <div class="chart-area">
                     <!-- Add Chart Here! -->
+                    
+                      {% for field in form %}
+                        <div class="form-group row">
+                          <div class="col-sm-5">
+                          {{ field.label }}: 
+                          </div>
+                          {{ field.value }}
+                        </div>
+                      {% endfor %}
                   </div>
                 </div>
               </div>

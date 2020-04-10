@@ -51,6 +51,7 @@ def register(request):
                             password=form.cleaned_data['password1'])
     login(request, new_user)
 
+    print(form.cleaned_data['username'])
     if request.POST['user_type'] == 'patient':
         new_profile = PatientProfile(user=new_user)
         new_profile.save()

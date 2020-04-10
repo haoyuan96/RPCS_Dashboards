@@ -56,7 +56,7 @@
         <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
           <div class="card-header py-3 d-flex flex-column align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Frank Smith</a></h6>
+            <h6 class="m-0 font-weight-bold text-primary">{{patient.user.first_name}} {{patient.user.last_name}}</a></h6>
             <img src="{% static 'img/frank_smith.png' %}" height="150" width="150">
             <div> Age: 70 </div>
             <div> Stage: Level 1 </div>
@@ -104,7 +104,7 @@
           -->
 
           <!-- Topbar Heading -->
-          <h1 class="h3 ml-2 mt-2 text-gray-800">Frank Smith's Summary</h1>
+          <h1 class="h3 ml-2 mt-2 text-gray-800">{{patient.user.first_name}} {{patient.user.last_name}}'s Summary</h1>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -169,7 +169,7 @@
             <div class="col">
               <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Alert: His anxiety reaches SEVERE LEVEL</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Alert: Anxiety reaches SEVERE LEVEL</h6>
                 </div>
               </div>
             </div>
@@ -262,9 +262,9 @@
                   <h6 class="m-0 font-weight-bold text-primary">More Options</h6>
                 </div>
                 <div class="card-body">
-                  <div><a href="{% url 'doctor:view_details' %}"> View Details </a></div>
-                  <div><a href="{% url 'doctor:questionnaire' %}"> View Questionnaire </a></div>
-                  <div><a href="{% url 'doctor:set_questionnaire' %}"> Set Questionnaire </a></div>
+                  <div><a href="{% url 'doctor:view_details' patient.user.username %}"> View Details </a></div>
+                  <div><a href="{% url 'doctor:questionnaire' patient.user.username%}"> View Questionnaire </a></div>
+                  <div><a href="{% url 'doctor:set_questionnaire' patient.user.username%}"> Set Questionnaire </a></div>
                 </div>
               </div>
             </div>
