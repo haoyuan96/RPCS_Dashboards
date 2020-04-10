@@ -1,3 +1,4 @@
+
 {% extends "patient/base.html" %}
 {% block title %}
 Survey
@@ -156,138 +157,34 @@ Survey
               </div>
               <!-- Card Body -->
               <div class="card-body">
-                <div class="chart-area">
-                  <form action="{% url 'patient:survey' %}" method="POST">
-                    {% csrf_token %}
-                    {% comment %} <div></div> {% endcomment %}
-                    <div class="form-group row">
-                      <div class="col-sm-1">
-                      &nbsp;&nbsp; Fail:
-                      </div>
-                      {% for radio in form.falls %}
-                      <div class="col-sm-1">
-                        <div class="custom-control custom-radio">
-                          {{ radio.tag }}
-                          <label class="custom-control-label"
-                            for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                        </div>
-                      </div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-1">
-                      &nbsp;&nbsp; Depression:
-                      </div>
-                      {% for radio in form.depression %}
-                      <div class="col-sm-1">
-                        <div class="custom-control custom-radio">
-                          {{ radio.tag }}
-                          <label class="custom-control-label"
-                            for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                        </div>
-                      </div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-1">
-                      &nbsp;&nbsp; Dyskinesia:
-                      </div>
-                      {% for radio in form.dyskinesia %}
-                      <div class="col-sm-1">
-                        <div class="custom-control custom-radio">
-                          {{ radio.tag }}
-                          <label class="custom-control-label"
-                            for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                        </div>
-                      </div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-1">
-                      &nbsp;&nbsp; Movement:
-                      </div>
-                      {% for radio in form.movement %}
-                      <div class="col-sm-1">
-                        <div class="custom-control custom-radio">
-                          {{ radio.tag }}
-                          <label class="custom-control-label"
-                            for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                        </div>
-                      </div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-1">
-                      &nbsp;&nbsp; Thinking:
-                      </div>
-                      {% for radio in form.thinking %}
-                      <div class="col-sm-1">
-                        <div class="custom-control custom-radio">
-                          {{ radio.tag }}
-                          <label class="custom-control-label"
-                            for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                        </div>
-                      </div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-1">
-                      &nbsp;&nbsp; Walking:
-                      </div>
-                      {% for radio in form.walking %}
-                      <div class="col-sm-1">
-                        <div class="custom-control custom-radio">
-                          {{ radio.tag }}
-                          <label class="custom-control-label"
-                            for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                        </div>
-                      </div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-1">
-                      &nbsp;&nbsp; Chest Pain:
-                      </div>
-                      {% for radio in form.chest_pain %}
-                      <div class="col-sm-1">
-                        <div class="custom-control custom-radio">
-                          {{ radio.tag }}
-                          <label class="custom-control-label"
-                            for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                        </div>
-                      </div>
-                      {% endfor %}
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-sm-1">
-                      &nbsp;&nbsp; Tremor:
-                      </div>
-                      {% for radio in form.tremor %}
-                      <div class="col-sm-1">
-                        <div class="custom-control custom-radio">
-                          {{ radio.tag }}
-                          <label class="custom-control-label"
-                            for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
-                        </div>
-                      </div>
-                      {% endfor %}
-                    </div>
+                <div class="container-fluid">
                   
-                    
+                  <form action="{% url 'patient:survey' %}" method="POST">
+                  {% csrf_token %}
+                    {% for field in form %}
+                      <div class="form-group row">
+                        <div class="col-sm-5">
+                        {{ field.label }}: 
+                        </div>
+                        {% for radio in field %}
+                        <div class="col-sm-1">
+                          <div class="custom-control custom-radio">
+                            {{ radio.tag }}
+                            <label class="custom-control-label"
+                              for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                          </div>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                        Submit Survey
+                    </button>
                   </form>
                   
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-user btn-block">
-                      Submit Survey
-                  </button>
+                
               </div>
             </div>
           </div>
@@ -312,5 +209,6 @@ Survey
     <!-- End of Content Wrapper -->
   </div>
 </div>
+
 <!-- End of Page Wrapper -->
 {% endblock content %}
