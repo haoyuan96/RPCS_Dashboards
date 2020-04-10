@@ -93,9 +93,11 @@ def survey(request):
 
     print(caregiver.patient)
     if caregiver.patient.survey is None:
-        caregiver.patient.survey = Survey()
-        caregiver.patient.survey.save()
-        # patient.save()
+        survey = Survey()
+        survey.save()
+        patient.survey = survey
+        patient.save()
+        caregiver.save()
         print("save new survey")
 
     print(caregiver.patient.survey)
