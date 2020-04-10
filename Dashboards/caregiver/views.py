@@ -5,12 +5,16 @@ from django.forms import model_to_dict
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
+# create JSON objects (used for calendar events)
+from django.core import serializers
+import json
+
 from .models import CaregiverProfile
 from patient.models import CalendarEvent
 
 from caregiver.forms import *
 from patient.forms import *
-from .forms import CalendarEventForm
+from .forms import *
 
 # Create your views here.
 
@@ -25,7 +29,9 @@ def home(request):
 
 def todo(request):
     print(request.user)
-    return render(request, 'caregiver/todo.html')
+    form = TodoEventForm()
+    context = {'form': form}
+    return render(request, 'caregiver/todo.html', context)
 
 
 def calendar(request):
@@ -57,17 +63,28 @@ def addevent(request):
     if request.method == 'POST':
         form = CalendarEventForm(request.POST)
         if form.is_valid():
-            # print(form.cleaned_data['description'])
-            # print(form.cleaned_data['date'])
-            # print(form.cleaned_data['start_time'])
-            # print(form.cleaned_data['end_time'])
             description = form.cleaned_data['description']
             date = form.cleaned_data['date']
             start = form.cleaned_data['start_time']
             end = form.cleaned_data['end_time']
             patient = request.user.caregiverprofile.patient
             print("patient name is: " + patient.user.username)
-            newevent = CalendarEvent(patient=patient, descriprion=description, date=date, start=start, end=end)
+            newevent = CalendarEvent(patient=patient, description=description, date=date, start=start, end=end)
             newevent.save()
-            return render(request, 'caregiver/todo.html')
+            return redirect("/caregiver/calendar")
     return render(request, 'caregiver/survey.html')
+
+def getevents(request):
+    patient = request.user.caregiverprofile.patient
+    all_events = CalendarEvent.objects.filter(patient=patient)
+    event_arr = []
+    for i in all_events:
+        event_sub_arr = {}
+        event_sub_arr['title'] = i.description
+        date = i.date.strftime("%Y-%m-%dT")
+        start_time = i.start.strftime("%H:%M:%S")
+        end_time = i.end.strftime("%H:%M:%S")
+        event_sub_arr['start'] = date + start_time
+        event_sub_arr['end'] = date + end_time
+        event_arr.append(event_sub_arr)
+    return HttpResponse(json.dumps(event_arr))

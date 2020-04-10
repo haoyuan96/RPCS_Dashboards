@@ -5,3 +5,9 @@ class CalendarEventForm(forms.Form):
     date = forms.DateField(widget=forms.HiddenInput())
     start_time = forms.TimeField(label='Start Time', required = True)
     end_time = forms.TimeField(label='End Time', required = True)
+
+class TodoEventForm(forms.Form):
+    description = forms.CharField(label='Event', max_length=100, required = True)
+    date = forms.DateField(label='Date', required = True)
+    start_time = forms.TimeField(label='Start Time', required = True)
+    end_time = forms.TimeField(label='End Time', required = True)

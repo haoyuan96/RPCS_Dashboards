@@ -13,4 +13,5 @@ urlpatterns = [
     path('survey/', views.survey, name='survey'),
     path('login/', views.login, name='login'),
     path('addevent/', views.addevent, name='addevent'),
+    path('getevents/', views.getevents, name='getevents'),
 ]

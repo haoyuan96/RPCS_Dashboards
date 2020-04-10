@@ -23,7 +23,7 @@ class CalendarEvent(models.Model):
     patient = models.ForeignKey(PatientProfile, on_delete=models.CASCADE, related_name='calendar_events')
     start = models.TimeField(auto_now_add=False, null=False)
     end = models.TimeField(auto_now_add=False, null=False)
-    descriprion = models.CharField(max_length=200, blank=True)
+    description = models.CharField(max_length=200, blank=True)
     date = models.DateField(auto_now_add=False, null=False)
 
     def __str__(self):
