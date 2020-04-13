@@ -64,21 +64,17 @@
                   <button type="submit" class="btn btn-primary btn-user btn-block">
                     Login
                   </button>
-                  <hr>
-                  <a href="{% url 'patient:home' %}" class="btn btn-google btn-user btn-block">
-                    <i class="fab fa-google fa-fw"></i> Login with Google
-                  </a>
-                  <a href="{% url 'patient:home' %}" class="btn btn-facebook btn-user btn-block">
-                    <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                  </a>
                 </form>
                 <hr>
-                <div class="text-center">
-                  <a class="small" href="forgot-password.html">Forgot Password?</a>
+                <div class = "row" class="text-center">
+                  <div class="col-sm">
+                  <a class="large" href="forgot-password.html">Forgot Password?</a>
+                  </div>
+                  <div class="col-s">
+                  <a class="large" href="{% url 'register' %}">Create an Account!</a>
                 </div>
-                <div class="text-center">
-                  <a class="small" href="{% url 'register' %}">Create an Account!</a>
                 </div>
+  
               </div>
             </div>
           </div>
