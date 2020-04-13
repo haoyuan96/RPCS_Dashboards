@@ -1,4 +1,8 @@
 {% extends "caregiver/base.html" %}
+{% block formMedia %}
+{{ form.media }}
+{% endblock formMedia %}
+
 {% block title %}
 Calendar
 {% endblock title %}
@@ -186,8 +190,7 @@ Calendar
                       <form id="eventform" action="../calendar/" method="post">
                         <div class="modal-body">
                           {% csrf_token %}
-                          {{ form.as_table }}
-                          </br>
+                          {{ form.as_p }}
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -238,8 +241,8 @@ Calendar
                 right: 'dayGridMonth,timeGridWeek,timeGridDay'
             },
             dateClick: function(info) {
-              hiddendate = document.getElementById('id_date') 
-              hiddendate.value = info.dateStr
+              hiddendate = document.getElementById('id_date');
+              hiddendate.value = info.dateStr;
               $('#addEventModal').modal('show');
             },
             eventLimit: true, // allow "more" link when too many events

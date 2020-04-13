@@ -1,7 +1,10 @@
 {% extends "caregiver/base.html" %}
-{% block title %}
-To-Dos
-{% endblock title %}
+
+{% block formMedia %}
+  {{ form.media }}
+{% endblock formMedia %}
+
+{% block title %}To-Dos{% endblock title %}
 
 {% block content %}
 
@@ -186,7 +189,7 @@ To-Dos
                       <form id="eventform" action="../todo/" method="post">
                         <div class="modal-body">
                           {% csrf_token %}
-                          {{ form.as_table }}
+                          {{ form.as_p }}
                           </br>
                         </div>
                         <div class="modal-footer">

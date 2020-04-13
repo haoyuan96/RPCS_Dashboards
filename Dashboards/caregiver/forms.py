@@ -1,16 +1,44 @@
 from django import forms
+from tempus_dominus.widgets import DatePicker, TimePicker
+
 
 class CalendarEventForm(forms.Form):
-    description = forms.CharField(label='Event', max_length=100, required = True)
+    description = forms.CharField(label='Event', max_length=100, required=True)
     date = forms.DateField(widget=forms.HiddenInput())
-    start_time = forms.TimeField(label='Start Time', required = True)
-    end_time = forms.TimeField(label='End Time', required = True)
+    start_time = forms.TimeField(label='Start Time', widget=TimePicker(
+        options={
+            'format': 'HH:mm',
+            'useCurrent': True
+        }
+    ), required=True)
+    end_time = forms.TimeField(label='End Time', widget=TimePicker(
+        options={
+            'format': 'HH:mm',
+            'useCurrent': True
+        }
+    ), required=True)
+
 
 class TodoEventForm(forms.Form):
-    description = forms.CharField(label='Event', max_length=100, required = True)
-    date = forms.DateField(label='Date', required = True)
-    start_time = forms.TimeField(label='Start Time', required = True)
-    end_time = forms.TimeField(label='End Time', required = True)
+    description = forms.CharField(label='Event', max_length=100, required=True)
+    date = forms.DateField(label='Date', widget=DatePicker(
+        options={
+            'useCurrent': True
+        }
+    ), required=True)
+    start_time = forms.TimeField(label='Start Time', widget=TimePicker(
+        options={
+            'format': 'HH:mm',
+            'useCurrent': True
+        }
+    ), required=True)
+    end_time = forms.TimeField(label='End Time', widget=TimePicker(
+        options={
+            'format': 'HH:mm',
+            'useCurrent': True
+        }
+    ), required=True)
+
 
 class SurveyForm(forms.Form):
     falls = forms.CharField(label="Falls", max_length=10, widget=forms.RadioSelect(
