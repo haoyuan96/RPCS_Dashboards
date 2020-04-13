@@ -8,3 +8,7 @@ A set of Dashboards for the Doctor, Patient, and Caregiver
 3.7.x
 ### Django Version
 3.0.3
+
+# Dependency
+### Django Tempus Dominus
+pip install django-tempus-dominus
