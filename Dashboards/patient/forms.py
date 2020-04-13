@@ -45,7 +45,7 @@ class SurveyForm(forms.Form):
                 ('3', '3'),
                 ('4', '4'),
                 ('5', '5')),
-        attrs={'id': 'id_falls', 'class': 'custom-control-input'}))
+        attrs={'size': 20, 'id': 'id_falls', 'class': 'custom-control-input'}))
 
     depression = forms.CharField(label="Depression", max_length=10, widget=forms.RadioSelect(
         choices=(
@@ -67,7 +67,7 @@ class SurveyForm(forms.Form):
                 ('5', '5')),
         attrs={'id': 'id_dyskinesia', 'class': 'custom-control-input'}))
 
-    movement = forms.CharField(label="Fine motor movement, like folding clothes or opening mail", max_length=10, widget=forms.RadioSelect(
+    movement = forms.CharField(label="Fine motor movement", max_length=10, widget=forms.RadioSelect(
         choices=(
                 ('0', '0'),
                 ('1', '1'),
