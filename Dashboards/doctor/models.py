@@ -16,3 +16,14 @@ class DoctorProfile(models.Model):
 
     # def __str__(self):
     # return 'id=' + str(self.id) + ',patients="' + self.patients.all() + '"'
+
+class DoctorCalendarEvent(models.Model):
+    doctor = models.ForeignKey(DoctorProfile, on_delete=models.CASCADE, related_name='calendar_events')
+    start = models.TimeField(auto_now_add=False, null=False)
+    end = models.TimeField(auto_now_add=False, null=False)
+    description = models.CharField(max_length=200, blank=True)
+    date = models.DateField(auto_now_add=False, null=False)
+
+    def __str__(self):
+        return 'doctor=' + self.patient.user.username + ', start=' + self.start.ToSting() + ', end=' + self.end.ToSting() + ', description=' + self.descriprion
+

@@ -5,6 +5,7 @@ from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.urls import reverse
 from patient.forms import *
+from caregiver.forms import TodoEventForm
 from .models import Survey, PatientProfile, CalendarEvent
 
 
@@ -28,14 +29,15 @@ def todo(request):
             date = form.cleaned_data['date']
             start = form.cleaned_data['start_time']
             end = form.cleaned_data['end_time']
-            patient = request.user.PatientProfile
+            patient = request.user.patientprofile
             print("patient name is: " + patient.user.username)
             newevent = CalendarEvent(patient=patient, description=description, date=date, start=start, end=end)
             newevent.save()
-            return redirect("/caregiver/todo")
+            return redirect("/patient/todo")
+    print(TodoEventForm)
     form = TodoEventForm()
     context = {'form': form}
-    return render(request, 'patient/todo.html')
+    return render(request, 'patient/todo.html', context)
 
 def calendar(request):
     return render(request, 'patient/calendar.html')

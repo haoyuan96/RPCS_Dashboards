@@ -8,9 +8,17 @@ from django.contrib.auth.models import User
 from django.core import serializers
 # from django.shortcuts import render_to_response
 from patient.forms import SurveyForm
-from patient.models import PatientProfile, Survey
-from doctor.models import DoctorProfile
+from doctor.forms import DoctorCalendarEventForm
+from caregiver.forms import CalendarEventForm
+from patient.models import PatientProfile, Survey, CalendarEvent
+from doctor.models import DoctorProfile, DoctorCalendarEvent
 from django.contrib import messages
+
+
+# create JSON objects (used for calendar events)
+from django.core import serializers
+import json
+
 
 def home(request):
     context = {}
@@ -110,7 +118,32 @@ def todo(request):
 
 
 def calendar(request):
-    return render(request, 'doctor/calendar.html')
+    if request.method == 'POST':
+        form = DoctorCalendarEventForm(request.POST)
+        if form.is_valid():
+            description = form.cleaned_data['description']
+            date = form.cleaned_data['date']
+            start = form.cleaned_data['start_time']
+            end = form.cleaned_data['end_time']
+            patient_id = form.cleaned_data['patient']
+
+            # add to doctor
+            doctor = request.user.doctorprofile
+            newevent = DoctorCalendarEvent(doctor=doctor, description=description, date=date, start=start, end=end)
+            newevent.save()
+
+            # add to patient
+            patient = User.objects.get(username=patient_id)
+            if (patient):
+                patient = patient.patientprofile
+                print("patient name is: " + patient.user.username)
+                newevent = CalendarEvent(patient=patient, description=description, date=date, start=start, end=end)
+                newevent.save()
+            return redirect("/doctor/calendar")
+
+    form = DoctorCalendarEventForm()
+    context = {'form': form}
+    return render(request, 'doctor/calendar.html', context)
 
 
 def metrics(request):
@@ -172,3 +205,18 @@ def set_questionnaire(request, username):
     patient_user = User.objects.filter(username=username)
     context['patient'] = patient_user[0].patientprofile
     return render(request, 'doctor/set_questionnaire.html', context)
+
+def getevents(request):
+    doctor = request.user.doctorprofile
+    all_events = DoctorCalendarEvent.objects.filter(doctor=doctor)
+    event_arr = []
+    for i in all_events:
+        event_sub_arr = {}
+        event_sub_arr['title'] = i.description
+        date = i.date.strftime("%Y-%m-%dT")
+        start_time = i.start.strftime("%H:%M:%S")
+        end_time = i.end.strftime("%H:%M:%S")
+        event_sub_arr['start'] = date + start_time
+        event_sub_arr['end'] = date + end_time
+        event_arr.append(event_sub_arr)
+    return HttpResponse(json.dumps(event_arr))
