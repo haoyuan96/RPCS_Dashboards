@@ -1,4 +1,5 @@
 from django import forms
+from tempus_dominus.widgets import DatePicker, TimePicker
 
 from .models import PatientProfile
 from django.forms.utils import ErrorList
@@ -12,6 +13,26 @@ class DivErrorList(ErrorList):
         if not self:
             return ''
         return '<div class="invalid-tooltip">%s</div>' % ''.join(['<div class="invalid-tooltip">%s</div>' % e for e in self])
+
+class TodoEventForm(forms.Form):
+    description = forms.CharField(label='Event', max_length=100, required=True)
+    date = forms.DateField(label='Date', widget=DatePicker(
+        options={
+            'useCurrent': True
+        }
+    ), required=True)
+    start_time = forms.TimeField(label='Start Time', widget=TimePicker(
+        options={
+            'format': 'HH:mm',
+            'useCurrent': True
+        }
+    ), required=True)
+    end_time = forms.TimeField(label='End Time', widget=TimePicker(
+        options={
+            'format': 'HH:mm',
+            'useCurrent': True
+        }
+    ), required=True)
 
 
 class PatientProfileForm(forms.ModelForm):

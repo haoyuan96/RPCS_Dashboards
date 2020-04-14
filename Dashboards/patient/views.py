@@ -5,7 +5,13 @@ from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.urls import reverse
 from patient.forms import *
-from .models import Survey, PatientProfile
+from .models import Survey, PatientProfile, CalendarEvent
+
+
+# create JSON objects (used for calendar events)
+from django.core import serializers
+import json
+
 
 # Create your views here.
 
@@ -14,11 +20,41 @@ def home(request):
 
 
 def todo(request):
+    print(request.user)
+    if request.method == 'POST':
+        form = TodoEventForm(request.POST)
+        if form.is_valid():
+            description = form.cleaned_data['description']
+            date = form.cleaned_data['date']
+            start = form.cleaned_data['start_time']
+            end = form.cleaned_data['end_time']
+            patient = request.user.PatientProfile
+            print("patient name is: " + patient.user.username)
+            newevent = CalendarEvent(patient=patient, description=description, date=date, start=start, end=end)
+            newevent.save()
+            return redirect("/caregiver/todo")
+    form = TodoEventForm()
+    context = {'form': form}
     return render(request, 'patient/todo.html')
-
 
 def calendar(request):
     return render(request, 'patient/calendar.html')
+
+def getevents(request):
+    patient = request.user.patientprofile
+    all_events = CalendarEvent.objects.filter(patient=patient)
+    event_arr = []
+    for i in all_events:
+        event_sub_arr = {}
+        event_sub_arr['title'] = i.description
+        date = i.date.strftime("%Y-%m-%dT")
+        start_time = i.start.strftime("%H:%M:%S")
+        end_time = i.end.strftime("%H:%M:%S")
+        event_sub_arr['start'] = date + start_time
+        event_sub_arr['end'] = date + end_time
+        event_arr.append(event_sub_arr)
+    return HttpResponse(json.dumps(event_arr))
+
 
 
 def metrics(request):
