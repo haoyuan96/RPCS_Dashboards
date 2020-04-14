@@ -69,7 +69,9 @@
             Please type the patient's username:
             <input type="text" class="form-control bg-light border-100 small" placeholder="patient's username..." name = "search_username">
           </div>
-
+          {% if alert_flag %}
+              <script>alert("Please input valid username of a patient!")</script>  
+          {% endif %}
           <div class="modal-footer">
               <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>            
           
@@ -97,9 +99,7 @@
   <!-- Page level custom scripts -->
   <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
   <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
-  <script>
-    alert('{{ message }}');
-  </script> 
+  
 </body>
 
 </html>

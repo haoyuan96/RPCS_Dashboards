@@ -173,6 +173,9 @@ Survey
                     <button style="font-size:210%;" type="submit" class="btn btn-primary btn-user btn-block">
                         Submit Survey
                     </button>
+                    {% if alert_flag %}
+                        <script>alert("Successfully submitted!")</script>  
+                    {% endif %}
                   </form>
                   
                 </div>

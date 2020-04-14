@@ -38,7 +38,7 @@ def search(request):
         # return HttpResponse(json_error, content_type='application/json')
     
         message = 'You must enter a valid username of a patient.'
-        return render(request, 'doctor/index.html', {'message': message, 'patients': doctor.patients.all()})
+        return render(request, 'doctor/index.html', {'search_alert_flag': True, 'patients': doctor.patients.all()})
 
     
     
@@ -65,8 +65,7 @@ def search(request):
         except:
             print('try fail')
             context['patients'] = doctor.patients.all()
-            message = 'You must enter a valid username of a patient.'
-            return render(request, 'doctor/index.html', {'message': message, 'patients': doctor.patients.all()})
+            return render(request, 'doctor/index.html', {'search_alert_flag': True, 'patients': doctor.patients.all()})
     else:
         print('no request post')
         context['patients'] = doctor.patients.all()
@@ -81,11 +80,11 @@ def add_patient(request):
 
     doctor = request.user.doctorprofile
     if not 'search_username' in request.POST or not request.POST['search_username']:
-        message = 'You must enter a valid username of a patient.'
+        # message = 'You must enter a valid username of a patient.'
 
         # json_error = '{ "error": "'+message+'" }'
         # return HttpResponse(json_error, content_type='application/json')
-        return render(request, 'doctor/index.html', {'message': message, 'patients': doctor.patients.all()})
+        return render(request, 'doctor/index.html', {'alert_flag': True, 'patients': doctor.patients.all()})
 
     try:
         input_username = request.POST['search_username']
@@ -102,8 +101,7 @@ def add_patient(request):
         print(doctor.patients.all())
     except:
         print('try fail')
-        message = 'You must enter the username of a patient.'
-        return render(request, 'doctor/index.html', {'message': message, 'patients': doctor.patients.all()})
+        return render(request, 'doctor/index.html', {'alert_flag': True, 'patients': doctor.patients.all()})
 
     return render(request, 'doctor/index.html', context)
 

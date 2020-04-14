@@ -82,6 +82,9 @@ Doctor Dashboard
                       <button class="btn btn-primary">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
+                      {% if search_alert_flag %}
+                          <script>alert("Please input valid username of a patient!")</script>  
+                      {% endif %} 
                     </div>
                   </div>
                 </form>
@@ -137,7 +140,8 @@ Doctor Dashboard
                 <div class="card-body">
                   <button class="btn btn-primary" type="button" href="#" data-toggle="modal" data-target="#AddPatientModal">
                       Add a patient
-                  </button>  
+                  </button> 
+                  
                 </div> 
             </div>
           </div>
