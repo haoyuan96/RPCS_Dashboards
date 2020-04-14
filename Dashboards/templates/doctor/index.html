@@ -150,16 +150,18 @@ Doctor Dashboard
 
           <div class="row">
           {% for patient in patients %}
-            <div class="col">
+          <!-- <div class="col"> -->              
+            <div class="ml-4">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" style="height:2rem;">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary"><a href="{% url 'doctor:patient_info' patient.user.username%}">{{patient.user.first_name}} {{patient.user.last_name}}</a></h6>
                   <img src="{% static 'img/red_bell.png' %}" height="20" width="20"> 
                 </div>
                 <img src="{% static 'img/' %}{{patient.user.first_name}}_{{patient.user.last_name}}.png" height="150" width="150">
               </div>
             </div>
+          <!-- </div> -->          
           {% endfor %}
           
 
