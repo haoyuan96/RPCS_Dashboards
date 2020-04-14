@@ -10,6 +10,7 @@ from django.core import serializers
 from patient.forms import SurveyForm
 from patient.models import PatientProfile, Survey
 from doctor.models import DoctorProfile
+from django.contrib import messages
 
 def home(request):
     context = {}
@@ -29,12 +30,17 @@ def search(request):
     if request.method != 'POST':
         print('Http404')
         raise Http404
-    if not 'search_username' in request.POST or not request.POST['search_username']:
-        message = 'You must enter the username of a patient.'
-        json_error = '{ "error": "'+message+'" }'
-        return HttpResponse(json_error, content_type='application/json')
-    
+
     doctor = request.user.doctorprofile
+    if not 'search_username' in request.POST or not request.POST['search_username']:
+        # message = 'You must enter the username of a patient.'
+        # json_error = '{ "error": "'+message+'" }'
+        # return HttpResponse(json_error, content_type='application/json')
+    
+        message = 'You must enter a valid username of a patient.'
+        return render(request, 'doctor/index.html', {'message': message, 'patients': doctor.patients.all()})
+
+    
     
     if 'search_username' in request.POST and request.POST['search_username'] != '':
         try:
@@ -59,6 +65,8 @@ def search(request):
         except:
             print('try fail')
             context['patients'] = doctor.patients.all()
+            message = 'You must enter a valid username of a patient.'
+            return render(request, 'doctor/index.html', {'message': message, 'patients': doctor.patients.all()})
     else:
         print('no request post')
         context['patients'] = doctor.patients.all()
@@ -70,23 +78,33 @@ def add_patient(request):
     if request.method != 'POST':
         print ("404")
         raise Http404
-    if not 'search_username' in request.POST or not request.POST['search_username']:
-        message = 'You must enter the username of a patient.'
-        json_error = '{ "error": "'+message+'" }'
-        return HttpResponse(json_error, content_type='application/json')
-    
-    input_username = request.POST['search_username']
-    print(input_username)
-    patient_user = User.objects.filter(username=input_username)
-    patient = patient_user[0].patientprofile
-    doctor = request.user.doctorprofile
-    # ignore already added ones
-    if not patient.doctor is doctor :
-        patient.doctor = doctor
-        patient.save()
 
-    context['patients'] = doctor.patients.all()
-    print(doctor.patients.all())
+    doctor = request.user.doctorprofile
+    if not 'search_username' in request.POST or not request.POST['search_username']:
+        message = 'You must enter a valid username of a patient.'
+
+        # json_error = '{ "error": "'+message+'" }'
+        # return HttpResponse(json_error, content_type='application/json')
+        return render(request, 'doctor/index.html', {'message': message, 'patients': doctor.patients.all()})
+
+    try:
+        input_username = request.POST['search_username']
+        print(input_username)
+        patient_user = User.objects.filter(username=input_username)
+        patient = patient_user[0].patientprofile
+        
+        # ignore already added ones
+        if not patient.doctor is doctor :
+            patient.doctor = doctor
+            patient.save()
+
+        context['patients'] = doctor.patients.all()
+        print(doctor.patients.all())
+    except:
+        print('try fail')
+        message = 'You must enter the username of a patient.'
+        return render(request, 'doctor/index.html', {'message': message, 'patients': doctor.patients.all()})
+
     return render(request, 'doctor/index.html', context)
 
 def todo(request):
