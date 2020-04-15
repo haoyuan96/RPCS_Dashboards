@@ -63,9 +63,6 @@ option = {
 ;
 myChart.setOption(option, true);
 
-setTimeout(function() {
-    var ref = document.getElementById("heartChart").style.width+'px';
-    document.getElementById("moodChart").style.width = ref;
-    var dom = document.getElementById("moodChart");
-    var myChart = echarts.init(dom);
-}, 1000);
+window.onresize = function(){
+    myChart.resize();
+}
