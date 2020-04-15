@@ -137,7 +137,7 @@ To-Dos
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary"style="font-size:300%;">To-Do Items</h6>
-                  <div class="dropdown no-arrow">
+                  <!--div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
@@ -148,7 +148,7 @@ To-Dos
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Something else here</a>
                     </div>
-                  </div>
+                  </div-->
                 </div>
                 
                 <!-- Card Body -->
@@ -164,8 +164,9 @@ To-Dos
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
+
                         <!-- form for adding new events -->
-                        <form id="eventform" action="../todo/" method="post">
+                        <form id="eventform" action="../todo/" method="post" style="font-size: 150%;">
                           <div class="modal-body">
                             {% csrf_token %}
                             {{ form.as_p }}
