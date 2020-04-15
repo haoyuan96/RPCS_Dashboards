@@ -1,16 +1,13 @@
-var dom = document.getElementById("lineChart2");
+var dom = document.getElementById("shorttermChart");
 var myChart = echarts.init(dom);
 var app = {};
 option = null;
 option = {
-    title: {
-        subtext: 'All data is fake at this time'
-    },
     tooltip: {
         trigger: 'axis'
     },
     legend: {
-        data: ['metric1']
+        data: ['wordsearch','tile_matching','brown_peterson']
     },
     toolbox: {
         show: true,
@@ -18,9 +15,6 @@ option = {
             dataZoom: {
                 yAxisIndex: 'none'
             },
-            dataView: {readOnly: false},
-            magicType: {type: ['line', 'bar']},
-            restore: {},
             saveAsImage: {}
         }
     },
@@ -31,26 +25,30 @@ option = {
     },
     yAxis: {
         type: 'value',
+        min: 0,
+        max: 100,
         axisLabel: {
             formatter: '{value}'
         }
     },
     series: [
         {
-            name: 'metric1',
+            name: 'wordsearch',
             type: 'line',
+            //data = data.heartrate
             data: [10, 19, 9, 13, 4, 13, 3],
-            markPoint: {
-                data: [
-                    {type: 'max', name: 'maximum'},
-                    {type: 'min', name: 'minimum'}
-                ]
-            },
-            markLine: {
-                data: [
-                    {type: 'average', name: 'average'}
-                ]
-            }
+        },
+        {
+            name: 'tile_matching',
+            type: 'line',
+            //data = data.heartrate
+            data: [10, 89, 90, 3, 40, 13, 6],
+        },
+        {
+            name: 'brown_peterson',
+            type: 'line',
+            //data = data.heartrate
+            data: [10, 9, 9, 10, 4, 93, 3],
         }
     ]
 };

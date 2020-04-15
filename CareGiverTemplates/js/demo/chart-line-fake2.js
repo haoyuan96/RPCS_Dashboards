@@ -3,14 +3,11 @@ var myChart = echarts.init(dom);
 var app = {};
 option = null;
 option = {
-    title: {
-        subtext: 'All data is fake at this time'
-    },
     tooltip: {
         trigger: 'axis'
     },
     legend: {
-        data: ['metric1']
+        data: ['heartrate']
     },
     toolbox: {
         show: true,
@@ -19,7 +16,6 @@ option = {
                 yAxisIndex: 'none'
             },
             dataView: {readOnly: false},
-            magicType: {type: ['line', 'bar']},
             restore: {},
             saveAsImage: {}
         }
@@ -31,24 +27,21 @@ option = {
     },
     yAxis: {
         type: 'value',
+        min: 0,
+        max: 235,
         axisLabel: {
             formatter: '{value}'
         }
     },
     series: [
         {
-            name: 'metric1',
+            name: 'heartrate',
             type: 'line',
+            //data = data.heartrate
             data: [10, 19, 9, 13, 4, 13, 3],
-            markPoint: {
-                data: [
-                    {type: 'max', name: 'maximum'},
-                    {type: 'min', name: 'minimum'}
-                ]
-            },
             markLine: {
                 data: [
-                    {type: 'average', name: 'average'}
+                    {type: 'average', name: 'average heartrate'}
                 ]
             }
         }

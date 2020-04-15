@@ -1,4 +1,4 @@
-var dom = document.getElementById("lineChart");
+var dom = document.getElementById("bloodChart");
 var myChart = echarts.init(dom);
 var app = {};
 option = null;

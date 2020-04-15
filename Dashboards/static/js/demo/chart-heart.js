@@ -1,4 +1,4 @@
-var dom = document.getElementById("lineChart");
+var dom = document.getElementById("heartChart");
 var myChart = echarts.init(dom);
 var app = {};
 option = null;
@@ -7,7 +7,7 @@ option = {
         trigger: 'axis'
     },
     legend: {
-        data: ['systolic', 'diastolic']
+        data: ['heartrate']
     },
     toolbox: {
         show: true,
@@ -23,37 +23,25 @@ option = {
     xAxis: {
         type: 'category',
         boundaryGap: false,
-        // data = data.time
         data: ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat']
     },
     yAxis: {
         type: 'value',
         min: 0,
-        max: 260,
+        max: 200,
         axisLabel: {
             formatter: '{value}'
         }
     },
     series: [
         {
-            name: 'systolic',
+            name: 'heartrate',
             type: 'line',
-            //data = data.systolic
-            data: [11, 11, 15, 13, 12, 13, 5],
+            //data = data.heartrate
+            data: [90, 99, 99, 93, 84, 93, 83],
             markLine: {
                 data: [
-                    {type: 'average', name: 'average diastolic'}
-                ]
-            }
-        },
-        {
-            name: 'diastolic',
-            type: 'line',
-            //data = data.diastolic
-            data: [21, 81, 80, 93, 92, 93, 95],
-            markLine: {
-                data: [
-                    {type: 'average', name: 'average diastolic'}
+                    {type: 'average', name: 'average heartrate'}
                 ]
             }
         }
@@ -61,7 +49,3 @@ option = {
 };
 ;
 myChart.setOption(option, true);
-
-window.onresize = function(){
-    myChart.resize();
-}

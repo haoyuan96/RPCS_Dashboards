@@ -164,29 +164,65 @@ Metrics
             <div class="tab-pane fade show active" id="pills-health" role="tabpanel" aria-labelledby="pills-health">
 
               <div class="row">
-                <!-- Area Chart -->
+                <!-- Blood pressure Chart -->
                 <div class="col-xl-6 col-lg-6">
                   <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 class="m-0 font-weight-bold text-primary">Metric A</h6>
+                      <h6 class="m-0 font-weight-bold text-primary">Blood pressure</h6>
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
                       <div class="chart-area">
                         <!-- Add Chart Here! -->
-                        <div id="lineChart" style="width: 100%; height: 100%"></div>
+                        <div id="bloodChart" style="width: 100%; height: 100%"></div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <!-- Pie Chart -->
+                <!-- Heartrate Chart -->
                 <div class="col-xl-6 col-lg-6">
                   <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 class="m-0 font-weight-bold text-primary">Metric B</h6>
+                      <h6 class="m-0 font-weight-bold text-primary">Heart rate</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <!-- Add Chart Here! -->
+                        <div id="heartChart" style="width: 100%; height: 100%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Tremor1 Chart -->
+                <div class="col-xl-6 col-lg-6">
+                  <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Tremor sensor1</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <!-- Add Chart Here! -->
+                        <div id="calendarChart" style="width: 100%; height: 100%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tremor2 Chart -->
+                <div class="col-xl-6 col-lg-6">
+                  <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Tremor sensor2</h6>
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
@@ -199,86 +235,23 @@ Metrics
                 </div>
               </div>
 
-              <div class="row">
-                <!-- Area Chart -->
-                <div class="col-xl-6 col-lg-6">
-                  <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 class="m-0 font-weight-bold text-primary">Metric C</h6>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                      <div class="chart-area">
-                        <!-- Add Chart Here! -->
-                        <div id="calendarChart" style="width: 100%; height: 100%"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Pie Chart -->
-                <div class="col-xl-6 col-lg-6">
-                  <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 class="m-0 font-weight-bold text-primary">Metric D</h6>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                      <div class="chart-area">
-                        <!-- Add Chart Here! -->
-                        <div id="lineChart2" style="width: 100%; height: 100%"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <!-- Area Chart -->
-                <div class="col-xl-6 col-lg-6">
-                  <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 class="m-0 font-weight-bold text-primary">Metric E</h6>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                      <div class="chart-area">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Pie Chart -->
-                <div class="col-xl-6 col-lg-6">
-                  <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 class="m-0 font-weight-bold text-primary">Metric F</h6>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                      <div class="chart-area">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
 
             <div class="tab-pane fade" id="pills-mood" role="tabpanel" aria-labelledby="pills-mood">
-              <div class="col">
-                <div class="card shadow mb-4">
-                  <!-- Card Header - Dropdown -->
-                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Mood</h6>
-                  </div>
-                  <!-- Card Body -->
-                  <div class="card-body">
-                    <div class="chart-area">
+              <div class="row">
+                <!-- Blood pressure Chart -->
+                <div class="col-xl-6 col-lg-6">
+                  <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Mood</h6>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="chart-area">
+                        <!-- Add Chart Here! -->
+                        <div id="moodChart" style="width: 100%; height:100%"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -290,11 +263,13 @@ Metrics
                 <div class="card shadow mb-4">
                   <!-- Card Header - Dropdown -->
                   <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Game Records Table</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Game Records</h6>
                   </div>
                   <!-- Card Body -->
                   <div class="card-body">
                     <div class="chart-area">
+                      <!-- Game Chart -->
+                      <div id="gameChart" style="width: 100%; height: 100%"></div>
                     </div>
                   </div>
                 </div>
@@ -326,8 +301,8 @@ Metrics
 <script src="{% static 'vendor/chart.js/echarts-en.min.js' %}"></script>
 
 <!-- Page level custom scripts -->
-<script src="{% static 'js/demo/chart-pie-fake.js' %}"></script>
-<script src="{% static 'js/demo/chart-line-fake.js' %}"></script>
-<script src="{% static 'js/demo/chart-calendar-fake.js' %}"></script>
-<script src="{% static 'js/demo/chart-line-fake2.js' %}"></script>
+<script src="{% static 'js/demo/chart-blood.js' %}"></script>
+<script src="{% static 'js/demo/chart-heart.js' %}"></script>
+<script src="{% static 'js/demo/chart-line-mood.js' %}"></script>
+<script src="{% static 'js/demo/chart-line-game.js' %}"></script>
 {% endblock content %}
