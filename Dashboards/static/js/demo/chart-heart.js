@@ -110,16 +110,16 @@ function getData() {
             app.yvalue = data.heartrate.yvalue;
             console.log(app.time);
             console.log(app.yvalue);
-            app.yvalue= [90, 99, 93, 84, 93];
+            // app.yvalue= [90, 99, 93, 84, 93];
             myChart.setOption({
                 xAxis : {
                     type:'category',
-                    data: data.time
+                    data: app.time
                 },
                 series: [{
                     name: 'heartrate',
                     type: 'line',
-                    data: data.yvalue
+                    data: app.yvalue
                 }]
             });
             console.log(app.time);

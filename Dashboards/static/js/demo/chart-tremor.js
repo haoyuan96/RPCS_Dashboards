@@ -63,8 +63,6 @@ function getData() {
         success:function (data) {
             app.time = data.tremor1.time;
             app.yvalue = data.tremor1.yvalue;
-            console.log(app.time);
-            console.log(app.yvalue);
             myChart.setOption({
                 xAxis : {
                     type:'category',

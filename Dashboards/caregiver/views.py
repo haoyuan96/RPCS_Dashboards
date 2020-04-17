@@ -192,7 +192,7 @@ def getevents(request):
     return HttpResponse(json.dumps(event_arr))
 
 
-# @login_required
+@login_required
 def metric_display(request):
     db = get_db()
     patient_id = '10000000-0000-0000-0000-000000000000'

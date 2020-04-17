@@ -76,8 +76,6 @@ function getData() {
         dataType:'json',
         success:function (data) {
             app = eval(data);
-            console.log(app.time);
-            console.log(app.yvalue);
             myChart.setOption({
                 xAxis : {
                     type:'category',
