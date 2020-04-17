@@ -36,19 +36,19 @@ option = {
             name: 'wordsearch',
             type: 'line',
             //data = data.heartrate
-            data: [10, 19, 9, 13, 4, 13, 3],
+            // data: [10, 19, 9, 13, 4, 13, 3],
         },
         {
             name: 'tile_matching',
             type: 'line',
             //data = data.heartrate
-            data: [10, 89, 90, 3, 40, 13, 6],
+            // data: [10, 89, 90, 3, 40, 13, 6],
         },
         {
             name: 'brown_peterson',
             type: 'line',
             //data = data.heartrate
-            data: [10, 9, 9, 10, 4, 93, 3],
+            // data: [10, 9, 9, 10, 4, 93, 3],
         }
     ]
 };
