@@ -67,7 +67,26 @@ def calendar(request):
 
 
 def metrics(request):
-    return render(request, 'patient/metrics.html')
+    db = get_db()
+    patient_id = '10000000-0000-0000-0000-000000000000'
+    context = {}
+    # get latest biometric data from db
+    retrieved_biometric = find_biometric_by_patient_id(db, patient_id)[-1]
+    # TODO: need to change here when blood pressure schma is updated
+    context['systolic'] = retrieved_biometric['blood_pressure']
+    context['diastolic'] = retrieved_biometric['blood_pressure']
+    context['heart_rate'] = retrieved_biometric['heart_rate']
+    # context['tremor1'] = retrieved_biometric['tremor1']
+    # context['tremor2'] = retrieved_biometric['tremor2']
+    retrieved_game = find_game_by_patient_id(db, patient_id)[-1]
+    context["WordSearch"] = (
+        retrieved_game["left_hand_score"] + retrieved_game["right_hand_score"]) / 2
+    context["TileMatching"] = (
+        retrieved_game["left_hand_score"] + retrieved_game["right_hand_score"]) / 2
+    context["Brown-Peterson"] = (
+        retrieved_game["left_hand_score"] + retrieved_game["right_hand_score"]) / 2
+
+    return render(request, 'patient/metrics.html', context)
 
 
 def exercises(request):
