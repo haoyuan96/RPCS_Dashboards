@@ -102,9 +102,9 @@ $(document).ready(function(){
 function getData() {
     $.ajax({
         type: 'GET',
-        url:'/metric_display',
+        url:'/caregiver/metric_display',
         data:{},
-        dataType:'json',
+        dataType:'application/json',
         success:function (data) {
             app.time = data.heartrate.time;
             app.yvalue = data.heartrate.yvalue;

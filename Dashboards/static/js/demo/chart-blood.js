@@ -4,7 +4,7 @@ var app = {
     time:[],
     yvalue:[]
 };
-$(document).done(function(){
+$(document).ready(function(){
     getData();
 });
 option = null;
@@ -71,7 +71,7 @@ myChart.setOption(option, true);
 function getData() {
     $.ajax({
         type: 'GET',
-        url:'/metric_display',
+        url:'/cargiver/metric_display',
         data:{},
         dataType:'json',
         success:function (data) {
