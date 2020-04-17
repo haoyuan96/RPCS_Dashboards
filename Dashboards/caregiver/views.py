@@ -5,17 +5,30 @@ from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.urls import reverse
 
+from ipdb import set_trace as debug
+import sys
+sys.path.append('database')   
+from database.database import *
+# import pycurl
+from io import BytesIO
+import json
+import uuid
+import colored_traceback.always
 
 # Create your views here.
 
 def home(request):
     
     db = get_db()
-    patient_id = 0
+    patient_id = '10000000-0000-0000-0000-000000000000'
 
+
+    diction = {}
     # 1. mood
     retrieved_emotion = find_emotion_by_patient_id(db, patient_id)
-
+    print("fetch emotion")
+        
+            
     # truncate emotion length to 30 days
     if len(retrieved_emotion) > 30: 
         retrieved_emotion = retrieved_emotion[len(
@@ -28,62 +41,71 @@ def home(request):
     index = 0
 
     # fill in the dictionary
-    for feature in retrieved_emotion:
-        if (index < 30 - len(retrieved_emotion)):
+    for row in retrieved_emotion:
+        while (index < 30 - len(retrieved_emotion)):
             index = index + 1
-            continue
-        time = feature["time"]
-        neutral = feature["neutral"]
-        happiness = feature["happiness"]
-        sadness = feature["sadness"]
-        surprise = feature["surprise"]
-        anger = feature["anger"]
+        print(index)
+        time = row["created_at"].strftime("%Y-%m-%d")
+        neutral = str(row["neutral"])
+        happiness = str(row["happiness"])
+        sadness = str(row["sadness"])
+        surprise = str(row["surprise"])
+        anger = str(row["anger"])
         
         diction["mood"]["time"][index] = time
-        diction["mood"]["neutral"][index] = neutral
-        diction["mood"]["happiness"][index] = happiness
-        diction["mood"]["sadness"][index] = sadness
-        diction["mood"]["surprise"][index] = surprise
-        diction["mood"]["anger"][index] = anger
+        diction["mood"]["yvalue"]["neutral"][index] = neutral
+        diction["mood"]["yvalue"]["happiness"][index] = happiness
+        diction["mood"]["yvalue"]["sadness"][index] = sadness
+        diction["mood"]["yvalue"]["surprise"][index] = surprise
+        diction["mood"]["yvalue"]["anger"][index] = anger
         index = index + 1
 
-    print(retrieved_emotion)
-
+    print(diction["mood"])
+    print("==================================================================")
+    
     # 2. game
+    # Issue: a) Only one game for now
+    
     retrieved_game = find_game_by_patient_id(db, patient_id)
 
-    # truncate emotion length to 30 days
+    # truncate game length to 30 days
     if len(retrieved_game) > 30:
         retrieved_game = retrieved_game[len(
             retrieved_game) - 30: len(retrieved_game)]
+    print(retrieved_game)
 
-    # init mood dict
-    diction["game"] = {"time": ["0000-00-00"] * 30, "yvalue": {}}
-    diction["game"]["yvalue"] = {"WordSearch": [0] * 30, "TileMatching": [0] * 30,
-                                 "Brown-Peterson": [0] * 30}
+    # init game dict
+    diction["game"] = {"time": {}, "yvalue": {}}
+    diction["game"]["time"]= {"game1_time": ["0000-00-00"] * 30, "game2_time": ["0000-00-00"] * 30, "game3_time": ["0000-00-00"] * 30}
+    diction["game"]["yvalue"] = {"WordSearch": [
+        0] * 30, "TileMatching": [0] * 30, "Brown-Peterson": [0] * 30}
+    # 
+   
     index = 0
 
     # fill in the dictionary
-    for feature in retrieved_game:
-        if (index < 30 - len(retrieved_game)):
-            index = index + 1
-            continue
-        time = feature["time"]
-        word_search = feature["WordSearch"]
-        tile_matching = feature["TileMatching"]
-        brown_Peterson = feature["Brown-Peterson"]
+    for row in retrieved_game:
 
-        diction["game"]["time"][index] = time
-        diction["game"]["yvalue"]["WordSearch"][index] = word_search
-        diction["game"]["yvalue"]["TileMatching"][index] = tile_matching
-        diction["game"]["yvalue"]["Brown-Peterson"][index] = brown_Peterson
+        while (index < 30 - len(retrieved_game)):
+            index = index + 1
+        print(index)
+        time = row["created_at"].strftime("%Y-%m-%d")
+        left = row["left_hand_score"]
+        right = row["right_hand_score"]
+        
+        diction["game"]["time"]["game1_time"][index] = time
+        diction["game"]["yvalue"]["WordSearch"][index] = (left + right) / 2
         index = index + 1
 
-    print(retrieved_game)
+    print(diction["game"])
+    print("==================================================================")
 
-    # biometric
+    # Biometric:
+    # Issue: a) currenlty no tremor data
+    #        b) blood pressure is not systolic + diastolic: only one value
     retrieved_biometric = find_biometric_by_patient_id(db, patient_id)
-    
+    # print(len(retrieved_biometric))
+    # print(retrieved_biometric)
     # truncate emotion length to 30 days
     if len(retrieved_biometric) > 30:
         retrieved_biometric = retrieved_biometric[len(
@@ -101,21 +123,22 @@ def home(request):
     
     # 6. tremor2
     diction["tremor2"] = {"time": ["0000-00-00"] * 30, "yvalue": [0] * 30}
-
+    
+    index = 0
     # fill in the dictionary
-    for feature in retrieved_biometric:
-        if (index < 30 - len(retrieved_biometric)):
+    for row in retrieved_biometric:
+        while (index < 30 - len(retrieved_biometric)):
             index = index + 1
-            continue
-        time = feature["time"]
+            
+        print(index)
+        time = row["created_at"].strftime("%Y-%m-%d")
+        blood = str(row["blood_pressure"])
+        systolic = blood
+        diastolic = blood
 
-        blood = feature["blood"]
-        systolic = blood["systolic"]
-        diastolic = blood["diastolic"]
-
-        heartrate_value = feature["heartrate"]
-        tremor1_value = feature["tremor1"]
-        tremor2_value = feature["tremor2"]
+        heartrate_value = str(row["heart_rate"])
+        # tremor1_value = feature["tremor1"]
+        # tremor2_value = feature["tremor2"]
 
         diction["blood"]["time"][index] = time
         diction["blood"]["yvalue"]["systolic"][index] = systolic
@@ -124,19 +147,20 @@ def home(request):
         diction["heartrate"]["time"][index] = time
         diction["heartrate"]["yvalue"][index] = heartrate_value
 
-        diction["tremor1"]["time"][index] = time
-        diction["tremor1"]["yvalue"][index] = tremor1_value
+        # diction["tremor1"]["time"][index] = time
+        # diction["tremor1"]["yvalue"][index] = tremor1_value
 
-        diction["tremor2"]["time"][index] = time
-        diction["tremor2"]["yvalue"][index] = tremor2_value
+        # diction["tremor2"]["time"][index] = time
+        # diction["tremor2"]["yvalue"][index] = tremor2_value
 
         index = index + 1
-
+        
     print(diction["blood"])
+    print("==================================================================")
+
     print(diction["heartrate"])
-    print(diction["tremor1"])
-    print(diction["tremor2"])
-    
+    print("==================================================================")
+   
     # return HttpResponse(json.dumps(diction), content_type='application/json')
     return render(request, 'caregiver/index.html')
 
