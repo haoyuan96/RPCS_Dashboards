@@ -252,7 +252,7 @@ def metric_display(request):
     diction["game"]["time"] = {"game1_time": [
         "0000-00-00"] * 30, "game2_time": ["0000-00-00"] * 30, "game3_time": ["0000-00-00"] * 30}
     diction["game"]["yvalue"] = {"WordSearch": [
-        0] * 30, "TileMatching": [0] * 30, "Brown-Peterson": [0] * 30}
+        0] * 30, "TileMatching": [0] * 30, "BrownPeterson": [0] * 30}
     #
 
     index = 0
