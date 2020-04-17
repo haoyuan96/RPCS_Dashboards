@@ -1,3 +1,8 @@
+import colored_traceback.always
+import uuid
+import json
+from io import BytesIO
+from database.database import *
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -7,18 +12,14 @@ from django.urls import reverse
 from patient.forms import *
 from .models import Survey, PatientProfile
 
-#-----------------------
+# -----------------------
 # For the Database
 from ipdb import set_trace as debug
 import sys
-sys.path.append('database')   
-from database.database import *
+sys.path.append('database')
 # import pycurl
-from io import BytesIO
-import json
-import uuid
-import colored_traceback.always
 # Create your views here.
+
 
 def home(request):
     db = get_db()
@@ -37,7 +38,24 @@ def home(request):
     print("accel_id to find: ", accel_id)
     retrieved_accel = find_by_accel_id(db, accel_id)
     print(retrieved_accel)
-    return render(request, 'patient/index.html')
+    context = {}
+    score = get_score()
+    # TODO: need to decide the thresholds of the performance
+    if score > 100:
+        context['img_path'] = 'img/emoji_smile.png'
+        context['sentence'] = 'You are doing well today! Keep up!'
+    elif 50 < score <= 100:
+        context['img_path'] = 'img/emoji_soso.png'
+        context['sentence'] = 'Good good!'
+    else:
+        context['img_path'] = 'img/emoji_sad.png'
+        context['sentence'] = 'Love & peace'
+    return render(request, 'patient/index.html', context)
+
+
+def get_score():
+    # TODO: get data from db and return computed score of the patient
+    return 200
 
 
 def todo(request):
@@ -58,20 +76,19 @@ def exercises(request):
 
 def survey(request):
     context = {}
-    
+
     # Just display the registration form if this is a GET request.
     if request.method == 'GET':
         context['form'] = SurveyForm()
         return render(request, 'patient/survey.html', context)
 
-
     form = SurveyForm(request.POST)
-    context['form'] = form  
-    
+    context['form'] = form
+
     if not request.user.is_authenticated:
         print("user is not authenticated")
         return render(request, 'patient/survey.html', context)
-    
+
     patient = PatientProfile.objects.get(user=request.user)
     if patient.survey is None:
         survey = Survey()
@@ -125,7 +142,7 @@ def survey(request):
             survey.hallucinations = value
         if key == 'constipation':
             survey.constipation = value
-        
+
     survey.save()
     patient.survey = survey
     patient.save()
@@ -150,7 +167,7 @@ def survey(request):
     #     if key == "csrfmiddlewaretoken":
     #         continue
     #     value = request.POST[key]
-        
+
     #     if key == 'falls':
     #         patient.survey.falls = value
     #     if key == 'depression':
@@ -189,7 +206,7 @@ def survey(request):
     #         patient.survey.hallucinations = value
     #     if key == 'constipation':
     #         patient.survey.constipation = value
-       
+
     #     patient.survey.save()
     # patient.survey.save()
     # print(patient.survey)
@@ -198,7 +215,7 @@ def survey(request):
     # if not form.is_valid():
     #     print("form is not valid")
     #     return render(request, 'patient/survey.html', context)
-    
+
     # print(patient.survey)
     # print(patient.survey.constipation)
 
@@ -206,24 +223,24 @@ def survey(request):
 
 
 def login(request):
-	context = {}
+    context = {}
 
-	# Display the login page if request is "GET"
-	if request.method == 'GET':
-		return render(request, 'patient/login.html', context)
+    # Display the login page if request is "GET"
+    if request.method == 'GET':
+        return render(request, 'patient/login.html', context)
 
-	# Post request
-	if 'email' in request.POST and request.POST['email'] and 'password' in request.POST and request.POST['password']:
-		user = authenticate(username=request.POST['username'], password=request.POST['password'])
-		if user is not None :
-			login(request, user)
-			return redirect(reverse('home'))
-		# Error case: username doesn't match with password
-		else:
-			context['error_msg'] = "The email or password is incorrect."
+    # Post request
+    if 'email' in request.POST and request.POST['email'] and 'password' in request.POST and request.POST['password']:
+        user = authenticate(
+            username=request.POST['username'], password=request.POST['password'])
+        if user is not None:
+            login(request, user)
+            return redirect(reverse('home'))
+        # Error case: username doesn't match with password
+        else:
+            context['error_msg'] = "The email or password is incorrect."
 
-	# Error case:
-	else:
-		context['error_msg'] = "Please input username and password for login."
-	return render(request, 'patient/login.html', context)
-
+    # Error case:
+    else:
+        context['error_msg'] = "Please input username and password for login."
+    return render(request, 'patient/login.html', context)
