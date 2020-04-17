@@ -7,9 +7,36 @@ from django.urls import reverse
 from patient.forms import *
 from .models import Survey, PatientProfile
 
+#-----------------------
+# For the Database
+from ipdb import set_trace as debug
+import sys
+sys.path.append('database')   
+from database.database import *
+# import pycurl
+from io import BytesIO
+import json
+import uuid
+import colored_traceback.always
 # Create your views here.
 
 def home(request):
+    db = get_db()
+
+    accel_id = uuid.uuid4()
+    description = "patient dashboard local test"
+    patient_id = uuid.uuid4()
+    x = 2.3
+    y = 2.3
+    z = 2.3
+    # db, accel_id, description, patient_id, x, y, z
+    insert_accel(db, accel_id, description, patient_id, x, y, z)
+
+    # verify data
+    retrieved_accel = []
+    print("accel_id to find: ", accel_id)
+    retrieved_accel = find_by_accel_id(db, accel_id)
+    print(retrieved_accel)
     return render(request, 'patient/index.html')
 
 
