@@ -13,5 +13,6 @@ urlpatterns = [
     path('survey/', views.survey, name='survey'),
     path('login/', views.login, name='login'),
     path('getevents/', views.getevents, name='getevents'),
-    path('metric_display', views.metric_display, name='metric_data')
+    path('metric_display', views.metric_display, name='metric_data'),
+    path('view_general', views.view_general, name='view_general')
 ]
