@@ -161,7 +161,7 @@
                   {% comment %} <div class="chart-area"> {% endcomment %}
                     <div class="container-fluid">
                       <!-- Add Chart Here! -->
-                        {% for field in form %}
+                        {% for field in form.visible_fields %}
                           <div class="form-group row">
                             <div class="col-sm-5">
                             {{ field.label }}: 

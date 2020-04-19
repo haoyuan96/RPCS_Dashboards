@@ -7,9 +7,10 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 from .forms import RegistrationForm, LoginForm
-from patient.models import PatientProfile
+from patient.models import PatientProfile, SurveySetting, Survey
 from caregiver.models import CaregiverProfile
 from doctor.models import DoctorProfile
+from doctor.forms import SurveySettingForm
 
 # Create your views here.
 
@@ -54,7 +55,17 @@ def register(request):
     print(form.cleaned_data['username'])
     if request.POST['user_type'] == 'patient':
         new_profile = PatientProfile(user=new_user)
+        survey = Survey()
+        surveySetting = SurveySetting()
+        survey.save()
+        surveySetting.save()
+        new_profile.surveySetting = surveySetting
+        new_profile.survey = survey
+        # new_profile.save()
+        
         new_profile.save()
+        print("save new survey")
+
     elif request.POST['user_type'] == 'caregiver':
         new_profile = CaregiverProfile(user=new_user)
         new_profile.save()

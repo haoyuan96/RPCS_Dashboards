@@ -153,7 +153,7 @@ Survey
                   
                   <form action="{% url 'patient:survey' %}" method="POST">
                   {% csrf_token %}
-                    {% for field in form %}
+                    {% for field in form.visible_fields %}
                       <div class="form-group row">
                         <div style="font-size:210%;" class="col-sm-5">
                         {{ field.label }}: 
