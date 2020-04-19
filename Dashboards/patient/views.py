@@ -311,9 +311,9 @@ def survey(request):
     print(patient.survey)
     print(patient)
     # Validates the form.
-    if not form.is_valid():
-        print("form is not valid")
-        return render(request, 'patient/survey.html', context)
+    # if not form.is_valid():
+    #     print("form is not valid")
+    #     return render(request, 'patient/survey.html', context)
 
     print(patient.survey)
     print(patient.survey.constipation)

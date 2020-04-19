@@ -376,7 +376,7 @@ def set_questionnaire(request, username):
 
     print(patient.surveySetting)
     print(patient.surveySetting.constipation)
-    
+    context['alert_flag'] = True
     return render(request, 'doctor/set_questionnaire.html', context)
 
 def getevents(request):

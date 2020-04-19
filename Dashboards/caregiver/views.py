@@ -318,9 +318,9 @@ def survey(request):
     context['newuser'] = caregiver
     
     # Validates the form.
-    if not form.is_valid():
-        print("form is not valid")
-        return render(request, 'caregiver/survey.html', context)
+    # if not form.is_valid():
+    #     print("form is not valid")
+    #     return render(request, 'caregiver/survey.html', context)
     # context['alert_flag'] = True
     print(caregiver.patient.survey)
     return render(request, 'caregiver/survey.html', {'form': form, 'alert_flag': True, 'newuser': caregiver})
