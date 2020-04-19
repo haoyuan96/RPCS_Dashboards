@@ -79,11 +79,11 @@ def metrics(request):
     # context['tremor1'] = retrieved_biometric['tremor1']
     # context['tremor2'] = retrieved_biometric['tremor2']
     retrieved_game = find_game_by_patient_id(db, patient_id)[-1]
-    context["WordSearch"] = (
+    context["word_search"] = (
         retrieved_game["left_hand_score"] + retrieved_game["right_hand_score"]) / 2
-    context["TileMatching"] = (
+    context["tile_matching"] = (
         retrieved_game["left_hand_score"] + retrieved_game["right_hand_score"]) / 2
-    context["Brown-Peterson"] = (
+    context["brown_peterson"] = (
         retrieved_game["left_hand_score"] + retrieved_game["right_hand_score"]) / 2
 
     return render(request, 'patient/metrics.html', context)
