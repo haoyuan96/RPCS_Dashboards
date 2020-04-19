@@ -150,7 +150,13 @@ Survey
               <!-- Card Body -->
               <div class="card-body">
                 <div class="container-fluid">
-                  
+                  <div style="font-size:180%;">
+                  Survey result ranges from 0 to 5. 
+                  <br/>
+                  5 means most similar to current situation, 
+                  0 means least similar to current situation.
+                  <p> <br/> </p>
+                  </div>
                   <form action="{% url 'patient:survey' %}" method="POST">
                   {% csrf_token %}
                     {% for field in form.visible_fields %}

@@ -161,6 +161,11 @@
                   {% comment %} <div class="chart-area"> {% endcomment %}
                     <div class="container-fluid">
                       <!-- Add Chart Here! -->
+                      Survey result ranges from 0 to 5. 
+                      <br/>
+                      5 means most similar to current situation, 
+                      0 means least similar to current situation.
+                      <p> <br/> </p>
                         <form action="{% url 'doctor:set_questionnaire' patient.user.username%}" method="POST">
                           {% csrf_token %}
                           {% for field in form %}
