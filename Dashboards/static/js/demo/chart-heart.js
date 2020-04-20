@@ -4,6 +4,9 @@ var app = {
     time:[],
     yvalue:[]
 };
+$(document).ready(function(){
+    getData1();
+})
 option = {
     tooltip: {
         trigger: 'axis'
@@ -95,38 +98,35 @@ myChart.setOption(option);
 //             data: app.yvalue
 //         }]
 // });
-$(document).ready(function(){
-    getData();
-})
 
-function getData() {
+function getData1() {
     $.ajax({
         type: 'GET',
         url:'/caregiver/metric_display',
         data:{},
         dataType:'application/json',
         success:function (data) {
-            app.time = data.heartrate.time;
-            app.yvalue = data.heartrate.yvalue;
-            console.log(app.time);
-            console.log(app.yvalue);
-            // app.yvalue= [90, 99, 93, 84, 93];
+            app = eval(data);
+            console.log(data.heartrate.time);
+            console.log(data.heartrate.yvalue);
             myChart.setOption({
                 xAxis : {
                     type:'category',
-                    data: app.time
+                    data: app.heartrate.time
                 },
                 series: [{
                     name: 'heartrate',
                     type: 'line',
-                    data: app.yvalue
+                    data: app.heartrate.yvalue
                 }]
-            });
+            }, true);
             console.log(app.time);
             console.log(app.yvalue);
+        },
+        error:function(msg){
+            console.log(msg)
         }
     });
-    return app;
 }
 // myChart.setOption({
 //     xAxis : {
@@ -139,7 +139,5 @@ function getData() {
 //         data: [90, 99, 93, 84, 93, 1]
 //     }]
 // });
-console.log(["2020-03-01","2020-03-02","2020-03-03","2020-03-04","2020-03-05"]);
-console.log(app.time);
 
 

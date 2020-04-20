@@ -419,7 +419,7 @@ def metric_display(request):
     diction["game"]["time"] = {"game1_time": [
         "0000-00-00"] * 30, "game2_time": ["0000-00-00"] * 30, "game3_time": ["0000-00-00"] * 30}
     diction["game"]["yvalue"] = {"WordSearch": [
-        0] * 30, "TileMatching": [0] * 30, "Brown-Peterson": [0] * 30}
+        0] * 30, "TileMatching": [0] * 30, "BrownPeterson": [0] * 30}
     #
 
     index = 0
@@ -504,3 +504,39 @@ def metric_display(request):
 
     return HttpResponse(json.dumps(diction), content_type='application/json')
 
+@login_required
+def view_general(request):
+    db = get_db()
+    patient_id = '10000000-0000-0000-0000-000000000000'
+
+    diction = {}
+    # 1. mood
+    retrieved_emotion = find_emotion_by_patient_id(db, patient_id)
+    print("fetch emotion")
+
+    # truncate emotion length to 30 days
+
+    # init mood dict
+    diction["mood"] = {"time": "0000-00-00", "yvalue": []}
+    # diction["mood"]["yvalue"] = []
+
+    # fill in the dictionary
+    if len(retrieved_emotion) >= 1:
+        time = retrieved_emotion[-1]["created_at"].strftime("%Y-%m-%d")
+        neutral = str(retrieved_emotion[-1]["neutral"] * 100)
+        happiness = str(retrieved_emotion[-1]["happiness"] * 100)
+        sadness = str(retrieved_emotion[-1]["sadness"] * 100)
+        surprise = str(retrieved_emotion[-1]["surprise"] * 100)
+        anger = str(retrieved_emotion[-1]["anger"] * 100)
+
+        diction["mood"]["time"] = time
+        diction["mood"]["yvalue"].append(neutral)
+        diction["mood"]["yvalue"].append(happiness)
+        diction["mood"]["yvalue"].append(sadness)
+        diction["mood"]["yvalue"].append(surprise)
+        diction["mood"]["yvalue"].append(anger)
+
+    print(diction["mood"])
+    print("==================================================================")
+
+    return HttpResponse(json.dumps(diction), content_type='application/json')
