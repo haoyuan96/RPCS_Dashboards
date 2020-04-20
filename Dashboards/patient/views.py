@@ -1,3 +1,8 @@
+import colored_traceback.always
+import uuid
+import json
+from io import BytesIO
+from database.database import *
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -15,10 +20,50 @@ from django.core import serializers
 import json
 
 
+# -----------------------
+# For the Database
+from ipdb import set_trace as debug
+import sys
+sys.path.append('database')
+# import pycurl
 # Create your views here.
 
+
 def home(request):
-    return render(request, 'patient/index.html')
+    db = get_db()
+
+    accel_id = uuid.uuid4()
+    description = "patient dashboard local test"
+    patient_id = uuid.uuid4()
+    x = 2.3
+    y = 2.3
+    z = 2.3
+    # db, accel_id, description, patient_id, x, y, z
+    insert_accel(db, accel_id, description, patient_id, x, y, z)
+
+    # verify data
+    retrieved_accel = []
+    print("accel_id to find: ", accel_id)
+    retrieved_accel = find_by_accel_id(db, accel_id)
+    print(retrieved_accel)
+    context = {}
+    score = get_score()
+    # TODO: need to decide the thresholds of the performance
+    if score > 100:
+        context['img_path'] = 'img/emoji_smile.png'
+        context['sentence'] = 'You are doing well today! Keep up!'
+    elif 50 < score <= 100:
+        context['img_path'] = 'img/emoji_soso.png'
+        context['sentence'] = 'Good good!'
+    else:
+        context['img_path'] = 'img/emoji_sad.png'
+        context['sentence'] = 'Love & peace'
+    return render(request, 'patient/index.html', context)
+
+
+def get_score():
+    # TODO: get data from db and return computed score of the patient
+    return 200
 
 
 def todo(request):
@@ -32,7 +77,8 @@ def todo(request):
             end = form.cleaned_data['end_time']
             patient = request.user.patientprofile
             print("patient name is: " + patient.user.username)
-            newevent = CalendarEvent(patient=patient, description=description, date=date, start=start, end=end)
+            newevent = CalendarEvent(
+                patient=patient, description=description, date=date, start=start, end=end)
             newevent.save()
             return redirect("/patient/todo")
     print(TodoEventForm)
@@ -40,8 +86,10 @@ def todo(request):
     context = {'form': form}
     return render(request, 'patient/todo.html', context)
 
+
 def calendar(request):
     return render(request, 'patient/calendar.html')
+
 
 def getevents(request):
     patient = request.user.patientprofile
@@ -59,9 +107,27 @@ def getevents(request):
     return HttpResponse(json.dumps(event_arr))
 
 
-
 def metrics(request):
-    return render(request, 'patient/metrics.html')
+    db = get_db()
+    patient_id = '10000000-0000-0000-0000-000000000000'
+    context = {}
+    # get latest biometric data from db
+    retrieved_biometric = find_biometric_by_patient_id(db, patient_id)[-1]
+    # TODO: need to change here when blood pressure schma is updated
+    context['systolic'] = retrieved_biometric['blood_pressure']
+    context['diastolic'] = retrieved_biometric['blood_pressure']
+    context['heart_rate'] = retrieved_biometric['heart_rate']
+    # context['tremor1'] = retrieved_biometric['tremor1']
+    # context['tremor2'] = retrieved_biometric['tremor2']
+    retrieved_game = find_game_by_patient_id(db, patient_id)[-1]
+    context["word_search"] = (
+        retrieved_game["left_hand_score"] + retrieved_game["right_hand_score"]) / 2
+    context["tile_matching"] = (
+        retrieved_game["left_hand_score"] + retrieved_game["right_hand_score"]) / 2
+    context["brown_peterson"] = (
+        retrieved_game["left_hand_score"] + retrieved_game["right_hand_score"]) / 2
+
+    return render(request, 'patient/metrics.html', context)
 
 
 def exercises(request):
@@ -70,22 +136,22 @@ def exercises(request):
 
 def survey(request):
     context = {}
-    
+
     patient = PatientProfile.objects.get(user=request.user)
     print(patient.surveySetting)
     # Just display the registration form if this is a GET request.
     if request.method == 'GET':
 
         form = SurveyForm()
-        
+
         for key, value in patient.surveySetting.__dict__.items():
             # if key == "csrfmiddlewaretoken":
             #     continue
-            print (key, '  =>  ', value)
+            print(key, '  =>  ', value)
             if key == 'falls':
                 if value == False:
                     form.fields['falls'].widget = forms.HiddenInput()
-        
+
             if key == 'depression':
                 if value == False:
                     form.fields['depression'].widget = forms.HiddenInput()
@@ -158,7 +224,6 @@ def survey(request):
                 if value == False:
                     form.fields['constipation'].widget = forms.HiddenInput()
 
-                
         print(form.fields['falls'].widget)
         context['form'] = form
         return render(request, 'patient/survey.html', context)
@@ -244,14 +309,13 @@ def survey(request):
             if value == False:
                 form.fields['constipation'].widget = forms.HiddenInput()
 
-
     print(form.fields['falls'].widget)
     context['form'] = form
-    
+
     if not request.user.is_authenticated:
         print("user is not authenticated")
         return render(request, 'patient/survey.html', context)
-    
+
     if patient.survey is None:
         survey = Survey()
         survey.save()
@@ -304,7 +368,7 @@ def survey(request):
             survey.hallucinations = value
         if key == 'constipation':
             survey.constipation = value
-        
+
     survey.save()
     patient.survey = survey
     patient.save()
@@ -317,28 +381,28 @@ def survey(request):
 
     print(patient.survey)
     print(patient.survey.constipation)
-    return render(request, 'patient/survey.html', {'form': form, 'alert_flag' : True})
+    return render(request, 'patient/survey.html', {'form': form, 'alert_flag': True})
 
 
 def login(request):
-	context = {}
+    context = {}
 
-	# Display the login page if request is "GET"
-	if request.method == 'GET':
-		return render(request, 'patient/login.html', context)
+    # Display the login page if request is "GET"
+    if request.method == 'GET':
+        return render(request, 'patient/login.html', context)
 
-	# Post request
-	if 'email' in request.POST and request.POST['email'] and 'password' in request.POST and request.POST['password']:
-		user = authenticate(username=request.POST['username'], password=request.POST['password'])
-		if user is not None :
-			login(request, user)
-			return redirect(reverse('home'))
-		# Error case: username doesn't match with password
-		else:
-			context['error_msg'] = "The email or password is incorrect."
+    # Post request
+    if 'email' in request.POST and request.POST['email'] and 'password' in request.POST and request.POST['password']:
+        user = authenticate(
+            username=request.POST['username'], password=request.POST['password'])
+        if user is not None:
+            login(request, user)
+            return redirect(reverse('home'))
+        # Error case: username doesn't match with password
+        else:
+            context['error_msg'] = "The email or password is incorrect."
 
-	# Error case:
-	else:
-		context['error_msg'] = "Please input username and password for login."
-	return render(request, 'patient/login.html', context)
-
+    # Error case:
+    else:
+        context['error_msg'] = "Please input username and password for login."
+    return render(request, 'patient/login.html', context)

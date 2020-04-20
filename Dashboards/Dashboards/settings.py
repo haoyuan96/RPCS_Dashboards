@@ -76,14 +76,33 @@ WSGI_APPLICATION = 'Dashboards.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+#----------------------------------------------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+#----------------------------------------------------------------
 
+# Test on the remote rds
+# DATABASES = {
+# 'default': {
+
+#     'ENGINE': 'django.db.backends.postgresql',
+
+#     'NAME': 'engine_db',
+
+#     'USER': 'postgres',
+
+#     'PASSWORD': 'HhmL0SWLuxPirhQO9dXD',
+
+#     'HOST': 'rpcs.cvsc3wzxbc5v.us-west-2.rds.amazonaws.com',
+
+#     'PORT': '5432',
+
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

@@ -1,0 +1,39 @@
+{
+    "mood": {
+        "time":["2020-02-21","2020-02-22","..."],
+        "yvalue": {
+            "neutral":[1,2,3,4],
+            "happiness":[1,2,3,4],
+            "sadness":[1,2,3,4],
+            "surprise":[1,2,3,4],
+            "anger":[1,2,3,4]
+        }
+    },
+    "game":{
+        "time":[],
+        "yvalue":{
+            "WordSearch":[],
+            "TileMatching":[],
+            "Brown-Peterson":[]
+        }
+    },
+    "blood":{
+        "time":[],
+        "yvalue":{
+            "systolic":[],
+            "diastolic":[]
+        }
+    },
+    "heartrate":{
+        "time":[],
+        "yvalue":[]
+    },
+    "tremor1":{
+        "time":[],
+        "yvalue":[]
+    },
+    "tremor2":{
+        "time":[],
+        "yvalue":[]
+    }
+}
