@@ -53,7 +53,7 @@
         <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
           <div class="card-header py-3 d-flex flex-column align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Frank Smith</a></h6>
+            <h6 class="m-0 font-weight-bold text-primary">{{patient.user.first_name}} {{patient.user.last_name}}</a></h6>
           <img src="{% static 'img/' %}{{patient.user.first_name}}_{{patient.user.last_name}}.png" class="img-fluid">
           <div> Age: 70 </div>
           <div> Stage: Level 1 </div>
@@ -87,7 +87,7 @@
           </button>
 
           <!-- Topbar Heading -->
-          <h1 class="h3 ml-2 mt-2 text-gray-800">Frank Smith's Questionnaire Setting</h1>
+          <h1 class="h3 ml-2 mt-2 text-gray-800">{{patient.user.first_name}} {{patient.user.last_name}}'s Questionnaire Setting</h1>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -141,7 +141,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Questionnaire Panel</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Set questionnaire Panel</h6>
                   <!-- <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -161,10 +161,9 @@
                   {% comment %} <div class="chart-area"> {% endcomment %}
                     <div class="container-fluid">
                       <!-- Add Chart Here! -->
-                      Survey result ranges from 0 to 5. 
+                      Select the questions for the patient to fill in.
                       <br/>
-                      5 means most similar to current situation, 
-                      0 means least similar to current situation.
+                      True means this question will appear in patient's survey. False means this question will not appear in patient's survey.
                       <p> <br/> </p>
                         <form action="{% url 'doctor:set_questionnaire' patient.user.username%}" method="POST">
                           {% csrf_token %}

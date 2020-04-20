@@ -161,7 +161,43 @@
             <div class="col">
               <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Alert: Anxiety reaches SEVERE LEVEL</h6>
+                  {% if exist_alert == 2 %}
+                    <h6 class="m-0 font-weight-bold text-primary">Alert!
+                      <br/>
+                      {% for field in alert_fields %}
+                          {% if forloop.first %}
+                              <span style = "text-transform:capitalize;">{{field}}</span>{% else %}, {{field}}
+                          {% endif %}
+                      {% endfor %}
+                      and another {{count}}
+                      {% if count > 1 %}
+                      items 
+                      {% else %}
+                      item
+                      {% endif %}
+                      are in SEVERE LEVEL!</h6>
+                  {% elif exist_alert == 1 %}
+                    <h6 class="m-0 font-weight-bold text-primary">Alert!
+                      <br/>
+                      {% for field in alert_fields %}
+                          {% if forloop.first %}
+                              <span style = "text-transform:capitalize;">{{field}}</span>
+                          {% elif forloop.last %}
+                              and {{field}}
+                          {% else %} 
+                              , {{field}}
+                          {% endif %}
+                          
+                      {% endfor %}
+                      {% if count > 1 %}
+                      are 
+                      {% else %}
+                      is 
+                      {% endif %}
+                      in SEVERE LEVEL!</h6>
+                  {% else %}
+                      <h6 class="m-0 font-weight-bold text-primary"> {{patient.user.first_name}} {{patient.user.last_name}} is in normal situation. 
+                  {% endif %}
                 </div>
               </div>
             </div>

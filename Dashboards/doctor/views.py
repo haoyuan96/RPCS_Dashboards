@@ -174,9 +174,33 @@ def view_details(request, username):
 
 
 def patient_info(request, username):
+    print("here")
     context = {}
     patient_user = User.objects.filter(username=username)
-    context['patient']= patient_user[0].patientprofile
+    patient = patient_user[0].patientprofile
+    context['patient'] = patient
+    survey = patient.survey
+    surveySetting = patient.surveySetting
+    if survey is None:
+        context['exist_alert'] = 0
+    else:
+        
+        fields = []
+        for key, value in survey.__dict__.items():
+            print(key, '  =>  ', value)
+            if surveySetting.__dict__[key] is True and value == 5:
+                fields.append(key)
+        context['alert_fields'] = fields
+        if len(fields) >= 4:
+            context['exist_alert'] = 2
+            context['alert_fields'] = fields[0:3]
+            context['count'] = len(fields) - 3
+        elif len(fields) == 0:
+            context['exist_alert'] = 0
+        else:
+            context['exist_alert'] = 1
+            context['count'] = len(fields)
+        print(fields)
     return render(request, 'doctor/patient_info.html', context)
 
 
