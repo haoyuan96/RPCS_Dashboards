@@ -185,7 +185,7 @@
                         </div>
                       {% endfor %}
                       <button type="submit" class="btn btn-primary btn-user btn-block">
-                          Submit Survey
+                          Submit setting for {{patient.user.first_name}} {{patient.user.last_name}}
                       </button>
                       {% if alert_flag %}
                           <script>alert("Successfully modified patient's survey!")</script>  
