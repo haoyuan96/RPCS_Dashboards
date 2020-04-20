@@ -21,5 +21,6 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('add_patient', views.add_patient, name='add_patient'),
     path('search', views.search, name='search'),
-    path('metric_display', views.metric_display, name='metric_display')
+    path('metric_display', views.metric_display, name='metric_display'),
+    path('view_general', views.view_general, name='view_general')
 ]

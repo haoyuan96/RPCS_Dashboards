@@ -6,6 +6,8 @@ from django.http import HttpResponse, Http404
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+
 # from django.shortcuts import render_to_response
 from patient.forms import SurveyForm
 from patient.models import PatientProfile, Survey
@@ -167,9 +169,12 @@ def set_questionnaire(request, username):
     return render(request, 'doctor/set_questionnaire.html', context)
 
 
-# @login_required
-def metric_display(request, username):
+@login_required
+@csrf_exempt
+def metric_display(request):
     db = get_db()
+    patient_id = request.POST['username']
+    print(patient_id)
     patient_id = '10000000-0000-0000-0000-000000000000'
 
     diction = {}
@@ -313,8 +318,11 @@ def metric_display(request, username):
     return HttpResponse(json.dumps(diction), content_type='application/json')
 
 @login_required
-def view_general(request, username):
+@csrf_exempt
+def view_general(request):
     db = get_db()
+    patient_id = request.POST['username']
+    print(patient_id)
     patient_id = '10000000-0000-0000-0000-000000000000'
 
     diction = {}
@@ -325,9 +333,8 @@ def view_general(request, username):
     # truncate emotion length to 30 days
 
     # init mood dict
-    diction["mood"] = {"time": "0000-00-00", "yvalue": {}}
-    diction["mood"]["yvalue"] = {"neutral": 0, "happiness": 0,
-                                 "sadness": 0, "surprise": 0, "anger": 0}
+    diction["mood"] = {"time": "0000-00-00", "yvalue": []}
+    # diction["mood"]["yvalue"] = []
 
     # fill in the dictionary
     if len(retrieved_emotion) >= 1:
@@ -339,11 +346,11 @@ def view_general(request, username):
         anger = str(retrieved_emotion[-1]["anger"] * 100)
 
         diction["mood"]["time"] = time
-        diction["mood"]["yvalue"]["neutral"] = neutral
-        diction["mood"]["yvalue"]["happiness"] = happiness
-        diction["mood"]["yvalue"]["sadness"] = sadness
-        diction["mood"]["yvalue"]["surprise"] = surprise
-        diction["mood"]["yvalue"]["anger"] = anger
+        diction["mood"]["yvalue"].append(neutral)
+        diction["mood"]["yvalue"].append(happiness)
+        diction["mood"]["yvalue"].append(sadness)
+        diction["mood"]["yvalue"].append(surprise)
+        diction["mood"]["yvalue"].append(anger)
 
     print(diction["mood"])
     print("==================================================================")

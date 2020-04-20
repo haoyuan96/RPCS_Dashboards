@@ -339,7 +339,6 @@ function getData(user) {
         success:function (data) {
             console.log(data);
             app = data;
-            console.log(app.blood);
             heartChart.setOption({
                 xAxis : {
                     type:'category',
