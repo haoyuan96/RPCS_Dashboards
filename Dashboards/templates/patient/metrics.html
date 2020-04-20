@@ -112,7 +112,7 @@ Metrics
               aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small"
                 style="font-size:200%;">{{ request.user.username }}</span>
-              <img class="img-profile rounded-circle" src="{% static 'img/frank_smith.png' %}"
+              <img class="img-profile rounded-circle" src="{% static 'img/' %}{{request.user.first_name}}_{{request.user.last_name}}.png"
                 style="width:75px;height:75px;">
             </a>
             <!-- Dropdown - User Information -->

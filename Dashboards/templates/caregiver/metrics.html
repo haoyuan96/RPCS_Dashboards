@@ -120,7 +120,7 @@ Metrics
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-size:120%;">{{ request.user.username }}</span>
-              <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              <img class="img-profile rounded-circle" src="{% static 'img/' %}{{request.user.first_name}}_{{request.user.last_name}}.png">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -203,7 +203,7 @@ Metrics
                     <div class="card-body">
                       <div class="chart-area">
                         <!-- Add Chart Here! -->
-                        <div id="tremorChart" style="width: 100%; height: 100%"></div>
+                        <div id="tremorChart1" style="width: 100%; height: 100%"></div>
                       </div>
                     </div>
                   </div>
@@ -220,7 +220,7 @@ Metrics
                     <div class="card-body">
                       <div class="chart-area">
                         <!-- Add Chart Here! -->
-                        <div id="pieChart" style="width: 100%; height: 100%"></div>
+                        <div id="tremorChart2" style="width: 100%; height: 100%"></div>
                       </div>
                     </div>
                   </div>
@@ -296,9 +296,5 @@ Metrics
 
 <!-- Page level custom scripts -->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'js/demo/chart-blood.js' %}"></script>
-<script src="{% static 'js/demo/chart-heart.js' %}"></script>
-<script src="{% static 'js/demo/chart-line-mood.js' %}"></script>
-<script src="{% static 'js/demo/chart-line-game.js' %}"></script>
-<script src="{% static 'js/demo/chart-tremor.js' %}"></script>
+<script src="{% static 'js/demo/charts-line.js' %}"></script>
 {% endblock content %}

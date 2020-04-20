@@ -5,7 +5,7 @@ var app = {
     yvalue:[]
 };
 $(document).ready(function(){
-    getData();
+    getData2();
 });
 option = {
     tooltip: {
@@ -54,7 +54,7 @@ option = {
 };
 myChart.setOption(option);
 
-function getData() {
+function getData2() {
     $.ajax({
         type: 'GET',
         url:'/caregiver/metric_display',
@@ -66,19 +66,18 @@ function getData() {
             myChart.setOption({
                 xAxis : {
                     type:'category',
-                    data: app.time
+                    data: data.tremor1.time
                 },
                 series: [{
                     name: 'Tremor frequency',
                     type: 'line',
-                    data: app.yvalue
+                    data: data.tremor1.yvalue
                 }]
             });
             console.log(app.time);
             console.log(app.yvalue);
         }
     });
-    return app;
 }
 // myChart.setOption({
 //     xAxis : {

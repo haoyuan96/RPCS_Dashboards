@@ -17,9 +17,11 @@ urlpatterns = [
     path('set_questionnaire/<username>',
          views.set_questionnaire, name='set_questionnaire'),
     path('patient_info/<username>', views.patient_info, name='patient_info'),
-    path('register/', views.register, name='register'),
-    path('profile/', views.profile, name='profile'),
-    path('add_patient/', views.add_patient, name='add_patient'),
-    path('search/', views.search, name='search'),
-    path('getevents/', views.getevents, name='getevents')
+    path('getevents/', views.getevents, name='getevents'),
+    path('register', views.register, name='register'),
+    path('profile', views.profile, name='profile'),
+    path('add_patient', views.add_patient, name='add_patient'),
+    path('search', views.search, name='search'),
+    path('metric_display', views.metric_display, name='metric_display'),
+    path('view_general', views.view_general, name='view_general')
 ]
