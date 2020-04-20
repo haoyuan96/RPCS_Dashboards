@@ -5,7 +5,7 @@ var app = {
     yvalue:[]
 };
 $(document).ready(function(){
-    getData();
+    getData3();
 });
 option = null;
 option = {
@@ -68,7 +68,7 @@ option = {
 ;
 myChart.setOption(option, true);
 
-function getData() {
+function getData3() {
     $.ajax({
         type: 'GET',
         url:'/cargiver/metric_display',
@@ -79,21 +79,21 @@ function getData() {
             myChart.setOption({
                 xAxis : {
                     type:'category',
-                    data: app.heartrate.time
+                    data: data.blood.time
                 },
                 series: [{
                     name: 'systolic',
                     type: 'line',
-                    data: app.heartrate.yvalue.systolic
+                    data: data.blood.yvalue.systolic
                 },
                 {
                     name: 'diastolic',
                     type: 'line',
-                    data: app.heartrate.yvalue.diastolic
+                    data: data.blood.yvalue.diastolic
                 }]
             });
             console.log(app.time);
-            console.log(app.yvalue);
+            console.log(app.blood);
         }
     });
     return app;
