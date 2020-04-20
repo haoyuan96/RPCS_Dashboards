@@ -356,6 +356,9 @@ def set_questionnaire(request, username):
     
     print(patient.surveySetting)
     surveySetting = patient.surveySetting
+    if 'falls' not in request.POST:
+        return render(request, 'doctor/set_questionnaire.html', context)
+
     for key in request.POST:
         if key == "csrfmiddlewaretoken":
             continue
