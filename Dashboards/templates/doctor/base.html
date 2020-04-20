@@ -21,7 +21,21 @@
   <!-- Custom styles for this template-->
   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/profile-card.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/fullcalendar/packages/core/main.css' %}" rel='stylesheet' />
+  <link href="{% static 'vendor/fullcalendar/packages/daygrid/main.css' %}" rel='stylesheet' />
+  <link href="{% static 'vendor/fullcalendar/packages/timegrid/main.css' %}" rel='stylesheet' />
+  <link href="{% static 'vendor/fullcalendar/packages/list/main.css' %}" rel='stylesheet' />
 
+  <script src="{% static 'vendor/fullcalendar/packages/core/main.js' %}"></script>
+  <script src="{% static 'vendor/fullcalendar/packages/interaction/main.js' %}"></script>
+  <script src="{% static 'vendor/fullcalendar/packages/moment/main.js' %}"></script>
+  <script src="{% static 'vendor/fullcalendar/packages/daygrid/main.js' %}"></script>
+  <script src="{% static 'vendor/fullcalendar/packages/timegrid/main.js' %}"></script>
+  <script src="{% static 'vendor/fullcalendar/packages/list/main.js' %}"></script>
+  <script src="{% static 'vendor/jquery/jquery.js' %}"></script>
+
+  {% block formMedia %}
+  {% endblock formMedia %}
 </head>
 
 <body id="page-top">
@@ -69,7 +83,9 @@
             Please type the patient's username:
             <input type="text" class="form-control bg-light border-100 small" placeholder="patient's username..." name = "search_username">
           </div>
-
+          {% if alert_flag %}
+              <script>alert("Please input valid username of a patient!")</script>  
+          {% endif %}
           <div class="modal-footer">
               <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>            
           
@@ -97,6 +113,7 @@
   <!-- Page level custom scripts -->
   <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
   <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+  
 </body>
 
 </html>

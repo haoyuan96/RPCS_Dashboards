@@ -88,21 +88,187 @@ def exercises(request):
 def survey(request):
     context = {}
 
+    caregiver = CaregiverProfile.objects.get(user=request.user)
+    patient = caregiver.patient
+    print(caregiver.patient)
     # Just display the registration form if this is a GET request.
     if request.method == 'GET':
-        context['form'] = SurveyForm()
+        form = SurveyForm()
+        print("============================================================")
+        for key, value in patient.surveySetting.__dict__.items():
+            # if key == "csrfmiddlewaretoken":
+            #     continue
+            print(key, '  =>  ', value)
+            if key == 'falls':
+                if value == False:
+                    form.fields['falls'].widget = forms.HiddenInput()
+
+            if key == 'depression':
+                if value == False:
+                    form.fields['depression'].widget = forms.HiddenInput()
+
+            if key == 'dyskinesia':
+                if value == False:
+                    form.fields['dyskinesia'].widget = forms.HiddenInput()
+
+            if key == 'movement':
+                if value == False:
+                    form.fields['movement'].widget = forms.HiddenInput()
+
+            if key == 'thinking':
+                if value == False:
+                    form.fields['thinking'].widget = forms.HiddenInput()
+
+            if key == 'walking':
+                if value == False:
+                    form.fields['walking'].widget = forms.HiddenInput()
+
+            if key == 'chest_pain':
+                if value == False:
+                    form.fields['chest_pain'].widget = forms.HiddenInput()
+
+            if key == 'tremor':
+                if value == False:
+                    form.fields['tremor'].widget = forms.HiddenInput()
+
+            if key == 'swallowing':
+                if value == False:
+                    form.fields['swallowing'].widget = forms.HiddenInput()
+
+            if key == 'pain':
+                if value == False:
+                    form.fields['pain'].widget = forms.HiddenInput()
+
+            if key == 'anxiety':
+                if value == False:
+                    form.fields['anxiety'].widget = forms.HiddenInput()
+
+            if key == 'seizures':
+                if value == False:
+                    form.fields['seizures'].widget = forms.HiddenInput()
+
+            if key == 'rigidity':
+                if value == False:
+                    form.fields['rigidity'].widget = forms.HiddenInput()
+
+            if key == 'motivation':
+                if value == False:
+                    form.fields['motivation'].widget = forms.HiddenInput()
+
+            if key == 'sleep':
+                if value == False:
+                    form.fields['sleep'].widget = forms.HiddenInput()
+
+            if key == 'muscle_spasm':
+                if value == False:
+                    form.fields['muscle_spasm'].widget = forms.HiddenInput()
+
+            if key == 'fatigue':
+                if value == False:
+                    form.fields['fatigue'].widget = forms.HiddenInput()
+
+            if key == 'hallucinations':
+                if value == False:
+                    form.fields['hallucinations'].widget = forms.HiddenInput()
+
+            if key == 'constipation':
+                if value == False:
+                    form.fields['constipation'].widget = forms.HiddenInput()
+
+        print("============================================================")
+        print(form.fields['falls'].widget)
+        context['form'] = form
         return render(request, 'caregiver/survey.html', context)
 
     form = SurveyForm(request.POST)
+    for key, value in patient.surveySetting.__dict__.items():
+        # if key == "csrfmiddlewaretoken":
+        #     continue
+        print(key, '  =>  ', value)
+        if key == 'falls':
+            if value == False:
+                form.fields['falls'].widget = forms.HiddenInput()
+
+        if key == 'depression':
+            if value == False:
+                form.fields['depression'].widget = forms.HiddenInput()
+
+        if key == 'dyskinesia':
+            if value == False:
+                form.fields['dyskinesia'].widget = forms.HiddenInput()
+
+        if key == 'movement':
+            if value == False:
+                form.fields['movement'].widget = forms.HiddenInput()
+
+        if key == 'thinking':
+            if value == False:
+                form.fields['thinking'].widget = forms.HiddenInput()
+
+        if key == 'walking':
+            if value == False:
+                form.fields['walking'].widget = forms.HiddenInput()
+
+        if key == 'chest_pain':
+            if value == False:
+                form.fields['chest_pain'].widget = forms.HiddenInput()
+
+        if key == 'tremor':
+            if value == False:
+                form.fields['tremor'].widget = forms.HiddenInput()
+
+        if key == 'swallowing':
+            if value == False:
+                form.fields['swallowing'].widget = forms.HiddenInput()
+
+        if key == 'pain':
+            if value == False:
+                form.fields['pain'].widget = forms.HiddenInput()
+
+        if key == 'anxiety':
+            if value == False:
+                form.fields['anxiety'].widget = forms.HiddenInput()
+
+        if key == 'seizures':
+            if value == False:
+                form.fields['seizures'].widget = forms.HiddenInput()
+
+        if key == 'rigidity':
+            if value == False:
+                form.fields['rigidity'].widget = forms.HiddenInput()
+
+        if key == 'motivation':
+            if value == False:
+                form.fields['motivation'].widget = forms.HiddenInput()
+
+        if key == 'sleep':
+            if value == False:
+                form.fields['sleep'].widget = forms.HiddenInput()
+
+        if key == 'muscle_spasm':
+            if value == False:
+                form.fields['muscle_spasm'].widget = forms.HiddenInput()
+
+        if key == 'fatigue':
+            if value == False:
+                form.fields['fatigue'].widget = forms.HiddenInput()
+
+        if key == 'hallucinations':
+            if value == False:
+                form.fields['hallucinations'].widget = forms.HiddenInput()
+
+        if key == 'constipation':
+            if value == False:
+                form.fields['constipation'].widget = forms.HiddenInput()
+
+    print(form.fields['falls'].widget)
     context['form'] = form
 
     if not request.user.is_authenticated:
         print("user is not authenticated")
         return render(request, 'caregiver/survey.html', context)
 
-    caregiver = CaregiverProfile.objects.get(user=request.user)
-    patient = caregiver.patient
-    print(caregiver.patient)
+    
     if caregiver.patient.survey is None:
         survey = Survey()
         survey.save()
@@ -161,13 +327,14 @@ def survey(request):
     print(caregiver.patient.survey)
 
     context['newuser'] = caregiver
+    
     # Validates the form.
-    if not form.is_valid():
-        print("form is not valid")
-        return render(request, 'caregiver/survey.html', context)
-
+    # if not form.is_valid():
+    #     print("form is not valid")
+    #     return render(request, 'caregiver/survey.html', context)
+    # context['alert_flag'] = True
     print(caregiver.patient.survey)
-    return render(request, 'caregiver/survey.html', context)
+    return render(request, 'caregiver/survey.html', {'form': form, 'alert_flag': True, 'newuser': caregiver})
 
 def login(request):
     return render(request, 'caregiver/login.html')

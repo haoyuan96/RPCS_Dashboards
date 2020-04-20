@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tempus_dominus',
     'caregiver',
     'doctor',
     'patient',
@@ -135,6 +136,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+TEMPUS_DOMINUS_LOCALIZE = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

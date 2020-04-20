@@ -1,7 +1,10 @@
 {% extends "caregiver/base.html" %}
-{% block title %}
-To-Dos
-{% endblock title %}
+
+{% block formMedia %}
+  {{ form.media }}
+{% endblock formMedia %}
+
+{% block title %}To-Dos{% endblock title %}
 
 {% block content %}
 
@@ -118,20 +121,12 @@ To-Dos
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ request.user.username }}</span>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-size:120%;">{{ request.user.username }}</span>
               <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profile
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Settings
-              </a>
-              <div class="dropdown-divider"></div>
+              
               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 Logout
@@ -159,14 +154,14 @@ To-Dos
                     aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                   </a>
-                  <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                  <!--div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                     aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Dropdown Header:</div>
                     <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
+                  </div-->
                 </div>
               </div>
               <!-- Card Body -->
@@ -186,7 +181,7 @@ To-Dos
                       <form id="eventform" action="../todo/" method="post">
                         <div class="modal-body">
                           {% csrf_token %}
-                          {{ form.as_table }}
+                          {{ form.as_p }}
                           </br>
                         </div>
                         <div class="modal-footer">

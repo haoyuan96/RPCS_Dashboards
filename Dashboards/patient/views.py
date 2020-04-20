@@ -10,7 +10,15 @@ from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.urls import reverse
 from patient.forms import *
-from .models import Survey, PatientProfile
+from caregiver.forms import TodoEventForm
+from .models import Survey, PatientProfile, CalendarEvent, SurveySetting
+from django import forms
+
+
+# create JSON objects (used for calendar events)
+from django.core import serializers
+import json
+
 
 # -----------------------
 # For the Database
@@ -59,11 +67,44 @@ def get_score():
 
 
 def todo(request):
-    return render(request, 'patient/todo.html')
+    print(request.user)
+    if request.method == 'POST':
+        form = TodoEventForm(request.POST)
+        if form.is_valid():
+            description = form.cleaned_data['description']
+            date = form.cleaned_data['date']
+            start = form.cleaned_data['start_time']
+            end = form.cleaned_data['end_time']
+            patient = request.user.patientprofile
+            print("patient name is: " + patient.user.username)
+            newevent = CalendarEvent(
+                patient=patient, description=description, date=date, start=start, end=end)
+            newevent.save()
+            return redirect("/patient/todo")
+    print(TodoEventForm)
+    form = TodoEventForm()
+    context = {'form': form}
+    return render(request, 'patient/todo.html', context)
 
 
 def calendar(request):
     return render(request, 'patient/calendar.html')
+
+
+def getevents(request):
+    patient = request.user.patientprofile
+    all_events = CalendarEvent.objects.filter(patient=patient)
+    event_arr = []
+    for i in all_events:
+        event_sub_arr = {}
+        event_sub_arr['title'] = i.description
+        date = i.date.strftime("%Y-%m-%dT")
+        start_time = i.start.strftime("%H:%M:%S")
+        end_time = i.end.strftime("%H:%M:%S")
+        event_sub_arr['start'] = date + start_time
+        event_sub_arr['end'] = date + end_time
+        event_arr.append(event_sub_arr)
+    return HttpResponse(json.dumps(event_arr))
 
 
 def metrics(request):
@@ -96,19 +137,185 @@ def exercises(request):
 def survey(request):
     context = {}
 
+    patient = PatientProfile.objects.get(user=request.user)
+    print(patient.surveySetting)
     # Just display the registration form if this is a GET request.
     if request.method == 'GET':
-        context['form'] = SurveyForm()
+
+        form = SurveyForm()
+
+        for key, value in patient.surveySetting.__dict__.items():
+            # if key == "csrfmiddlewaretoken":
+            #     continue
+            print(key, '  =>  ', value)
+            if key == 'falls':
+                if value == False:
+                    form.fields['falls'].widget = forms.HiddenInput()
+
+            if key == 'depression':
+                if value == False:
+                    form.fields['depression'].widget = forms.HiddenInput()
+
+            if key == 'dyskinesia':
+                if value == False:
+                    form.fields['dyskinesia'].widget = forms.HiddenInput()
+
+            if key == 'movement':
+                if value == False:
+                    form.fields['movement'].widget = forms.HiddenInput()
+
+            if key == 'thinking':
+                if value == False:
+                    form.fields['thinking'].widget = forms.HiddenInput()
+
+            if key == 'walking':
+                if value == False:
+                    form.fields['walking'].widget = forms.HiddenInput()
+
+            if key == 'chest_pain':
+                if value == False:
+                    form.fields['chest_pain'].widget = forms.HiddenInput()
+
+            if key == 'tremor':
+                if value == False:
+                    form.fields['tremor'].widget = forms.HiddenInput()
+
+            if key == 'swallowing':
+                if value == False:
+                    form.fields['swallowing'].widget = forms.HiddenInput()
+
+            if key == 'pain':
+                if value == False:
+                    form.fields['pain'].widget = forms.HiddenInput()
+
+            if key == 'anxiety':
+                if value == False:
+                    form.fields['anxiety'].widget = forms.HiddenInput()
+
+            if key == 'seizures':
+                if value == False:
+                    form.fields['seizures'].widget = forms.HiddenInput()
+
+            if key == 'rigidity':
+                if value == False:
+                    form.fields['rigidity'].widget = forms.HiddenInput()
+
+            if key == 'motivation':
+                if value == False:
+                    form.fields['motivation'].widget = forms.HiddenInput()
+
+            if key == 'sleep':
+                if value == False:
+                    form.fields['sleep'].widget = forms.HiddenInput()
+
+            if key == 'muscle_spasm':
+                if value == False:
+                    form.fields['muscle_spasm'].widget = forms.HiddenInput()
+
+            if key == 'fatigue':
+                if value == False:
+                    form.fields['fatigue'].widget = forms.HiddenInput()
+
+            if key == 'hallucinations':
+                if value == False:
+                    form.fields['hallucinations'].widget = forms.HiddenInput()
+
+            if key == 'constipation':
+                if value == False:
+                    form.fields['constipation'].widget = forms.HiddenInput()
+
+        print(form.fields['falls'].widget)
+        context['form'] = form
         return render(request, 'patient/survey.html', context)
 
     form = SurveyForm(request.POST)
+    for key, value in patient.surveySetting.__dict__.items():
+        # if key == "csrfmiddlewaretoken":
+        #     continue
+        print(key, '  =>  ', value)
+        if key == 'falls':
+            if value == False:
+                form.fields['falls'].widget = forms.HiddenInput()
+
+        if key == 'depression':
+            if value == False:
+                form.fields['depression'].widget = forms.HiddenInput()
+
+        if key == 'dyskinesia':
+            if value == False:
+                form.fields['dyskinesia'].widget = forms.HiddenInput()
+
+        if key == 'movement':
+            if value == False:
+                form.fields['movement'].widget = forms.HiddenInput()
+
+        if key == 'thinking':
+            if value == False:
+                form.fields['thinking'].widget = forms.HiddenInput()
+
+        if key == 'walking':
+            if value == False:
+                form.fields['walking'].widget = forms.HiddenInput()
+
+        if key == 'chest_pain':
+            if value == False:
+                form.fields['chest_pain'].widget = forms.HiddenInput()
+
+        if key == 'tremor':
+            if value == False:
+                form.fields['tremor'].widget = forms.HiddenInput()
+
+        if key == 'swallowing':
+            if value == False:
+                form.fields['swallowing'].widget = forms.HiddenInput()
+
+        if key == 'pain':
+            if value == False:
+                form.fields['pain'].widget = forms.HiddenInput()
+
+        if key == 'anxiety':
+            if value == False:
+                form.fields['anxiety'].widget = forms.HiddenInput()
+
+        if key == 'seizures':
+            if value == False:
+                form.fields['seizures'].widget = forms.HiddenInput()
+
+        if key == 'rigidity':
+            if value == False:
+                form.fields['rigidity'].widget = forms.HiddenInput()
+
+        if key == 'motivation':
+            if value == False:
+                form.fields['motivation'].widget = forms.HiddenInput()
+
+        if key == 'sleep':
+            if value == False:
+                form.fields['sleep'].widget = forms.HiddenInput()
+
+        if key == 'muscle_spasm':
+            if value == False:
+                form.fields['muscle_spasm'].widget = forms.HiddenInput()
+
+        if key == 'fatigue':
+            if value == False:
+                form.fields['fatigue'].widget = forms.HiddenInput()
+
+        if key == 'hallucinations':
+            if value == False:
+                form.fields['hallucinations'].widget = forms.HiddenInput()
+
+        if key == 'constipation':
+            if value == False:
+                form.fields['constipation'].widget = forms.HiddenInput()
+
+    print(form.fields['falls'].widget)
     context['form'] = form
 
     if not request.user.is_authenticated:
         print("user is not authenticated")
         return render(request, 'patient/survey.html', context)
 
-    patient = PatientProfile.objects.get(user=request.user)
     if patient.survey is None:
         survey = Survey()
         survey.save()
@@ -168,77 +375,13 @@ def survey(request):
     print(patient.survey)
     print(patient)
     # Validates the form.
-    if not form.is_valid():
-        print("form is not valid")
-        return render(request, 'patient/survey.html', context)
-
-    print(patient.survey)
-    print(patient.survey.constipation)
-
-    # if patient.survey is None:
-    #     patient.survey = Survey()
-    #     patient.survey.save()
-    #     # patient.save()
-    #     print("save new survey")
-
-    # print(patient.survey)
-    # for key in request.POST:
-    #     if key == "csrfmiddlewaretoken":
-    #         continue
-    #     value = request.POST[key]
-
-    #     if key == 'falls':
-    #         patient.survey.falls = value
-    #     if key == 'depression':
-    #         patient.survey.depression = value
-    #     if key == 'dyskinesia':
-    #         patient.survey.dyskinesia = value
-    #     if key == 'movement':
-    #         patient.survey.movement = value
-    #     if key == 'thinking':
-    #         patient.survey.thinking = value
-    #     if key == 'walking':
-    #         patient.survey.walking = value
-    #     if key == 'chest_pain':
-    #         patient.survey.chest_pain = value
-    #     if key == 'tremor':
-    #         patient.survey.tremor = value
-    #     if key == 'swallowing':
-    #         patient.survey.swallowing = value
-    #     if key == 'pain':
-    #         patient.survey.pain = value
-    #     if key == 'anxiety':
-    #         patient.survey.anxiety = value
-    #     if key == 'seizures':
-    #         patient.survey.seizures = value
-    #     if key == 'rigidity':
-    #         patient.survey.rigidity = value
-    #     if key == 'motivation':
-    #         patient.survey.motivation = value
-    #     if key == 'sleep':
-    #         patient.survey.sleep = value
-    #     if key == 'muscle_spasm':
-    #         patient.survey.muscle_spasm = value
-    #     if key == 'fatigue':
-    #         patient.survey.fatigue = value
-    #     if key == 'hallucinations':
-    #         patient.survey.hallucinations = value
-    #     if key == 'constipation':
-    #         patient.survey.constipation = value
-
-    #     patient.survey.save()
-    # patient.survey.save()
-    # print(patient.survey)
-    # print(patient)
-    # # Validates the form.
     # if not form.is_valid():
     #     print("form is not valid")
     #     return render(request, 'patient/survey.html', context)
 
-    # print(patient.survey)
-    # print(patient.survey.constipation)
-
-    return render(request, 'patient/survey.html', context)
+    print(patient.survey)
+    print(patient.survey.constipation)
+    return render(request, 'patient/survey.html', {'form': form, 'alert_flag': True})
 
 
 def login(request):

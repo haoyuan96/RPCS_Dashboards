@@ -111,15 +111,7 @@ Survey
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profile
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Settings
-              </a>
-              <div class="dropdown-divider"></div>
+              
               <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 Logout
@@ -158,28 +150,38 @@ Survey
               <!-- Card Body -->
               <div class="card-body">
                 <div class="container-fluid">
-                  
+                  <div style="font-size:180%;">
+                  Survey result ranges from 0 to 5. 
+                  <br/>
+                  5 means most similar to current situation, 
+                  0 means least similar to current situation.
+                  <p> <br/> </p>
+                  </div>
                   <form action="{% url 'patient:survey' %}" method="POST">
                   {% csrf_token %}
-                    {% for field in form %}
+                    {% for field in form.visible_fields %}
                       <div class="form-group row">
-                        <div class="col-sm-5">
+                        <div style="font-size:210%;" class="col-sm-5">
                         {{ field.label }}: 
                         </div>
                         {% for radio in field %}
-                        <div class="col-sm-1">
-                          <div class="custom-control custom-radio">
+                        <div style="font-size:200%;" class="col-sm-1">
+                          <div class="custom-control custom-radio" >
                             {{ radio.tag }}
                             <label class="custom-control-label"
-                              for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+                              for="{{ radio.id_for_label }}">{{ radio.choice_label }}
+                            </label>
                           </div>
                         </div>
                         {% endfor %}
                       </div>
                     {% endfor %}
-                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                    <button style="font-size:210%;" type="submit" class="btn btn-primary btn-user btn-block">
                         Submit Survey
                     </button>
+                    {% if alert_flag %}
+                        <script>alert("Successfully submitted!")</script>  
+                    {% endif %}
                   </form>
                   
                 </div>

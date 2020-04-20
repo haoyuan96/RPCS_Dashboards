@@ -1,4 +1,7 @@
 {% extends "patient/base.html" %}
+{% block formMedia %}
+  {{ form.media }}
+{% endblock formMedia %}
 {% block title %}
 To-Dos
 {% endblock title %}
@@ -110,15 +113,8 @@ To-Dos
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <div class="dropdown-divider"></div>
+                
+                
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
@@ -141,7 +137,7 @@ To-Dos
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary"style="font-size:300%;">To-Do Items</h6>
-                  <div class="dropdown no-arrow">
+                  <!--div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
@@ -152,13 +148,39 @@ To-Dos
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Something else here</a>
                     </div>
-                  </div>
+                  </div-->
                 </div>
+                
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-area">
-                    <!-- Add Chart Here! -->
+                  <div id="calendar"></div>
+                  <!-- Add event pop up modal-->
+                  <div id="addEventModal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 style="font-size:200%;" id="exampleModalLabel">Add Event</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+
+                        <!-- form for adding new events -->
+                        <form id="eventform" action="../todo/" method="post">
+                          <div class="modal-body">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                          </div>
+                        </form>
+                        <!-- end of add event form  -->
+                      </div>
+                    </div>
                   </div>
+                  <!-- Modal Ends -->
                 </div>
               </div>
             </div>
@@ -184,5 +206,52 @@ To-Dos
     </div>
   </div>
   <!-- End of Page Wrapper -->
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: [ 'interaction', 'list', 'timeGrid'  ],
+        selectable: true,
+    
+        timeZone: 'EST',
+        defaultView: 'listWeek',
+    
+        // customize the button names,
+        // otherwise they'd all just say "list"
+        views: {
+          listDay: { buttonText: 'list day' },
+          listWeek: { buttonText: 'list week' },
+          listMonth: { buttonText: 'list month' }
+        },
+    
+        header: {
+          left: 'title',
+          center: 'addEventButton',
+          right: 'listDay,listWeek,listMonth'
+        },
+    
+        customButtons: {
+          addEventButton: {
+            text: 'Add event...',
+            click: function(info) {
+              $('#addEventModal').modal('show');
+            }
+          }
+        },
+    
+        dateClick: function(info) {
+          hiddendate = document.getElementById('id_date') 
+          hiddendate.value = info.dateStr
+          $('#addEventModal').modal('show');
+        },
+        events: '/patient/getevents'
+      });
+    
+      calendar.render();
+      calendar.setOption('height', 750);
+    });
+    </script>
 
 {% endblock content %}
