@@ -1,6 +1,5 @@
 var dom = document.getElementById("barChart");
 var myChart = echarts.init(dom);
-var user = document.getElementById("username").value;
 $(document).ready(function(){
     getData();
 })
@@ -56,11 +55,12 @@ window.onresize = function(){
 }
 
 function getData() {
+    var user = document.getElementById("username").value;
     $.ajax({
         type: 'POST',
         url:'/doctor/view_general',
         // contentType: "application/json; charset=utf-8",
-        data:{username: user},
+        data:{'username': user},
         dataType:'json',
         success:function (data) {
             app = data;

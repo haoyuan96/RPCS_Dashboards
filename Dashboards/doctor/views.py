@@ -445,7 +445,7 @@ def metric_display(request):
     db = get_db()
     patient_id = request.POST['username']
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    print(type(request.POST))
+    print(request.POST['username'])
     print(type(request.POST['username']))
     patient_id = '10000000-0000-0000-0000-000000000000'
 
@@ -485,8 +485,8 @@ def metric_display(request):
         diction["mood"]["yvalue"]["anger"][index] = anger
         index = index + 1
 
-    print(diction["mood"])
-    print("==================================================================")
+    # print(diction["mood"])
+    # print("==================================================================")
 
     # 2. game
     # Issue: a) Only one game for now
@@ -523,8 +523,8 @@ def metric_display(request):
         diction["game"]["yvalue"]["WordSearch"][index] = (left + right) / 2
         index = index + 1
 
-    print(diction["game"])
-    print("==================================================================")
+    # print(diction["game"])
+    # print("==================================================================")
 
     # Biometric:
     # Issue: a) currenlty no tremor data
@@ -581,11 +581,11 @@ def metric_display(request):
 
         index = index + 1
 
-    print(diction["blood"])
-    print("==================================================================")
+    # print(diction["blood"])
+    # print("==================================================================")
 
-    print(diction["heartrate"])
-    print("==================================================================")
+    # print(diction["heartrate"])
+    # print("==================================================================")
 
     return HttpResponse(json.dumps(diction), content_type='application/json')
 

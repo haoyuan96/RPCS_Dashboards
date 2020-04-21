@@ -4,9 +4,8 @@ var tremorChart2 = echarts.init(document.getElementById("tremorChart2"));
 var bloodChart = echarts.init(document.getElementById("bloodChart"));
 var gameChart = echarts.init(document.getElementById("gameChart"));
 var moodChart = echarts.init(document.getElementById("moodChart"));
-var user = document.getElementById("username").value;
-$(document).ready(function(user){
-    getData(user);
+$(document).ready(function(){
+    getData();
 })
 
 option_heart = {
@@ -329,12 +328,13 @@ option_tremor2 = {
 };
 tremorChart2.setOption(option_tremor2);
 
-function getData(user) {
+function getData() {
+    var user = document.getElementById("username").value;
     $.ajax({
         type: 'POST',
         url:'/doctor/metric_display',
         // contentType: "application/json; charset=utf-8",
-        data:{username: user},
+        data:{'username': user},
         dataType:'json',
         success:function (data) {
             console.log(data);
