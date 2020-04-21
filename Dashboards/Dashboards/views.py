@@ -65,6 +65,7 @@ def register(request):
         
         new_profile.save()
         print("save new survey")
+        print(new_profile.id)
 
     elif request.POST['user_type'] == 'caregiver':
         new_profile = CaregiverProfile(user=new_user)

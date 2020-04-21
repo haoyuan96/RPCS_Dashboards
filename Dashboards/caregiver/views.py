@@ -31,6 +31,11 @@ import uuid
 import colored_traceback.always
 
 # Create your views here.
+user_dict = {}
+user_dict[1] = '0c9ccfdc-833b-11ea-bc55-0242ac130003'
+user_dict[2] = '0c9cd270-833b-11ea-bc55-0242ac130003'
+user_dict[3] = '0c9cd50e-833b-11ea-bc55-0242ac130003'
+user_dict[4] = '0c9cd608-833b-11ea-bc55-0242ac130003'
 
 def home(request):
     profile = request.user.caregiverprofile
@@ -363,6 +368,13 @@ def getevents(request):
 def metric_display(request):
     db = get_db()
     patient_id = '10000000-0000-0000-0000-000000000000'
+    context = {}
+
+    caregiver = CaregiverProfile.objects.get(user=request.user)
+    patient = caregiver.patient
+    print(patient.user.id)
+    print(user_dict[patient.user.id])
+    # patient_id = user_dict[patient.user.id]
 
     diction = {}
     # 1. mood
@@ -508,6 +520,12 @@ def metric_display(request):
 def view_general(request):
     db = get_db()
     patient_id = '10000000-0000-0000-0000-000000000000'
+    
+    caregiver = CaregiverProfile.objects.get(user=request.user)
+    patient = caregiver.patient
+    print(patient.user.id)
+    print(user_dict[patient.user.id])
+    # patient_id = user_dict[patient.user.id]
 
     diction = {}
     # 1. mood

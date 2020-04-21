@@ -19,6 +19,11 @@ from django import forms
 from django.core import serializers
 import json
 
+user_dict = {}
+user_dict[1] = '0c9ccfdc-833b-11ea-bc55-0242ac130003'
+user_dict[2] = '0c9cd270-833b-11ea-bc55-0242ac130003'
+user_dict[3] = '0c9cd50e-833b-11ea-bc55-0242ac130003'
+user_dict[4] = '0c9cd608-833b-11ea-bc55-0242ac130003'
 
 # -----------------------
 # For the Database
@@ -109,9 +114,18 @@ def getevents(request):
 
 def metrics(request):
     db = get_db()
+    print(user_dict[request.user.id])
     patient_id = '10000000-0000-0000-0000-000000000000'
     context = {}
     # get latest biometric data from db
+    if len(find_biometric_by_patient_id(db, patient_id)) == 0:
+        context['systolic'] = '0'
+        context['diastolic'] = '0'
+        context['heart_rate'] = '0'
+        context['word_search'] = '0'
+        context['tile_matching'] = '0'
+        return render(request, 'patient/metrics.html', context)
+
     retrieved_biometric = find_biometric_by_patient_id(db, patient_id)[-1]
     # TODO: need to change here when blood pressure schma is updated
     context['systolic'] = retrieved_biometric['blood_pressure']

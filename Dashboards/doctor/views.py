@@ -33,6 +33,12 @@ import json
 import uuid
 import colored_traceback.always
 
+user_dict = {}
+user_dict[1] = '0c9ccfdc-833b-11ea-bc55-0242ac130003'
+user_dict[2] = '0c9cd270-833b-11ea-bc55-0242ac130003'
+user_dict[3] = '0c9cd50e-833b-11ea-bc55-0242ac130003'
+user_dict[4] = '0c9cd608-833b-11ea-bc55-0242ac130003'
+
 def home(request):
     context = {}
     doctor = request.user.doctorprofile
@@ -438,7 +444,9 @@ def getevents(request):
 def metric_display(request):
     db = get_db()
     patient_id = request.POST['username']
-    print(patient_id)
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    print(type(request.POST))
+    print(type(request.POST['username']))
     patient_id = '10000000-0000-0000-0000-000000000000'
 
     diction = {}
