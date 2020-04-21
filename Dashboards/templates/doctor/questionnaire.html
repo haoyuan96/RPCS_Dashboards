@@ -18,6 +18,11 @@
 
   <!-- Custom styles for this template-->
   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/survey.css' %}" rel="stylesheet">
+
+  <style>
+    div.form-row:nth-child(even) { background-color: #E8E8E8; }
+  </style>
 
 </head>
 
@@ -167,14 +172,13 @@
                         <h6> The patient, {{patient.user.first_name}} {{patient.user.last_name}}, hasn't filled in the questionaire yet. </h6>
                       {% else %}
                         {% for field in form.visible_fields %}
-                          <div class="form-group row">
+                          <div class="form-row">
                             <div class="col-sm-5">
                             {{ field.label }}: 
                             </div>
                             {{ field.value }}
                           </div>
                         {% endfor %}
-
                       {% endif%}
                       
                     </div>
