@@ -55,12 +55,12 @@ def register(request):
     print(form.cleaned_data['username'])
     if request.POST['user_type'] == 'patient':
         new_profile = PatientProfile(user=new_user)
-        survey = Survey()
+        # survey = Survey()
         surveySetting = SurveySetting()
-        survey.save()
+        # survey.save()
         surveySetting.save()
         new_profile.surveySetting = surveySetting
-        new_profile.survey = survey
+        # new_profile.survey = survey
         # new_profile.save()
         
         new_profile.save()

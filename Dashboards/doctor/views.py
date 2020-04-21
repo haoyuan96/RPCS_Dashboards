@@ -231,6 +231,8 @@ def questionnaire(request, username):
     context['patient'] = patient
     if patient_user[0].patientprofile.survey is None:
         form = SurveyForm()
+        print("no form")
+        return render(request, 'doctor/questionnaire.html', {'form': form, 'patient': patient_user[0].patientprofile, 'no_form': True})
     else:
         form = SurveyForm(data=model_to_dict(
             Survey.objects.get(pk=patient_user[0].patientprofile.survey.id)))
@@ -317,8 +319,8 @@ def questionnaire(request, username):
                 form.fields['constipation'].widget = forms.HiddenInput()
     
     context['form'] = form
-
-    return render(request, 'doctor/questionnaire.html', {'form': form, 'patient': patient_user[0].patientprofile})
+    print("has form")
+    return render(request, 'doctor/questionnaire.html', {'form': form, 'patient': patient_user[0].patientprofile, 'no_form': False})
 
 
 def profile(request):
