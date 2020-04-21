@@ -53,7 +53,7 @@
         <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
           <div class="card-header py-3 d-flex flex-column align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">{{patient.user.first_name}} {{patient.user.last_name}</a></h6>
+            <h6 class="m-0 font-weight-bold text-primary">{{patient.user.first_name}} {{patient.user.last_name}}</a></h6>
           <img src="{% static 'img/' %}{{patient.user.first_name}}_{{patient.user.last_name}}.png" class="img-fluid">
           <div> Age: 70 </div>
           <div> Stage: Level 1 </div>
@@ -166,14 +166,20 @@
                       5 means most similar to current situation, 
                       0 means least similar to current situation.
                       <p> <br/> </p>
-                      {% for field in form.visible_fields %}
-                        <div class="form-group row">
-                          <div class="col-sm-5">
-                          {{ field.label }}: 
+                      {% if no_form is True %} 
+                        <h6> The patient, {{patient.user.first_name}} {{patient.user.last_name}}, hasn't filled in the questionaire yet. </h6>
+                      {% else %}
+                        {% for field in form.visible_fields %}
+                          <div class="form-group row">
+                            <div class="col-sm-5">
+                            {{ field.label }}: 
+                            </div>
+                            {{ field.value }}
                           </div>
-                          {{ field.value }}
-                        </div>
-                      {% endfor %}
+                        {% endfor %}
+
+                      {% endif%}
+                      
                     </div>
                   {% comment %} </div> {% endcomment %}
                 </div>
