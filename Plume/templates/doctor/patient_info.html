@@ -188,13 +188,13 @@
                           
                       {% endfor %}
                       {% if count > 1 %}
-                      are 
+                      need 
                       {% else %}
-                      is 
+                      needs 
                       {% endif %}
-                      in SEVERE LEVEL!</h6>
+                      attention. </h6>
                   {% else %}
-                      <h6 class="m-0 font-weight-bold text-primary"> {{patient.user.first_name}} {{patient.user.last_name}} is in normal situation. 
+                      <h6 class="m-0 font-weight-bold text-primary"> {{patient.user.first_name}} {{patient.user.last_name}} is in normal conditions. 
                   {% endif %}
                 </div>
               </div>
