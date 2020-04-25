@@ -37,6 +37,13 @@ user_dict[2] = '0c9cd270-833b-11ea-bc55-0242ac130003'
 user_dict[3] = '0c9cd50e-833b-11ea-bc55-0242ac130003'
 user_dict[4] = '0c9cd608-833b-11ea-bc55-0242ac130003'
 
+game_dict = {}
+game_dict['d478236c-a361-4ba5-8a70-01a1288c1bb4'] = 'Beatbox_Easy'
+game_dict['da62200a-3445-44e0-831d-8a2e20178bb8'] = 'Beatbox_Medium'
+game_dict['155c3086-583c-46ad-afcc-782a66255e73'] = 'Beatbox_Hard'
+game_dict['e9d2684a-f30c-4002-82fc-a40fde00d8f3'] = 'TwistFit_Easy'
+game_dict['6a9df26a-8f51-457c-9972-cbe9b0828a86'] = 'Twistfit_Medium'
+
 def home(request):
     profile = request.user.caregiverprofile
     patient = profile.patient
@@ -367,14 +374,14 @@ def getevents(request):
 @login_required
 def metric_display(request):
     db = get_db()
-    patient_id = '10000000-0000-0000-0000-000000000000'
+    # patient_id = '10000000-0000-0000-0000-000000000000'
     context = {}
 
     caregiver = CaregiverProfile.objects.get(user=request.user)
     patient = caregiver.patient
     print(patient.user.id)
     print(user_dict[patient.user.id])
-    # patient_id = user_dict[patient.user.id]
+    patient_id = user_dict[patient.user.id]
 
     diction = {}
     # 1. mood
@@ -385,9 +392,14 @@ def metric_display(request):
     if len(retrieved_emotion) > 30:
         retrieved_emotion = retrieved_emotion[len(
             retrieved_emotion) - 30: len(retrieved_emotion)]
+    
+    before_n_days = []
+    for i in range(1, 30 + 1)[::-1]:
+        before_n_days.append(str(datetime.date.today() - datetime.timedelta(days=i)))
+
 
     # init mood dict
-    diction["mood"] = {"time": ["0000-00-00"] * 30, "yvalue": {}}
+    diction["mood"] = {"time": before_n_days, "yvalue": {}}
     diction["mood"]["yvalue"] = {"neutral": [0] * 30, "happiness": [0] * 30,
                                  "sadness": [0] * 30, "surprise": [0] * 30, "anger": [0] * 30}
     index = 0
@@ -428,8 +440,8 @@ def metric_display(request):
 
     # init game dict
     diction["game"] = {"time": {}, "yvalue": {}}
-    diction["game"]["time"] = {"game1_time": [
-        "0000-00-00"] * 30, "game2_time": ["0000-00-00"] * 30, "game3_time": ["0000-00-00"] * 30}
+    diction["game"]["time"] = {"game1_time": before_n_days,
+                               "game2_time": before_n_days, "game3_time": before_n_days}
     diction["game"]["yvalue"] = {"WordSearch": [
         0] * 30, "TileMatching": [0] * 30, "BrownPeterson": [0] * 30}
     #
@@ -446,7 +458,7 @@ def metric_display(request):
         left = row["left_hand_score"]
         right = row["right_hand_score"]
 
-        diction["game"]["time"]["game1_time"][index] = time
+        # diction["game"]["time"]["game1_time"][index] = time
         diction["game"]["yvalue"]["WordSearch"][index] = (left + right) / 2
         index = index + 1
 
@@ -465,17 +477,17 @@ def metric_display(request):
             retrieved_biometric) - 30: len(retrieved_biometric)]
 
     # 3. blood
-    diction["blood"] = {"time": ["0000-00-00"] * 30, "yvalue": {}}
+    diction["blood"] = {"time": before_n_days, "yvalue": {}}
     diction["blood"]["yvalue"] = {"systolic": [0] * 30, "diastolic": [0] * 30}
 
     # 4. heartrate
-    diction["heartrate"] = {"time": ["0000-00-00"] * 30, "yvalue": [0] * 30}
+    diction["heartrate"] = {"time": before_n_days, "yvalue": [0] * 30}
 
     # 5. tremor1
-    diction["tremor1"] = {"time": ["0000-00-00"] * 30, "yvalue": [0] * 30}
+    diction["tremor1"] = {"time": before_n_days, "yvalue": [0] * 30}
 
     # 6. tremor2
-    diction["tremor2"] = {"time": ["0000-00-00"] * 30, "yvalue": [0] * 30}
+    diction["tremor2"] = {"time": before_n_days, "yvalue": [0] * 30}
 
     index = 0
     # fill in the dictionary
