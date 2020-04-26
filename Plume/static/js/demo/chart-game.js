@@ -111,48 +111,48 @@ function getGame() {
         dataType:'json',
         success:function (data) {
             console.log(data);
-            app = data;
-            console.log(app.yvalue);
+            gamedata = data;
+            console.log(gamedata);
             vrGameChart.setOption({
                 xAxis : {
                     type:'category',
-                    data: app.time
+                    data: gamedata.game.time
                 },
                 series: [{
                     name: 'left hand score',
                     type: 'line',
                     //data = data.heartrate
-                    data: app.yvalue.TwistFitEasy.left
+                    data: gamedata.game.yvalue.TwistFitEasy.left
                 },
                 {
                     name: 'right hand score',
                     type: 'line',
                     //data = data.heartrate
-                    data: app.yvalue.TwistFitEasy.right
+                    data: gamedata.game.yvalue.TwistFitEasy.right
                 }]
             });
             pcGameChart.setOption({
                 xAxis : {
                     type:'category',
-                    data: app.time
+                    data: gamedata.game.time
                 },
                 series: [{
                     name: 'wordsearch',
                     type: 'line',
                     //data = data.heartrate
-                    data: app.yvalue.WordSearch,
+                    data: gamedata.game.yvalue.WordSearch,
                 },
                 {
                     name: 'tile matching',
                     type: 'line',
                     //data = data.heartrate
-                    data: app.yvalue.TileMatching,
+                    data: gamedata.game.yvalue.TileMatching,
                 },
                 {
                     name: 'brown peterson',
                     type: 'line',
                     //data = data.heartrate
-                    data: app.yvalue.BrownPeterson,
+                    data: gamedata.game.yvalue.BrownPeterson,
                 }]
             });  
         },

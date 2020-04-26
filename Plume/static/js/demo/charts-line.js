@@ -31,7 +31,7 @@ option_heart = {
     },
     yAxis: {
         type: 'value',
-        min: 0,
+        min: 25,
         max: 200,
         axisLabel: {
             formatter: '{value}'
@@ -126,8 +126,8 @@ option_blood = {
     },
     yAxis: {
         type: 'value',
-        min: 0,
-        max: 260,
+        min: 30,
+        max: 210,
         axisLabel: {
             formatter: '{value}'
         }
