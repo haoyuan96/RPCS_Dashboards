@@ -60,6 +60,20 @@
         </div>
 
       <!-- Nav Item -->
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'doctor:view_details' patient.user.username %}">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Metrics</span></a>
+      </li>
+
+      <!-- Nav Item -->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'doctor:games' patient.user.username %}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Game record</span></a>
+      </li>
+
+      <!-- Nav Item -->
       <li class="nav-item">
         <a class="nav-link" href="{% url 'doctor:questionnaire' patient.user.username%}">
           <i class="fas fa-fw fa-list"></i>
@@ -92,18 +106,6 @@
           </button>
 
           <!-- Topbar Search -->
-          <!--
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-          -->
 
           <!-- Topbar Heading -->
           <h1 class="h3 ml-2 mt-2 text-gray-800">{{patient.user.first_name}} {{patient.user.last_name}}'s Details</h1>
@@ -156,130 +158,96 @@
         <div class="container-fluid">
           <input type="hidden" id="username" name="variable" value="{{ patient.user.username }}">
 
-            <!-- End of Topbar -->
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-health" role="tab" aria-controls="pills-home" aria-selected="true">Health Metrics</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-mood" role="tab" aria-controls="pills-profile" aria-selected="false">Mood</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-game" role="tab" aria-controls="pills-profile" aria-selected="false">Game Records</a>
-              </li>
-            </ul>
-
-            <div class="tab-content" id="pills-tabContent">
-              <div class="tab-pane fade show active" id="pills-health" role="tabpanel" aria-labelledby="pills-health">
-
-                <div class="row">
-                  <!-- Area Chart -->
-                  <div class="col-xl-6 col-lg-6">
-                    <div class="card shadow mb-4">
-                      <!-- Card Header - Dropdown -->
-                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Blood pressure</h6>
-                      </div>
-                      <!-- Card Body -->
-                      <div class="card-body">
-                        <div class="chart-area">
-                          <!-- Add Chart Here! -->
-                          <div id="bloodChart" style="width: 100%; height: 100%"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Pie Chart -->
-                  <div class="col-xl-6 col-lg-6">
-                    <div class="card shadow mb-4">
-                      <!-- Card Header - Dropdown -->
-                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Heart rate</h6>
-                      </div>
-                      <!-- Card Body -->
-                      <div class="card-body">
-                        <div class="chart-area">
-                          <!-- Add Chart Here! -->
-                          <div id="heartChart" style="width: 100%; height: 100%"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+          <div class="row">
+            <!-- Blood pressure Chart -->
+            <div class="col-xl-6 col-lg-6">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Blood pressure</h6>
                 </div>
-
-                <div class="row">
-                  <!-- Area Chart -->
-                  <div class="col-xl-6 col-lg-6">
-                    <div class="card shadow mb-4">
-                      <!-- Card Header - Dropdown -->
-                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Tremor sensor1</h6>
-                      </div>
-                      <!-- Card Body -->
-                      <div class="card-body">
-                        <div class="chart-area">
-                          <!-- Add Chart Here! -->
-                          <div id="tremorChart1" style="width: 100%; height: 100%"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Pie Chart -->
-                  <div class="col-xl-6 col-lg-6">
-                    <div class="card shadow mb-4">
-                      <!-- Card Header - Dropdown -->
-                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Tremor sensor2</h6>
-                      </div>
-                      <!-- Card Body -->
-                      <div class="card-body">
-                        <div class="chart-area">
-                          <!-- Add Chart Here! -->
-                          <div id="tremorChart2" style="width: 100%; height: 100%"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="tab-pane fade" id="pills-mood" role="tabpanel" aria-labelledby="pills-mood">
-                <div class="col">
-                  <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 class="m-0 font-weight-bold text-primary">Mood</h6>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                      <div class="chart-area">
-                        <div id="moodChart" style="width: 100vh; height: 45vh"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="tab-pane fade" id="pills-game" role="tabpanel" aria-labelledby="pills-game">
-                <div class="col">
-                  <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                      <h6 class="m-0 font-weight-bold text-primary">Game Records</h6>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                      <div class="chart-area">
-                        <div id="gameChart" style="width: 100vh; height: 45vh"></div>
-                      </div>
-                    </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <!-- Add Chart Here! -->
+                    <div id="bloodChart" style="width: 100%; height: 100%"></div>
                   </div>
                 </div>
               </div>
             </div>
+
+            <!-- Heartrate Chart -->
+            <div class="col-xl-6 col-lg-6">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Heart rate</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <!-- Add Chart Here! -->
+                    <div id="heartChart" style="width: 100%; height: 100%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Tremor1 Chart -->
+            <div class="col-xl-6 col-lg-6">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Tremor sensor1</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <!-- Add Chart Here! -->
+                    <div id="tremorChart1" style="width: 100%; height: 100%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tremor2 Chart -->
+            <div class="col-xl-6 col-lg-6">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Tremor sensor2</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <!-- Add Chart Here! -->
+                    <div id="tremorChart2" style="width: 100%; height: 100%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Mood Chart -->
+            <div class="col">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Mood</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <!-- Add Chart Here! -->
+                    <div id="moodChart" style="width: 100%; height: 100%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
 

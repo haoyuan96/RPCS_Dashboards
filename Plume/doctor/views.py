@@ -192,6 +192,11 @@ def view_details(request, username):
     context['patient'] = patient_user[0].patientprofile
     return render(request, 'doctor/view_details.html', context)
 
+def games(request, username):
+    context = {}
+    patient_user = User.objects.filter(username=username)
+    context['patient'] = patient_user[0].patientprofile
+    return render(request, 'doctor/game_record.html', context)
 
 def patient_info(request, username):
     print("here")

@@ -62,9 +62,16 @@
       <!-- Nav Item -->
       <li class="nav-item">
         <a class="nav-link" href="{% url 'doctor:view_details' patient.user.username %}">
-          <i class="fas fa-fw fa-list"></i>
+          <i class="fas fa-fw fa-chart-area"></i>
           <span>Metrics</span></a>
-      </li> 
+      </li>
+
+      <!-- Nav Item -->
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'doctor:games' patient.user.username %}">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Game record</span></a>
+      </li>
 
       <!-- Nav Item -->
       <li class="nav-item">
@@ -195,7 +202,7 @@
                   <div class="card-body">
                     <div class="chart-area">
                       <!-- Add Chart Here! -->
-                      <div id="gameChart" style="width: 100%; height: 100%"></div>
+                      <!-- <div id="gameChart" style="width: 100%; height: 100%"></div> -->
                     </div>
                   </div>
                 </div>
@@ -260,7 +267,7 @@
   <script src="{% static 'vendor/chart.js/echarts-en.min.js' %}"></script>
 
   <!-- Page level custom scripts -->
-  <script src="{% static 'js/demo/charts-line-doctor.js' %}"></script>
+  <script src="{% static 'js/demo/charts-game-doctor.js' %}"></script>
 
 </body>
 
