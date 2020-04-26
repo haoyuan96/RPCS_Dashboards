@@ -592,30 +592,20 @@ def view_general(request):
     patient_id = user_dict[patient.user.id]
 
     diction = {}
-    # 1. mood
-    retrieved_emotion = find_emotion_by_patient_id(db, patient_id)
-    print("fetch emotion")
+    retrieved_biometric = find_biometric_by_patient_id(db, patient_id)
+    diction["biometric"] = {"time": str(datetime.date.today()), "yvalue": []}
 
-    # init mood dict
-    
-    diction["mood"] = {"time": str(datetime.date.today()), "yvalue": []}
-    # diction["mood"]["yvalue"] = []
-
-    # fill in the dictionary
-    if len(retrieved_emotion) >= 1:
-        time = retrieved_emotion[-1]["created_at"].strftime("%Y-%m-%d")
-        neutral = str(retrieved_emotion[-1]["neutral"] * 100)
-        happiness = str(retrieved_emotion[-1]["happiness"] * 100)
-        sadness = str(retrieved_emotion[-1]["sadness"] * 100)
-        surprise = str(retrieved_emotion[-1]["surprise"] * 100)
-        anger = str(retrieved_emotion[-1]["anger"] * 100)
-
-        diction["mood"]["time"] = time
-        diction["mood"]["yvalue"].append(neutral)
-        diction["mood"]["yvalue"].append(happiness)
-        diction["mood"]["yvalue"].append(sadness)
-        diction["mood"]["yvalue"].append(surprise)
-        diction["mood"]["yvalue"].append(anger)
+    if len(retrieved_biometric) >= 1:
+        heart_rate = str(retrieved_biometric[-1]["heart_rate"])
+        diastolic = str(retrieved_biometric[-1]["dbp"])
+        systolic = str(retrieved_biometric[-1]["sbp"])
+        tremor1 = str(retrieved_biometric[-1]["tremor1"])
+        tremor2 = str(retrieved_biometric[-1]["tremor2"])
+        diction["biometric"]["yvalue"].append(heart_rate)
+        diction["biometric"]["yvalue"].append(diastolic)
+        diction["biometric"]["yvalue"].append(systolic)
+        diction["biometric"]["yvalue"].append(tremor1)
+        diction["biometric"]["yvalue"].append(tremor2)
 
     print(diction["mood"])
     print("==================================================================")

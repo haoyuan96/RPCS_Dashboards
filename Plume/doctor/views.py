@@ -512,9 +512,7 @@ def metric_display(request):
     # Issue: a) currenlty no tremor data
     #        b) blood pressure is not systolic + diastolic: only one value
     retrieved_biometric = find_biometric_by_patient_id(db, patient_id)
-    # print(len(retrieved_biometric))
-    # print(retrieved_biometric)
-    # truncate emotion length to 30 days
+    
     if len(retrieved_biometric) > 30:
         retrieved_biometric = retrieved_biometric[len(
             retrieved_biometric) - 30: len(retrieved_biometric)]
@@ -644,38 +642,26 @@ def game_metric(request):
 @csrf_exempt
 def view_general(request):
     db = get_db()
-    patient_id = request.POST['username']
-    # print(patient_id)
-    # patient_id = '10000000-0000-0000-0000-000000000000'
+    patient_user = User.objects.filter(username=request.POST['username'])
+    patient = patient_user[0].patientprofile
+    patient_id = user_dict[patient.user.id]
+    print(patient_id)
 
     diction = {}
     # 1. mood
-    retrieved_emotion = find_emotion_by_patient_id(db, patient_id)
-    print("fetch emotion")
+    retrieved_biometric = find_biometric_by_patient_id(db, patient_id)
+    diction["biometric"] = {"time": str(datetime.date.today()), "yvalue": []}
 
-    # truncate emotion length to 30 days
-
-    # init mood dict
-    diction["mood"] = {"time": str(datetime.date.today()), "yvalue": []}
-    # diction["mood"]["yvalue"] = []
-
-    # fill in the dictionary
-    if len(retrieved_emotion) >= 1:
-        time = retrieved_emotion[-1]["created_at"].strftime("%Y-%m-%d")
-        neutral = str(retrieved_emotion[-1]["neutral"] * 100)
-        happiness = str(retrieved_emotion[-1]["happiness"] * 100)
-        sadness = str(retrieved_emotion[-1]["sadness"] * 100)
-        surprise = str(retrieved_emotion[-1]["surprise"] * 100)
-        anger = str(retrieved_emotion[-1]["anger"] * 100)
-
-        diction["mood"]["time"] = time
-        diction["mood"]["yvalue"].append(neutral)
-        diction["mood"]["yvalue"].append(happiness)
-        diction["mood"]["yvalue"].append(sadness)
-        diction["mood"]["yvalue"].append(surprise)
-        diction["mood"]["yvalue"].append(anger)
-
-    print(diction["mood"])
-    print("==================================================================")
+    if len(retrieved_biometric) >= 1:
+        heart_rate = str(retrieved_biometric[-1]["heart_rate"])
+        diastolic = str(retrieved_biometric[-1]["dbp"])
+        systolic = str(retrieved_biometric[-1]["sbp"])
+        tremor1 = str(retrieved_biometric[-1]["tremor1"])
+        tremor2 = str(retrieved_biometric[-1]["tremor2"])
+        diction["biometric"]["yvalue"].append(heart_rate)
+        diction["biometric"]["yvalue"].append(diastolic)
+        diction["biometric"]["yvalue"].append(systolic)
+        diction["biometric"]["yvalue"].append(tremor1)
+        diction["biometric"]["yvalue"].append(tremor2)
 
     return HttpResponse(json.dumps(diction), content_type='application/json')
