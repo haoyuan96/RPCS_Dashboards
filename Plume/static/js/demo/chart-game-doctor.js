@@ -1,8 +1,54 @@
-var gameChart = echarts.init(document.getElementById("gameChart"));
+var pcGameChart = echarts.init(document.getElementById("pcGameChart"));
+var vrGameChart = echarts.init(document.getElementById("vrGameChart"));
 $(document).ready(function(){
     getGame();
 })
-option_game = {
+option_vrgame = {
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data: ['left hand score','right hand score']
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            magicType: {type: ['line', 'bar']},
+            saveAsImage: {}
+        }
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+    },
+    yAxis: {
+        type: 'value',
+        min: 0,
+        max: 100,
+        axisLabel: {
+            formatter: '{value}'
+        }
+    },
+    series: [
+        {
+            name: 'left hand score',
+            type: 'line',
+            data: [],
+            //data = data.heartrate
+            // data: [10, 19, 9, 13, 4, 13, 3],
+        },
+        {
+            name: 'right hand score',
+            type: 'line',
+            data: [],
+            //data = data.heartrate
+            // data: [10, 89, 90, 3, 40, 13, 6],
+        }
+    ]
+};
+vrGameChart.setOption(option_vrgame);
+
+option_pcgame = {
     tooltip: {
         trigger: 'axis'
     },
@@ -54,42 +100,60 @@ option_game = {
         }
     ]
 };
-gameChart.setOption(option_game);
+pcGameChart.setOption(option_pcgame);
 
 function getGame() {
     var user = document.getElementById("username").value;
     $.ajax({
         type: 'POST',
-        url:'/doctor/metric_display',
+        url:'/doctor/game_metric',
         // contentType: "application/json; charset=utf-8",
         data:{'username': user},
         dataType:'json',
         success:function (data) {
             console.log(data);
-            app = data;
-            console.log(app.blood);
-            gameChart.setOption({
+            gamedata = data;
+            console.log(gamedata.game.time);
+            vrGameChart.setOption({
                 xAxis : {
                     type:'category',
-                    data: app.heartrate.time
+                    data: gamedata.game.time
+                },
+                series: [{
+                    name: 'left hand score',
+                    type: 'line',
+                    //data = data.heartrate
+                    data: gamedata.game.yvalue.TwistFitEasy.left
+                },
+                {
+                    name: 'right hand score',
+                    type: 'line',
+                    //data = data.heartrate
+                    data: gamedata.game.yvalue.TwistFitEasy.right
+                }]
+            });
+            pcGameChart.setOption({
+                xAxis : {
+                    type:'category',
+                    data: gamedata.game.time
                 },
                 series: [{
                     name: 'wordsearch',
                     type: 'line',
                     //data = data.heartrate
-                    data: app.game.yvalue.WordSearch,
+                    data: gamedata.game.yvalue.WordSearch,
                 },
                 {
                     name: 'tile matching',
                     type: 'line',
                     //data = data.heartrate
-                    data: app.game.yvalue.TileMatching,
+                    data: gamedata.game.yvalue.TileMatching,
                 },
                 {
                     name: 'brown peterson',
                     type: 'line',
                     //data = data.heartrate
-                    data: app.game.yvalue.BrownPeterson,
+                    data: gamedata.game.yvalue.BrownPeterson,
                 }]
             });  
         },
