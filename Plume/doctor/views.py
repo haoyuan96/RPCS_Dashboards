@@ -236,6 +236,10 @@ def patient_info(request, username):
             context['exist_alert'] = 1
             context['count'] = len(fields)
         print(fields)
+    context['heartrate'] = '90'
+    context['blood'] = '123/23'
+    context['tremor1'] = '2'
+    context['tremor2'] = '3'
     return render(request, 'doctor/patient_info.html', context)
 
 

@@ -53,9 +53,12 @@ def home(request):
     profile = request.user.caregiverprofile
     patient = profile.patient
     print(profile.user.username)
-    context = {
-        'patient': patient
-    }
+    context = {}
+    context['heartrate'] = "90"
+    context['blood'] = '123/23'
+    context['tremor1'] = '2'
+    context['tremor2'] = '3'
+    context['patient'] = patient
     return render(request, 'caregiver/index.html', context)
     
 def todo(request):
