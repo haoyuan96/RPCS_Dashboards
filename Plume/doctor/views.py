@@ -540,9 +540,8 @@ def metric_display(request):
 
         print(index)
         time = row["created_at"].strftime("%Y-%m-%d")
-        blood = str(row["blood_pressure"])
-        systolic = blood
-        diastolic = blood
+        systolic = str(row["sbp"])
+        diastolic = str(row["dbp"])
 
         heartrate_value = str(row["heart_rate"])
         tremor1_value = row["tremor1"]
