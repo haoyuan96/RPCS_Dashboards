@@ -48,14 +48,14 @@ Metrics
     </li>
 
     <!-- Nav Item - Metrics -->
-    <li class="nav-item active">
+    <li class="nav-item">
       <a class="nav-link" href="{% url 'caregiver:metrics' %}">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Metrics</span></a>
     </li>
 
     <!-- Nav Item - Games -->
-    <li class="nav-item">
+    <li class="nav-item active">
       <a class="nav-link" href="{% url 'caregiver:games' %}">
         <i class="fas fa-fw fa-table"></i>
         <span>Game Record</span></a>
@@ -94,7 +94,7 @@ Metrics
         </button>
 
         <!-- Topbar Heading -->
-        <h1 class="h3 ml-2 mt-2 text-gray-800">{{ request.user.username }}'s Metrics</h1>
+        <h1 class="h3 ml-2 mt-2 text-gray-800">{{ request.user.username }}'s Game Record</h1>
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
@@ -145,94 +145,38 @@ Metrics
 
       <!-- Begin Page Content -->
       <div class="container-fluid">
-
-        <!-- End of Topbar -->
-          
           <div class="row">
             <!-- Blood pressure Chart -->
-            <div class="col-xl-6 col-lg-6">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Blood pressure</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-                    <!-- Add Chart Here! -->
-                    <div id="bloodChart" style="width: 100%; height: 100%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Heartrate Chart -->
-            <div class="col-xl-6 col-lg-6">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Heart rate</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-                    <!-- Add Chart Here! -->
-                    <div id="heartChart" style="width: 100%; height: 100%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <!-- Tremor1 Chart -->
-            <div class="col-xl-6 col-lg-6">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tremor sensor1</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-                    <!-- Add Chart Here! -->
-                    <div id="tremorChart1" style="width: 100%; height: 100%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tremor2 Chart -->
-            <div class="col-xl-6 col-lg-6">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Tremor sensor2</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-                    <!-- Add Chart Here! -->
-                    <div id="tremorChart2" style="width: 100%; height: 100%"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <!-- Mood Chart -->
             <div class="col">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Mood</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">VR game</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
                     <!-- Add Chart Here! -->
-                    <div id="moodChart" style="width: 100%; height: 100%"></div>
+                    <div id="vrGameChart" style="width: 100%; height: 100%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Blood pressure Chart -->
+            <div class="col">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">PC Game</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <!-- Add Chart Here! -->
+                    <div id="pcGameChart" style="width: 100%; height: 100%"></div>
                   </div>
                 </div>
               </div>
@@ -264,5 +208,5 @@ Metrics
 
 <!-- Page level custom scripts -->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'js/demo/charts-line.js' %}"></script>
+<script src="{% static 'js/demo/chart-game.js' %}"></script>
 {% endblock content %}

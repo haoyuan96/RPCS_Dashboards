@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Patient Questionnaire</title>
+  <title>Patient Details</title>
 
   <!-- Custom fonts for this template-->
   <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -18,11 +18,6 @@
 
   <!-- Custom styles for this template-->
   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
-  <link href="{% static 'css/survey.css' %}" rel="stylesheet">
-
-  <style>
-    div.form-group.row:nth-child(even) { background-color: #E8E8E8; }
-  </style>
 
 </head>
 
@@ -63,7 +58,7 @@
           </div>
         
         </div>
-
+      
       <!-- Nav Item -->
       <li class="nav-item">
         <a class="nav-link" href="{% url 'doctor:view_details' patient.user.username %}">
@@ -72,14 +67,14 @@
       </li>
 
       <!-- Nav Item -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="{% url 'doctor:games' patient.user.username %}">
           <i class="fas fa-fw fa-table"></i>
           <span>Game record</span></a>
       </li>
 
       <!-- Nav Item -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{% url 'doctor:questionnaire' patient.user.username%}">
           <i class="fas fa-fw fa-list"></i>
           <span>Survey</span></a>
@@ -92,7 +87,7 @@
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
-
+      
     </ul>
     <!-- End of Sidebar -->
 
@@ -110,8 +105,10 @@
             <i class="fa fa-bars"></i>
           </button>
 
+          <!-- Topbar Search -->
+
           <!-- Topbar Heading -->
-          <h1 class="h3 ml-2 mt-2 text-gray-800">{{patient.user.first_name}} {{patient.user.last_name}}'s Questionnaire Responses</h1>
+          <h1 class="h3 ml-2 mt-2 text-gray-800">{{patient.user.first_name}} {{patient.user.last_name}}'s Game Record</h1>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -144,7 +141,7 @@
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                
+               
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
@@ -159,64 +156,47 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+          <input type="hidden" id="username" name="variable" value="{{ patient.user.username }}">
 
-          <div class="row">
-            <div class="col">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Questionnaire Panel</h6>
-                  <!-- <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </div> -->
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  
-                  {% comment %} <div class="chart-area"> {% endcomment %}
-                    <div class="container-fluid">
+            <!-- End of Topbar -->
+            <div class="row">
+              <!-- Blood pressure Chart -->
+              <div class="col">
+                <div class="card shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">VR game</h6>
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body">
+                    <div class="chart-area">
                       <!-- Add Chart Here! -->
-                      Survey result ranges from 0 to 5. 
-                      <br/>
-                      5 means most similar to current situation, 
-                      0 means least similar to current situation.
-                      <p> <br/> </p>
-                      {% if no_form is True %} 
-                        <h6> The patient, {{patient.user.first_name}} {{patient.user.last_name}}, hasn't filled in the questionaire yet. </h6>
-                      {% else %}
-                        {% for field in form.visible_fields %}
-                          <div class="form-group row">
-                            <div class="col-sm-5">
-                            {{ field.label }}: 
-                            </div>
-                            {{ field.value }}
-                          </div>
-                        {% endfor %}
-
-                      {% endif%}
-                      
+                      <div id="vrGameChart" style="width: 100%; height: 100%"></div>
                     </div>
-                  {% comment %} </div> {% endcomment %}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <a href="{% url 'doctor:set_questionnaire' patient.user.username%}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-circle-right fa-sm text-white-50"></i> Set Questionnaire</a>
-          </div>
-
+  
+            <div class="row">
+              <!-- Blood pressure Chart -->
+              <div class="col">
+                <div class="card shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">PC Game</h6>
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body">
+                    <div class="chart-area">
+                      <!-- Add Chart Here! -->
+                      <div id="pcGameChart" style="width: 100%; height: 100%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
-        <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
@@ -262,7 +242,6 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-    <!-- Bootstrap core JavaScript-->
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
@@ -276,11 +255,7 @@
   <script src="{% static 'vendor/chart.js/echarts-en.min.js' %}"></script>
 
   <!-- Page level custom scripts -->
-  <script src="{% static 'js/demo/chart-pie-fake.js' %}"></script>
-  <script src="{% static 'js/demo/chart-line-fake.js' %}"></script>
-  <script src="{% static 'js/demo/chart-calendar-fake.js' %}"></script>
-  <script src="{% static 'js/demo/chart-line-fake2.js' %}"></script>
-  
+  <script src="{% static 'js/demo/chart-game-doctor.js' %}"></script>
 
 </body>
 

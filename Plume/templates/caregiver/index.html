@@ -53,6 +53,13 @@ Caregiver Dashboard
         <span>Metrics</span></a>
     </li>
 
+    <!-- Nav Item - Games -->
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'caregiver:games' %}">
+        <i class="fas fa-fw fa-table"></i>
+        <span>Game Record</span></a>
+    </li>
+
     <!-- Nav Item - Survey -->
     <li class="nav-item">
       <a class="nav-link" href="{% url 'caregiver:survey' %}">
@@ -160,13 +167,74 @@ Caregiver Dashboard
             <div class="card shadow mb-4">
               <!-- Card Header - Dropdown -->
               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Important Metrics</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Today's Status</h6>
               </div>
               <!-- Card Body -->
               <div class="card-body">
-                <div class="chart-area">
-                  <!-- Add Chart Here! -->
-                  <div id="barChart" style="width: 100%; height: 100%"></div>
+                <div class= "row">
+                  <div class="col-xl-6 col-lg-4 mb-4">
+                    <div class="card border-left-info">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="h6 font-weight-bold text-primary text-uppercase mb-1">Heart rate</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{heartrate}}</div>
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-heartbeat fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 mb-4">
+                    <div class="card border-left-info">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="h6 font-weight-bold text-primary text-uppercase mb-1">Blood pressure</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{blood}}</div>
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-stethoscope fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class= "row">
+                  <div class="col-xl-6">
+                    <div class="card border-left-info">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="h6 font-weight-bold text-primary text-uppercase mb-1">Tremor 1</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{tremor1}}</div>
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-cog fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-6">
+                    <div class="card border-left-info">
+                      <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                            <div class="h6 font-weight-bold text-primary text-uppercase mb-1">Tremor 2</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{tremor2}}</div>
+                          </div>
+                          <div class="col-auto">
+                            <i class="fas fa-child fa-2x text-gray-300"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -237,9 +305,7 @@ Caregiver Dashboard
   calendar.setOption('height', 300);
 </script>
 <!-- Page level custom scripts -->
-<script src="{% static 'vendor/chart.js/echarts-en.min.js' %}"></script>
 
 <!-- End of Page Wrapper -->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'js/demo/chart-bar-important.js' %}"></script>
 {% endblock content %}

@@ -112,7 +112,8 @@ Metrics
               aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small"
                 style="font-size:200%;">{{ request.user.username }}</span>
-              <img class="img-profile rounded-circle" src="{% static 'img/' %}{{request.user.first_name}}_{{request.user.last_name}}.png"
+              <img class="img-profile rounded-circle"
+                src="{% static 'img/' %}{{request.user.first_name}}_{{request.user.last_name}}.png"
                 style="width:75px;height:75px;">
             </a>
             <!-- Dropdown - User Information -->
@@ -252,14 +253,14 @@ Metrics
                       <table class="table">
 
                         <tbody>
-                          <tr class="display-4">
-                            <td>Word Search</td>
-                            <td>Tile Matching</td>
+                          <tr class="display-4 text-center">
+                            <td>Twist Fit</td>
+                            <td>Beatbox</td>
                             <td>Brown-Peterson</td>
                           </tr>
                           <tr class="display-2 text-center">
-                            <td>{{word_search}}</td>
-                            <td>{{tile_matching}}</td>
+                            <td>{{twistfit}}</td>
+                            <td>{{beatbox}}</td>
                             <td>{{brown_peterson}}</td>
                           </tr>
 

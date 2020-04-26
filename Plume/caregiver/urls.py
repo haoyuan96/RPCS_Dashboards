@@ -14,5 +14,7 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('getevents/', views.getevents, name='getevents'),
     path('metric_display', views.metric_display, name='metric_data'),
+    path('games/', views.games, name= 'games'),
+    path('game_metric', views.game_metric, name='game_metric'),
     path('view_general', views.view_general, name='view_general')
 ]
