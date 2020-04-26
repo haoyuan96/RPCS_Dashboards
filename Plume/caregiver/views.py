@@ -64,12 +64,12 @@ def home(request):
         heart_rate = str(retrieved_biometric[-1]["heart_rate"])
         diastolic = str(retrieved_biometric[-1]["dbp"])
         systolic = str(retrieved_biometric[-1]["sbp"])
-        tremor1 = str(retrieved_biometric[-1]["tremor1"])
-        tremor2 = str(retrieved_biometric[-1]["tremor2"])
+        # tremor1 = str(retrieved_biometric[-1]["tremor1"])
+        # tremor2 = str(retrieved_biometric[-1]["tremor2"])
         context['heartrate'] = heart_rate
         context['blood'] = diastolic + '/' + systolic
-        context['tremor1'] = tremor1
-        context['tremor2'] = tremor2
+        context['tremor1'] = '2'
+        context['tremor2'] = '3'
     else:
         context['heartrate'] = '0'
         context['blood'] = '0/0'
@@ -458,18 +458,18 @@ def metric_display(request):
     # Biometric:
     # Issue: a) currenlty no tremor data
     #        b) blood pressure is not systolic + diastolic: only one value
-    retrieved_game = find_game_by_patient_id(
-        db, patient_id)
-    print(retrieved_game)
+    # retrieved_game = find_game_by_patient_id(
+    #     db, patient_id)
+    # print(retrieved_game)
     retrieved_biometric = find_biometric_by_patient_id(
         db, patient_id)
-    print(retrieved_biometric)
+    # print(retrieved_biometric)
     # print(retrieved_biometric)
     # truncate emotion length to 30 days
     if len(retrieved_biometric) > 30:
         retrieved_biometric = retrieved_biometric[len(
             retrieved_biometric) - 30: len(retrieved_biometric)]
-    print(retrieved_biometric)
+    # print(retrieved_biometric)
     # 3. blood
     diction["blood"] = {"time": before_n_days, "yvalue": {}}
     diction["blood"]["yvalue"] = {"systolic": [0] * 30, "diastolic": [0] * 30}
@@ -489,9 +489,9 @@ def metric_display(request):
         while (index < 30 - len(retrieved_biometric)):
             index = index + 1
         print(index)
-        blood = str(row["blood_pressure"])
-        systolic = blood
-        diastolic = blood
+        # blood = str(row["blood_pressure"])
+        systolic = str(row["sbp"])
+        diastolic = str(row["dbp"])
 
         heartrate_value = str(row["heart_rate"])
         # tremor1_value = feature["tremor1"]
@@ -523,7 +523,7 @@ def game_metric(request):
     caregiver = CaregiverProfile.objects.get(user=request.user)
     patient = caregiver.patient
     print(patient.user.id)
-    print(user_dict[patient.user.id])
+    # print(user_dict[patient.user.id])
     patient_id = user_dict[patient.user.id]
 
     diction = {}
@@ -540,12 +540,12 @@ def game_metric(request):
 
     # init game dict
     diction["game"] = {"time": before_n_days, "yvalue": {}}
-    diction["game"]["yvalue"] = {"TwistFit_Easy": {},
-                                 "Beatbox_Easy": {}, "WordSearch": [0] * 30,
+    diction["game"]["yvalue"] = {"TwistFitEasy": {},
+                                 "BeatboxEasy": {}, "WordSearch": [0] * 30,
                                  "TileMatching": [0] * 30, "BrownPeterson": [0] * 30}
-    diction["game"]["yvalue"]["TwistFit_Easy"] = {
+    diction["game"]["yvalue"]["TwistFitEasy"] = {
         "left": [0] * 30, "right": [0] * 30}
-    diction["game"]["yvalue"]["Beatbox_Easy"] = {
+    diction["game"]["yvalue"]["BeatboxEasy"] = {
         "left": [0] * 30, "right": [0] * 30}
 
     index1 = 0
@@ -556,21 +556,21 @@ def game_metric(request):
 
     # fill in the dictionary
     for row in retrieved_game:
-        print(row["game_id"])
+        # print(row["game_id"])
         game_id = row["game_id"].hex
         game_name = game_dict[game_id]
-        print(game_name)
+        # print(game_name)
         if game_name is 'TwistFit_Easy' and index1 < 30:
             left = row["left_hand_score"]
             right = row["right_hand_score"]
-            diction["game"]["yvalue"]["TwistFit_Easy"]["left"][index1] = left
-            diction["game"]["yvalue"]["TwistFit_Easy"]["right"][index1] = right
+            diction["game"]["yvalue"]["TwistFitEasy"]["left"][index1] = left
+            diction["game"]["yvalue"]["TwistFitEasy"]["right"][index1] = right
             index1 = index1 + 1
         elif game_name is 'Beatbox_Easy' and index2 < 30:
             left = row["left_hand_score"]
             right = row["right_hand_score"]
-            diction["game"]["yvalue"]["Beatbox_Easy"]["left"][index2] = left
-            diction["game"]["yvalue"]["Beatbox_Easy"]["right"][index2] = right
+            diction["game"]["yvalue"]["BeatboxEasy"]["left"][index2] = left
+            diction["game"]["yvalue"]["BeatboxEasy"]["right"][index2] = right
             index2 = index2 + 1
         elif game_name is 'WordSearch' and index3 < 30:
             left = row["left_hand_score"]
@@ -585,15 +585,15 @@ def game_metric(request):
             diction["game"]["yvalue"]["BrownPeterson"][index5] = left
             index5 = index5 + 1
 
-    diction["game"]["yvalue"]["TwistFit_Easy"]["left"].reverse()
-    diction["game"]["yvalue"]["TwistFit_Easy"]["right"].reverse()
-    diction["game"]["yvalue"]["Beatbox_Easy"]["left"].reverse()
-    diction["game"]["yvalue"]["Beatbox_Easy"]["right"].reverse()
+    diction["game"]["yvalue"]["TwistFitEasy"]["left"].reverse()
+    diction["game"]["yvalue"]["TwistFitEasy"]["right"].reverse()
+    diction["game"]["yvalue"]["BeatboxEasy"]["left"].reverse()
+    diction["game"]["yvalue"]["BeatboxEasy"]["right"].reverse()
     diction["game"]["yvalue"]["WordSearch"].reverse()
     diction["game"]["yvalue"]["TileMatching"].reverse()
     diction["game"]["yvalue"]["BrownPeterson"].reverse()
-    print(diction["game"])
-    print("==================================================================")
+    # print(diction["game"])
+    # print("==================================================================")
 
     return HttpResponse(json.dumps(diction), content_type='application/json')
 
