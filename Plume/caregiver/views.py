@@ -18,12 +18,14 @@ from patient.models import CalendarEvent
 from caregiver.forms import *
 from patient.forms import *
 from .forms import *
+import datetime
 
 # import package for database connection
 from ipdb import set_trace as debug
 import sys
 sys.path.append('database')   
 from database.database import *
+
 # import pycurl
 from io import BytesIO
 import json
@@ -38,11 +40,14 @@ user_dict[3] = '0c9cd50e-833b-11ea-bc55-0242ac130003'
 user_dict[4] = '0c9cd608-833b-11ea-bc55-0242ac130003'
 
 game_dict = {}
-game_dict['d478236c-a361-4ba5-8a70-01a1288c1bb4'] = 'Beatbox_Easy'
-game_dict['da62200a-3445-44e0-831d-8a2e20178bb8'] = 'Beatbox_Medium'
-game_dict['155c3086-583c-46ad-afcc-782a66255e73'] = 'Beatbox_Hard'
-game_dict['e9d2684a-f30c-4002-82fc-a40fde00d8f3'] = 'TwistFit_Easy'
-game_dict['6a9df26a-8f51-457c-9972-cbe9b0828a86'] = 'Twistfit_Medium'
+game_dict['d478236ca3614ba58a7001a1288c1bb4'] = 'Beatbox_Easy'
+game_dict['da62200a344544e0831d8a2e20178bb8'] = 'Beatbox_Medium'
+game_dict['155c3086583c46adafcc782a66255e73'] = 'Beatbox_Hard'
+game_dict['e9d2684af30c400282fca40fde00d8f3'] = 'TwistFit_Easy'
+game_dict['6a9df26a8f51457c9972cbe9b0828a86'] = 'Twistfit_Medium'
+game_dict['1'] = 'WordSearch'
+game_dict['2'] = 'TileMatching'
+game_dict['3'] = 'BrownPeterson'
 
 def home(request):
     profile = request.user.caregiverprofile
@@ -388,7 +393,7 @@ def metric_display(request):
     diction = {}
     # 1. mood
     retrieved_emotion = find_emotion_by_patient_id(db, patient_id)
-    print("fetch emotion")
+    # print("fetch emotion")
 
     # truncate emotion length to 30 days
     if len(retrieved_emotion) > 30:
@@ -398,7 +403,6 @@ def metric_display(request):
     before_n_days = []
     for i in range(1, 30 + 1)[::-1]:
         before_n_days.append(str(datetime.date.today() - datetime.timedelta(days=i)))
-
 
     # init mood dict
     diction["mood"] = {"time": before_n_days, "yvalue": {}}
@@ -426,58 +430,25 @@ def metric_display(request):
         diction["mood"]["yvalue"]["anger"][index] = anger
         index = index + 1
 
-    print(diction["mood"])
-    print("==================================================================")
+    # print(diction["mood"])
+    # print("==================================================================")
 
-    # 2. game
-    # Issue: a) Only one game for now
-
-    retrieved_game = find_game_by_patient_id(db, patient_id)
-
-    # truncate game length to 30 days
-    if len(retrieved_game) > 30:
-        retrieved_game = retrieved_game[len(
-            retrieved_game) - 30: len(retrieved_game)]
-    print(retrieved_game)
-
-    # init game dict
-    diction["game"] = {"time": {}, "yvalue": {}}
-    diction["game"]["time"] = {"game1_time": before_n_days,
-                               "game2_time": before_n_days, "game3_time": before_n_days}
-    diction["game"]["yvalue"] = {"WordSearch": [
-        0] * 30, "TileMatching": [0] * 30, "BrownPeterson": [0] * 30}
-    #
-
-    index = 0
-
-    # fill in the dictionary
-    for row in retrieved_game:
-
-        while (index < 30 - len(retrieved_game)):
-            index = index + 1
-        print(index)
-        time = row["created_at"].strftime("%Y-%m-%d")
-        left = row["left_hand_score"]
-        right = row["right_hand_score"]
-
-        # diction["game"]["time"]["game1_time"][index] = time
-        diction["game"]["yvalue"]["WordSearch"][index] = (left + right) / 2
-        index = index + 1
-
-    print(diction["game"])
-    print("==================================================================")
 
     # Biometric:
     # Issue: a) currenlty no tremor data
     #        b) blood pressure is not systolic + diastolic: only one value
-    retrieved_biometric = find_biometric_by_patient_id(db, patient_id)
-    # print(len(retrieved_biometric))
+    retrieved_game = find_game_by_patient_id(
+        db, patient_id)
+    print(retrieved_game)
+    retrieved_biometric = find_biometric_by_patient_id(
+        db, patient_id)
+    print(retrieved_biometric)
     # print(retrieved_biometric)
     # truncate emotion length to 30 days
     if len(retrieved_biometric) > 30:
         retrieved_biometric = retrieved_biometric[len(
             retrieved_biometric) - 30: len(retrieved_biometric)]
-
+    print(retrieved_biometric)
     # 3. blood
     diction["blood"] = {"time": before_n_days, "yvalue": {}}
     diction["blood"]["yvalue"] = {"systolic": [0] * 30, "diastolic": [0] * 30}
@@ -496,9 +467,7 @@ def metric_display(request):
     for row in retrieved_biometric:
         while (index < 30 - len(retrieved_biometric)):
             index = index + 1
-
         print(index)
-        time = row["created_at"].strftime("%Y-%m-%d")
         blood = str(row["blood_pressure"])
         systolic = blood
         diastolic = blood
@@ -507,11 +476,9 @@ def metric_display(request):
         # tremor1_value = feature["tremor1"]
         # tremor2_value = feature["tremor2"]
 
-        diction["blood"]["time"][index] = time
         diction["blood"]["yvalue"]["systolic"][index] = systolic
         diction["blood"]["yvalue"]["diastolic"][index] = diastolic
 
-        diction["heartrate"]["time"][index] = time
         diction["heartrate"]["yvalue"][index] = heartrate_value
 
         # diction["tremor1"]["time"][index] = time
@@ -522,34 +489,113 @@ def metric_display(request):
 
         index = index + 1
 
-    print(diction["blood"])
-    print("==================================================================")
+    # print(diction["blood"])
+    # print("==================================================================")
 
-    print(diction["heartrate"])
+    # print(diction["heartrate"])
+    # print("==================================================================")
+
+    return HttpResponse(json.dumps(diction), content_type='application/json')
+
+def game_metric(request):
+    db = get_db()
+    caregiver = CaregiverProfile.objects.get(user=request.user)
+    patient = caregiver.patient
+    print(patient.user.id)
+    print(user_dict[patient.user.id])
+    patient_id = user_dict[patient.user.id]
+
+    diction = {}
+    # 2. game
+    # Issue: a) Only one game for now
+
+    # truncate emotion length to 30 days
+    before_n_days = []
+    for i in range(1, 30 + 1)[::-1]:
+        before_n_days.append(
+            str(datetime.date.today() - datetime.timedelta(days=i)))
+
+    retrieved_game = find_game_by_patient_id(db, patient_id)
+
+    # init game dict
+    diction["game"] = {"time": before_n_days, "yvalue": {}}
+    diction["game"]["yvalue"] = {"TwistFit_Easy": {},
+                                 "Beatbox_Easy": {}, "WordSearch": [0] * 30,
+                                 "TileMatching": [0] * 30, "BrownPeterson": [0] * 30}
+    diction["game"]["yvalue"]["TwistFit_Easy"] = {
+        "left": [0] * 30, "right": [0] * 30}
+    diction["game"]["yvalue"]["Beatbox_Easy"] = {
+        "left": [0] * 30, "right": [0] * 30}
+
+    index1 = 0
+    index2 = 0
+    index3 = 0
+    index4 = 0
+    index5 = 0
+
+    # fill in the dictionary
+    for row in retrieved_game:
+        print(row["game_id"])
+        game_id = row["game_id"].hex
+        game_name = game_dict[game_id]
+        print(game_name)
+        if game_name is 'TwistFit_Easy' and index1 < 30:
+            left = row["left_hand_score"]
+            right = row["right_hand_score"]
+            diction["game"]["yvalue"]["TwistFit_Easy"]["left"][index1] = left
+            diction["game"]["yvalue"]["TwistFit_Easy"]["right"][index1] = right
+            index1 = index1 + 1
+        elif game_name is 'Beatbox_Easy' and index2 < 30:
+            left = row["left_hand_score"]
+            right = row["right_hand_score"]
+            diction["game"]["yvalue"]["Beatbox_Easy"]["left"][index2] = left
+            diction["game"]["yvalue"]["Beatbox_Easy"]["right"][index2] = right
+            index2 = index2 + 1
+        elif game_name is 'WordSearch' and index3 < 30:
+            left = row["left_hand_score"]
+            diction["game"]["yvalue"]["WordSearch"][index3] = left
+            index3 = index3 + 1
+        elif game_name is 'TileMatching' and index4 < 30:
+            left = row["left_hand_score"]
+            diction["game"]["yvalue"]["TileMatching"][index4] = left
+            index4 = index4 + 1
+        elif game_name is 'BrownPeterson' and index5 < 30:
+            left = row["left_hand_score"]
+            diction["game"]["yvalue"]["BrownPeterson"][index5] = left
+            index5 = index5 + 1
+
+    diction["game"]["yvalue"]["TwistFit_Easy"]["left"].reverse()
+    diction["game"]["yvalue"]["TwistFit_Easy"]["right"].reverse()
+    diction["game"]["yvalue"]["Beatbox_Easy"]["left"].reverse()
+    diction["game"]["yvalue"]["Beatbox_Easy"]["right"].reverse()
+    diction["game"]["yvalue"]["WordSearch"].reverse()
+    diction["game"]["yvalue"]["TileMatching"].reverse()
+    diction["game"]["yvalue"]["BrownPeterson"].reverse()
+    print(diction["game"])
     print("==================================================================")
 
     return HttpResponse(json.dumps(diction), content_type='application/json')
 
+
 @login_required
 def view_general(request):
     db = get_db()
-    patient_id = '10000000-0000-0000-0000-000000000000'
+    # patient_id = '10000000-0000-0000-0000-000000000000'
     
     caregiver = CaregiverProfile.objects.get(user=request.user)
     patient = caregiver.patient
     print(patient.user.id)
     print(user_dict[patient.user.id])
-    # patient_id = user_dict[patient.user.id]
+    patient_id = user_dict[patient.user.id]
 
     diction = {}
     # 1. mood
     retrieved_emotion = find_emotion_by_patient_id(db, patient_id)
     print("fetch emotion")
 
-    # truncate emotion length to 30 days
-
     # init mood dict
-    diction["mood"] = {"time": "0000-00-00", "yvalue": []}
+    
+    diction["mood"] = {"time": str(datetime.date.today()), "yvalue": []}
     # diction["mood"]["yvalue"] = []
 
     # fill in the dictionary
