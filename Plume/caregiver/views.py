@@ -92,6 +92,8 @@ def calendar(request):
 def metrics(request):
     return render(request, 'caregiver/metrics.html')
 
+def games(request):
+    return render(request, 'caregiver/game_record.html')
 
 def exercises(request):
     return render(request, 'caregiver/exercises.html')

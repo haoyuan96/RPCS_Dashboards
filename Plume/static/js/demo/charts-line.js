@@ -2,7 +2,6 @@ var heartChart = echarts.init(document.getElementById("heartChart"));
 var tremorChart1 = echarts.init(document.getElementById("tremorChart1"));
 var tremorChart2 = echarts.init(document.getElementById("tremorChart2"));
 var bloodChart = echarts.init(document.getElementById("bloodChart"));
-var gameChart = echarts.init(document.getElementById("gameChart"));
 var moodChart = echarts.init(document.getElementById("moodChart"));
 $(document).ready(function(){
     getData();
@@ -22,7 +21,6 @@ option_heart = {
                 yAxisIndex: 'none'
             },
             dataView: {readOnly: false},
-            restore: {},
             saveAsImage: {}
         }
     },
@@ -54,6 +52,7 @@ option_heart = {
     ]
 };
 heartChart.setOption(option_heart);
+heartChart.showLoading();
 
 option_tremor1 = {
     tooltip: {
@@ -69,7 +68,6 @@ option_tremor1 = {
                 yAxisIndex: 'none'
             },
             dataView: {readOnly: false},
-            restore: {},
             saveAsImage: {}
         }
     },
@@ -101,6 +99,7 @@ option_tremor1 = {
     ]
 };
 tremorChart1.setOption(option_tremor1);
+tremorChart1.showLoading();
 
 option_blood = {
     tooltip: {
@@ -116,7 +115,6 @@ option_blood = {
                 yAxisIndex: 'none'
             },
             dataView: {readOnly: false},
-            restore: {},
             saveAsImage: {}
         }
     },
@@ -162,60 +160,7 @@ option_blood = {
     ]
 };
 bloodChart.setOption(option_blood);
-
-option_game = {
-    tooltip: {
-        trigger: 'axis'
-    },
-    legend: {
-        data: ['wordsearch','tile matching','brown peterson']
-    },
-    toolbox: {
-        show: true,
-        feature: {
-            dataZoom: {
-                yAxisIndex: 'none'
-            },
-            saveAsImage: {}
-        }
-    },
-    xAxis: {
-        type: 'category',
-        boundaryGap: false,
-    },
-    yAxis: {
-        type: 'value',
-        min: 0,
-        max: 100,
-        axisLabel: {
-            formatter: '{value}'
-        }
-    },
-    series: [
-        {
-            name: 'wordsearch',
-            type: 'line',
-            data: [],
-            //data = data.heartrate
-            // data: [10, 19, 9, 13, 4, 13, 3],
-        },
-        {
-            name: 'tile matching',
-            type: 'line',
-            data: [],
-            //data = data.heartrate
-            // data: [10, 89, 90, 3, 40, 13, 6],
-        },
-        {
-            name: 'brown peterson',
-            type: 'line',
-            data: [],
-            //data = data.heartrate
-            // data: [10, 9, 9, 10, 4, 93, 3],
-        }
-    ]
-};
-gameChart.setOption(option_game);
+bloodChart.showLoading();
 
 option_mood = {
     tooltip: {
@@ -223,6 +168,12 @@ option_mood = {
     },
     legend: {
         data: ['neutral','happiness','sadness','surprise','anger']
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            saveAsImage: {}
+        }
     },
     xAxis: {
         type: 'category',
@@ -280,6 +231,7 @@ option_mood = {
     ]
 };
 moodChart.setOption(option_mood);
+moodChart.showLoading();
 
 option_tremor2 = {
     tooltip: {
@@ -295,7 +247,7 @@ option_tremor2 = {
                 yAxisIndex: 'none'
             },
             dataView: {readOnly: false},
-            restore: {},
+            magicType: {type: ['line', 'bar']},
             saveAsImage: {}
         }
     },
@@ -327,6 +279,7 @@ option_tremor2 = {
     ]
 };
 tremorChart2.setOption(option_tremor2);
+tremorChart2.showLoading();
 
 function getData() {
     $.ajax({
@@ -350,6 +303,7 @@ function getData() {
                     data: app.heartrate.yvalue
                 }]
             });
+            heartChart.hideLoading();
             moodChart.setOption({
                 xAxis : {
                     type:'category',
@@ -391,30 +345,7 @@ function getData() {
                     smooth: true,
                 }]
             });
-            gameChart.setOption({
-                xAxis : {
-                    type:'category',
-                    data: app.heartrate.time
-                },
-                series: [{
-                    name: 'wordsearch',
-                    type: 'line',
-                    //data = data.heartrate
-                    data: app.game.yvalue.WordSearch,
-                },
-                {
-                    name: 'tile matching',
-                    type: 'line',
-                    //data = data.heartrate
-                    data: app.game.yvalue.TileMatching,
-                },
-                {
-                    name: 'brown peterson',
-                    type: 'line',
-                    //data = data.heartrate
-                    data: app.game.yvalue.BrownPeterson,
-                }]
-            });
+            moodChart.hideLoading();
             tremorChart1.setOption({
                 xAxis : {
                     type:'category',
@@ -426,6 +357,7 @@ function getData() {
                     data: app.tremor1.yvalue
                 }]
             });
+            tremorChart1.hideLoading();
             tremorChart2.setOption({
                 xAxis : {
                     type:'category',
@@ -437,6 +369,7 @@ function getData() {
                     data: app.tremor2.yvalue
                 }]
             });
+            tremorChart2.hideLoading();
             bloodChart.setOption({
                 xAxis : {
                     type:'category',
@@ -453,6 +386,7 @@ function getData() {
                     data: app.blood.yvalue.diastolic
                 }]
             });
+            bloodChart.hideLoading();
         },
         error:function(msg){
             console.log("error msg")
