@@ -210,6 +210,7 @@ def games(request, username):
 
 def patient_info(request, username):
     print("here")
+    db = get_db()
     context = {}
     patient_user = User.objects.filter(username=username)
     patient = patient_user[0].patientprofile
@@ -236,10 +237,28 @@ def patient_info(request, username):
             context['exist_alert'] = 1
             context['count'] = len(fields)
         print(fields)
-    context['heartrate'] = '90'
-    context['blood'] = '123/23'
-    context['tremor1'] = '2'
-    context['tremor2'] = '3'
+
+    patient_id = user_dict[patient.user.id]
+    print(patient_id)
+
+    # 1. mood
+    retrieved_biometric = find_biometric_by_patient_id(db, patient_id)
+
+    if len(retrieved_biometric) >= 1:
+        heart_rate = str(retrieved_biometric[-1]["heart_rate"])
+        diastolic = str(retrieved_biometric[-1]["dbp"])
+        systolic = str(retrieved_biometric[-1]["sbp"])
+        tremor1 = str(retrieved_biometric[-1]["tremor1"])
+        tremor2 = str(retrieved_biometric[-1]["tremor2"])
+        context['heartrate'] = heart_rate
+        context['blood'] = diastolic + '/' + systolic
+        context['tremor1'] = tremor1
+        context['tremor2'] = tremor2
+    else:
+        context['heartrate'] = '0'
+        context['blood'] = '0/0'
+        context['tremor1'] = '0'
+        context['tremor2'] = '0'
     return render(request, 'doctor/patient_info.html', context)
 
 
