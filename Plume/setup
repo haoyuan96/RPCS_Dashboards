@@ -6,10 +6,13 @@ pip3 install ipdb
 pip3 install sqlalchemy
 (sudo apt-get install libpq-dev)
 pip3 install psycopg2
+    
 
 [NOTE] If you cannot install psycopg2 directly, 
 use this command:sudo apt-get install libpq-dev
-before use pip3 to install psycopg2.
+before use pip3 to install psycopg2. 
+[NOTE] If you fail to run pip3 install psycopg2,
+try "pip3 install psycopg2-binary"
 
 ***********************************************
 2. Then open the Dahboards folder, you will see some new files.
