@@ -61,6 +61,7 @@ option_pcgame = {
             dataZoom: {
                 yAxisIndex: 'none'
             },
+            magicType: {type: ['line', 'bar']},
             saveAsImage: {}
         }
     },
@@ -68,18 +69,30 @@ option_pcgame = {
         type: 'category',
         boundaryGap: false,
     },
-    yAxis: {
+    yAxis: [
+        {
         type: 'value',
         min: 0,
-        max: 100,
+        max: 300,
+        splitLine: {
+            show: false
+        },
         axisLabel: {
             formatter: '{value}'
         }
-    },
+    },{
+        splitLine: {
+            show: false
+        },
+        min: 0,
+        max: 10,
+        type: 'value'
+    }],
     series: [
         {
             name: 'wordsearch',
             type: 'line',
+            yAxisIndex:1,
             data: [],
             //data = data.heartrate
             // data: [10, 19, 9, 13, 4, 13, 3],
