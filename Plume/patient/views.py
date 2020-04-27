@@ -42,22 +42,22 @@ sys.path.append('database')
 
 
 def home(request):
-    db = get_db()
+    # db = get_db()
 
-    accel_id = uuid.uuid4()
-    description = "patient dashboard local test"
-    patient_id = uuid.uuid4()
-    x = 2.3
-    y = 2.3
-    z = 2.3
-    # db, accel_id, description, patient_id, x, y, z
-    insert_accel(db, accel_id, description, patient_id, x, y, z)
+    # accel_id = uuid.uuid4()
+    # description = "patient dashboard local test"
+    # patient_id = uuid.uuid4()
+    # x = 2.3
+    # y = 2.3
+    # z = 2.3
+    # # db, accel_id, description, patient_id, x, y, z
+    # insert_accel(db, accel_id, description, patient_id, x, y, z)
 
-    # verify data
-    retrieved_accel = []
-    print("accel_id to find: ", accel_id)
-    retrieved_accel = find_by_accel_id(db, accel_id)
-    print(retrieved_accel)
+    # # verify data
+    # retrieved_accel = []
+    # print("accel_id to find: ", accel_id)
+    # retrieved_accel = find_by_accel_id(db, accel_id)
+    # print(retrieved_accel)
     context = {}
     score = get_score()
     # TODO: need to decide the thresholds of the performance
@@ -120,57 +120,59 @@ def getevents(request):
 
 
 def metrics(request):
-    db = get_db()
-    patient_id = user_dict[request.user.id]
     context = {}
-    # get latest biometric data from db
-    if len(find_biometric_by_patient_id(db, patient_id)) == 0:
-        context['systolic'] = '0'
-        context['diastolic'] = '0'
-        context['heart_rate'] = '0'
-        context['word_search'] = '0'
-        context['tile_matching'] = '0'
-        return render(request, 'patient/metrics.html', context)
+    try:
+        db = get_db()
+        patient_id = user_dict[request.user.id]
+        # get latest biometric data from db
+        if len(find_biometric_by_patient_id(db, patient_id)) == 0:
+            context['systolic'] = '0'
+            context['diastolic'] = '0'
+            context['heart_rate'] = '0'
+            context['word_search'] = '0'
+            context['tile_matching'] = '0'
+            return render(request, 'patient/metrics.html', context)
 
-    retrieved_biometric = find_biometric_by_patient_id(db, patient_id)[-1]
-    # TODO: need to change here when blood pressure schma is updated
-    context['systolic'] = retrieved_biometric['sbp']
-    context['diastolic'] = retrieved_biometric['dbp']
-    context['heart_rate'] = retrieved_biometric['heart_rate']
-    # context['tremor1'] = retrieved_biometric['tremor1']
-    # context['tremor2'] = retrieved_biometric['tremor2']
+        retrieved_biometric = find_biometric_by_patient_id(db, patient_id)[-1]
+        # TODO: need to change here when blood pressure schma is updated
+        context['systolic'] = retrieved_biometric['sbp']
+        context['diastolic'] = retrieved_biometric['dbp']
+        context['heart_rate'] = retrieved_biometric['heart_rate']
+        # context['tremor1'] = retrieved_biometric['tremor1']
+        # context['tremor2'] = retrieved_biometric['tremor2']
 
-    # game
-    game_dict = {}
-    game_dict['d478236ca3614ba58a7001a1288c1bb4'] = 'Beatbox_Easy'
-    game_dict['da62200a344544e0831d8a2e20178bb8'] = 'Beatbox_Medium'
-    game_dict['155c3086583c46adafcc782a66255e73'] = 'Beatbox_Hard'
-    game_dict['e9d2684af30c400282fca40fde00d8f3'] = 'TwistFit_Easy'
-    game_dict['6a9df26a8f51457c9972cbe9b0828a86'] = 'Twistfit_Medium'
-    game_dict['1'] = 'WordSearch'
-    game_dict['2'] = 'TileMatching'
-    game_dict['3'] = 'BrownPeterson'
+        # game
+        game_dict = {}
+        game_dict['d478236ca3614ba58a7001a1288c1bb4'] = 'Beatbox_Easy'
+        game_dict['da62200a344544e0831d8a2e20178bb8'] = 'Beatbox_Medium'
+        game_dict['155c3086583c46adafcc782a66255e73'] = 'Beatbox_Hard'
+        game_dict['e9d2684af30c400282fca40fde00d8f3'] = 'TwistFit_Easy'
+        game_dict['6a9df26a8f51457c9972cbe9b0828a86'] = 'Twistfit_Medium'
+        game_dict['1'] = 'WordSearch'
+        game_dict['2'] = 'TileMatching'
+        game_dict['3'] = 'BrownPeterson'
 
-    retrieved_game = find_game_by_patient_id(db, patient_id)[::-1]
-    for row in retrieved_game:
-        game_id = row["game_id"].hex
-        game_name = game_dict[game_id]
-        score = (row["left_hand_score"] + row["right_hand_score"]) / 2
-        # print(game_name)
-        if game_name is 'TwistFit_Easy' and 'twistfit' not in context:
-            context['twistfit'] = score
-        elif game_name is 'Beatbox_Easy' and 'beatbox' not in context:
-            context['beatbox'] = score
-        elif game_name is 'WordSearch' and 'word_search' not in context:
-            context['word_search'] = score
-        elif game_name is 'TileMatching' and 'tile_matching' not in context:
-            context['tile_matching'] = score
-        elif game_name is 'BrownPeterson' and 'brown_peterson' not in context:
-            context['brown_peterson'] = score
-        if 'twistfit' in context and 'beatbox' in context and 'word_search' in context and 'tile_matching' in context and 'brown_peterson' in context:
-            # print(context)
-            break
-
+        retrieved_game = find_game_by_patient_id(db, patient_id)[::-1]
+        for row in retrieved_game:
+            game_id = row["game_id"].hex
+            game_name = game_dict[game_id]
+            score = (row["left_hand_score"] + row["right_hand_score"]) / 2
+            # print(game_name)
+            if game_name is 'TwistFit_Easy' and 'twistfit' not in context:
+                context['twistfit'] = score
+            elif game_name is 'Beatbox_Easy' and 'beatbox' not in context:
+                context['beatbox'] = score
+            elif game_name is 'WordSearch' and 'word_search' not in context:
+                context['word_search'] = score
+            elif game_name is 'TileMatching' and 'tile_matching' not in context:
+                context['tile_matching'] = score
+            elif game_name is 'BrownPeterson' and 'brown_peterson' not in context:
+                context['brown_peterson'] = score
+            if 'twistfit' in context and 'beatbox' in context and 'word_search' in context and 'tile_matching' in context and 'brown_peterson' in context:
+                # print(context)
+                break
+    except Exception as e:
+        print(e)
     return render(request, 'patient/metrics.html', context)
 
 
