@@ -59,7 +59,34 @@ def home(request):
     # name: patient.user.first_name, patient.user.last_name
     # profile_picture: patient.picture
 
+    find_severe_patients(context)
+
     return render(request, 'doctor/index.html', context)
+
+
+def find_severe_patients(context):
+    very_severe_patients = []
+    severe_patients = []
+    for patient in context['patients']:
+        survey = patient.survey
+        surveySetting = patient.surveySetting
+        max_score = 0
+        if survey:
+            for key, value in survey.__dict__.items():
+                if surveySetting.__dict__[key] is True:
+                    if value == 5:
+                        max_score = max(max_score, value)
+                        break
+                    elif value == 4:
+                        max_score = max(max_score, value)
+        if max_score == 4:
+            severe_patients.append(patient)
+        elif max_score == 5:
+            very_severe_patients.append(patient)
+
+    context['exist_severe_patients'] = 0 if (not severe_patients and not very_severe_patients) else 1
+    context['very_severe_patients'] = very_severe_patients
+    context['severe_patients'] = severe_patients
 
 
 def search(request):
@@ -76,9 +103,11 @@ def search(request):
         # return HttpResponse(json_error, content_type='application/json')
     
         message = 'You must enter a valid username of a patient.'
-        return render(request, 'doctor/index.html', {'search_alert_flag': True, 'patients': doctor.patients.all()})
+        context['search_alert_flag'] = True
+        context['patients'] = doctor.patients.all()
+        find_severe_patients(context)
+        return render(request, 'doctor/index.html', context)
 
-    
     
     if 'search_username' in request.POST and request.POST['search_username'] != '':
         try:
@@ -88,6 +117,7 @@ def search(request):
             print('print out!!!!!', search_patient)
             if len(search_patient) != 1:
                 context['patients'] = doctor.patients.all()
+                find_severe_patients(context)
                 return render(request, 'doctor/index.html', context)
             else:
                 print('search_patient found')
@@ -95,18 +125,23 @@ def search(request):
                     print('not correct doctor')
                     print(search_patient[0].doctor)
                     context['patients'] = doctor.patients.all()
+                    find_severe_patients(context)
                     return render(request, 'doctor/index.html', context)
                 print('correct doctor')
                 context['patients'] = search_patient
                 print('return only one patient')
+                find_severe_patients(context)
                 return render(request, 'doctor/index.html', context)
         except:
             print('try fail')
             context['patients'] = doctor.patients.all()
-            return render(request, 'doctor/index.html', {'search_alert_flag': True, 'patients': doctor.patients.all()})
+            context['search_alert_flag'] = True
+            find_severe_patients(context)
+            return render(request, 'doctor/index.html', context)
     else:
         print('no request post')
         context['patients'] = doctor.patients.all()
+        find_severe_patients(context)
     return render(request, 'doctor/index.html', context)
 
 def add_patient(request):
@@ -122,7 +157,10 @@ def add_patient(request):
 
         # json_error = '{ "error": "'+message+'" }'
         # return HttpResponse(json_error, content_type='application/json')
-        return render(request, 'doctor/index.html', {'alert_flag': True, 'patients': doctor.patients.all()})
+        context['patients'] = doctor.patients.all()
+        context['alert_flag'] = True
+        find_severe_patients(context)
+        return render(request, 'doctor/index.html', context)
 
     try:
         input_username = request.POST['search_username']
@@ -139,8 +177,12 @@ def add_patient(request):
         print(doctor.patients.all())
     except:
         print('try fail')
-        return render(request, 'doctor/index.html', {'alert_flag': True, 'patients': doctor.patients.all()})
+        context['patients'] = doctor.patients.all()
+        context['alert_flag'] = True
+        find_severe_patients(context)
+        return render(request, 'doctor/index.html', context)
 
+    find_severe_patients(context)
     return render(request, 'doctor/index.html', context)
 
 def todo(request):
