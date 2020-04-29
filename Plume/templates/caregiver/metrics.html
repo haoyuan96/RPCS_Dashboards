@@ -94,7 +94,7 @@ Metrics
         </button>
 
         <!-- Topbar Heading -->
-        <h1 class="h3 ml-2 mt-2 text-gray-800">{{ request.user.username }}'s Metrics</h1>
+        <h1 class="h3 ml-2 mt-2 text-gray-800">{{ patient.user.username }}'s Metrics</h1>
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
@@ -265,4 +265,5 @@ Metrics
 <!-- Page level custom scripts -->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'js/demo/charts-line.js' %}"></script>
+<script src="{% static 'js/demo/chart-tremor.js' %}"></script>
 {% endblock content %}

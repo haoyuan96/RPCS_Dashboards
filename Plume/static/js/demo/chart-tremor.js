@@ -1,5 +1,6 @@
 var dom = document.getElementById("tremorChart1");
 var myChart = echarts.init(dom);
+
 function randomData() {
     now = new Date(+now + oneDay);
     value = value + Math.random() * 21 - 10;
@@ -16,7 +17,7 @@ var data = [];
 var now = +new Date(2010, 1, 1);
 var oneDay = 24 * 3600 * 1000;
 var value = Math.random() * 1000;
-for (var i = 0; i < 1000; i++) {
+for (var i = 0; i < 500; i++) {
     data.push(randomData());
 }
 
@@ -56,16 +57,17 @@ option = {
         data: data
     }]
 };
+myChart.setOption(option);
 
 setInterval(function () {
-
     for (var i = 0; i < 5; i++) {
         data.shift();
         data.push(randomData());
     }
-
     myChart.setOption({
         series: [{
+            name: 'Fake real time data',
+            type: 'line',
             data: data
         }]
     });

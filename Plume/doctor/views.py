@@ -45,8 +45,8 @@ game_dict['da62200a344544e0831d8a2e20178bb8'] = 'Beatbox_Medium'
 game_dict['155c3086583c46adafcc782a66255e73'] = 'Beatbox_Hard'
 game_dict['e9d2684af30c400282fca40fde00d8f3'] = 'TwistFit_Easy'
 game_dict['6a9df26a8f51457c9972cbe9b0828a86'] = 'Twistfit_Medium'
-game_dict['1'] = 'WordSearch'
-game_dict['2'] = 'TileMatching'
+game_dict['f7c65423483c420c86569b8aedcfae0f'] = 'WordSearch'
+game_dict['c263ba76dc1543c08a151833443fc6b1'] = 'TileMatching'
 game_dict['3'] = 'BrownPeterson'
 
 def home(request):
