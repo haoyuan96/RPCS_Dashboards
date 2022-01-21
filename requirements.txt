@@ -6,7 +6,7 @@ decorator==4.4.2
 Django==3.0
 django-tempus-dominus==5.1.2.13
 ipdb==0.13.2
-ipython==7.13.0
+ipython==7.16.3
 ipython-genutils==0.2.0
 jedi==0.17.0
 parso==0.7.0
